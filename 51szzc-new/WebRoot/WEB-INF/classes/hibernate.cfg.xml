@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url">jdbc:mysql://localhost:3306/51szzc_vcoin</property>
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+      <mapping class="com.ruizton.main.model.integral.Fusergrade"/>
+      <mapping class="com.ruizton.main.model.integral.Fintegralactivity"/>
+      <mapping class="com.ruizton.main.model.integral.Fuserintegraldetail"/>
+      <mapping class="com.ruizton.main.model.Fauditprocess"/>
+    <mapping class="com.ruizton.main.model.Fauditprocess"/>
+      <mapping class="com.ruizton.main.model.Fvalidatekyc"/>
+      <!-- DB schema will be updated if needed -->
+    <!-- <property name="hbm2ddl.auto">update</property> -->
+  </session-factory>
+</hibernate-configuration>
