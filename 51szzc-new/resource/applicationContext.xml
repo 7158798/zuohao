@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:task="http://www.springframework.org/schema/task"
+	   xmlns:cache="http://www.springframework.org/schema/cache"
+	   xsi:schemaLocation="
+             http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+             http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+             http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+             http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+             http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.1.xsd">
+
+	
+	
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="transactionTemplate"
+		class="org.springframework.transaction.support.TransactionTemplate">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+	</bean>
+
+
+	<!-- 配置国际化资源文件路径 -->
+	<bean id="messageSource" class="com.ruizton.util.MyResourceBundleMessageSource">
+		<property name="basename">
+			<!-- 定义消息资源文件的相对路径 -->
+			<value>${i18n.basename}</value>
+		</property>
+	</bean>
+
+	<!--基于cookie的本地化解析-->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<!--cookieMaxAge 单位是秒-->
+		<property name="cookieMaxAge" value="157680000"/>
+		<property name="defaultLocale" value="zh_CN"/>
+		<property name="cookieName" value="Language"/>
+	</bean>
+
+	<!-- 国际化工具类 -->
+	<bean id="languageUtil" class="com.ruizton.util.zuohao.LanguageUtil">
+		<property name="messageSource" ref="messageSource"/>
+	</bean>
+
+	<!--单元测试时，开放该bean-->
+	<!--<bean id="request" class="org.springframework.mock.web.MockHttpServletRequest"/>-->
+
+	<!-- 组件扫描 -->
+	<context:component-scan base-package="com.ruizton.main.aspect"/>
+	<!--<context:component-scan base-package="com.tzgl.common.api.interceptor.logger"/>-->
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="serviceAdminMethod"
+			expression=" execution(* com.ruizton.main.service.*.*.*(..))" />
+		<aop:pointcut id="ZHServiceAdminMethod"
+					  expression=" execution(* com.ruizton.main.service.zuohao.*.*.*(..))" />
+		<aop:advisor pointcut-ref="serviceAdminMethod" advice-ref="txAdvice" />
+		<aop:advisor pointcut-ref="ZHServiceAdminMethod" advice-ref="txAdvice" />
+	</aop:config>
+
+	<tx:annotation-driven transaction-manager="transactionManager"
+		proxy-target-class="true" />
+
+	<!--<context:property-placeholder location="${config.properties}"></context:property-placeholder>-->
+
+	<!--自动加载配置-->
+	<bean id = "propertyConfigurerForMain" class="com.ruizton.util.Configuration">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_NEVER"/>
+		<property name="order" value="1" />
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="location" value="${config.properties}"/>
+	</bean>
+
+	<!--缓存-->
+	<cache:annotation-driven cache-manager="cacheManager" />
+
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<property name="cacheManager" ref="ehcache"></property>
+	</bean>
+
+	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:ehcache.xml"></property>
+	</bean>
+	<!--缓存结束-->
+
+
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+         <props>        
+               <prop key="hibernate.dialect">${hibernate.dialect}</prop>          
+               <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+               
+               <prop key="hibernate.cache.use_second_level_cache">true</prop>  
+				<prop key="hibernate.cache.use_query_cache">true</prop>  
+				<!-- 设置二级缓存插件EHCache的Provider类-->  
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.region_prefix">encache_</prop>
+				<prop key="hibernate.cache.use_structured_entries">true</prop>  
+				<prop key="hibernate.generate_statistics">false</prop>
+<!--                 <prop key="hibernate.cache.use_query_cache">true</prop> -->
+<!--                 <prop key="hibernate.cache.use_second_level_cache">true</prop> -->
+<!--                 <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop> -->
+          </props>
+       </property>
+       <property name="packagesToScan" value="com.ruizton.main.model"></property>
+	</bean>
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass">
+			<value>${jdbc.driverClassName}</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>${jdbc.url}</value>
+		</property>
+		<property name="user">
+			<value>${jdbc.username}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.password}</value>
+		</property>
+		<property name="maxPoolSize">
+			<value>${jdbc.maxPoolSize}</value>
+		</property>
+		<property name="minPoolSize">
+			<value>${jdbc.minPoolSize}</value>
+		</property>
+		<property name="initialPoolSize">
+			<value>${jdbc.initialPoolSize}</value>
+		</property>
+		<property name="maxIdleTime">
+			<value>${jdbc.maxIdleTime}</value>
+		</property>
+				<property name="testConnectionOnCheckin">
+			<value>true</value>
+		</property>
+		<property name="testConnectionOnCheckout">
+			<value>true</value>
+		</property>
+		<property name="idleConnectionTestPeriod">
+			<value>18000</value>
+		</property>
+	</bean>
+
+	<bean id="constantMap" class="com.ruizton.main.comm.ConstantMap" scope="singleton" init-method="init"></bean>
+	<bean id="validateMap" class="com.ruizton.main.comm.ValidateMap" scope="singleton"></bean>
+	<bean id="taskList" class="com.ruizton.main.auto.TaskList" scope="singleton" init-method="init"/>
+	<!-- tasks -->
+	<bean class="com.ruizton.main.auto.AutoSendMessage" id="sendMessageTask"></bean>
+	<bean class="com.ruizton.main.auto.AutoSendMail" id="sendMailTask"></bean>
+	<bean class="com.ruizton.main.auto.AutoSendIntegral" id="sendIntegralTask"></bean>
+	<!--发送验证短信 -->
+	<bean id="scheduleSendMessageTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">   
+	<property name="timerTask" ref="sendMessageTask" />
+	<property name="period" >
+	<value>1000</value>
+	</property>
+	</bean>
+	<!--发送验证邮件 -->
+ 	<bean id="scheduleSendMailTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">   
+	<property name="timerTask" ref="sendMailTask" />
+	<property name="delay">
+	<value>1000</value>
+	</property>
+	<property name="period" >
+	<value>1000</value>
+	</property>
+	</bean>
+
+	<!--交易送积分-->
+	<bean id="scheduleSendIntegralTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+		<property name="timerTask" ref="sendIntegralTask" />
+		<property name="delay">
+			<value>1000</value>
+		</property>
+		<property name="period" >
+			<value>1000</value>
+		</property>
+	</bean>
+
+	
+<bean class="org.springframework.scheduling.timer.TimerFactoryBean">
+	<property name="scheduledTimerTasks">
+	   <list>
+			<ref bean="scheduleSendMessageTask"/>
+	   </list>
+	</property>
+	</bean>
+ 	<bean class="org.springframework.scheduling.timer.TimerFactoryBean">   
+	<property name="scheduledTimerTasks">
+	   <list>
+			<ref bean="scheduleSendMailTask"/>
+	   </list>
+	</property>
+	</bean>
+	<bean class="org.springframework.scheduling.timer.TimerFactoryBean">
+		<property name="scheduledTimerTasks">
+			<list>
+				<ref bean="scheduleSendIntegralTask"/>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean class="com.ruizton.main.auto.LatestKlinePeroid" scope="singleton" init-method="init"></bean>
+	<!-- 实时数据 -->
+	<!-- <bean class="com.ruizton.main.auto.LendRealTimeData" scope="singleton" init-method="init"></bean> -->
+	<!-- 实时数据 -->
+	<bean class="com.ruizton.main.auto.RealTimeData" scope="singleton" init-method="init"></bean>
+	<!--比特币充值 -->
+	<bean class="com.ruizton.main.auto.RechargeBtcData" scope="singleton" init-method="init"></bean>
+		<bean class="com.ruizton.main.auto.AutoCalculateDepth" scope="singleton" init-method="init"></bean>
+	<bean class="com.ruizton.main.auto.AutoDealingOneDayData" scope="singleton" init-method="init"></bean>
+	<bean class="com.ruizton.main.auto.AutoDealMaking" scope="singleton" init-method="init"></bean>
+	<!-- 交易量 -->
+	<bean class="com.ruizton.main.auto.OneDayData" scope="singleton"></bean>
+	<!-- k线图数据 -->
+	<bean class="com.ruizton.main.auto.KlinePeriodData" scope="singleton" init-method="init"></bean>
+	<!-- 测试定时任务 start -->
+	<!--<bean id="scheduleTestTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+		<property name="timerTask" ref="testTask" />
+		<property name="delay">
+			<value>60000</value>
+		</property>
+		<property name="period" >
+			<value>10000</value>
+		</property>
+	</bean>
+	<bean class="org.springframework.scheduling.timer.TimerFactoryBean">
+		<property name="scheduledTimerTasks">
+			<list>
+				<ref bean="scheduleTestTask"/>
+			</list>
+		</property>
+	</bean>-->
+	<!-- 测试定时任务 end -->
+	
+	<context:annotation-config />
+
+
+	<context:component-scan base-package="com.ruizton.main.controller" />
+	<context:component-scan base-package="com.ruizton.main.service" />
+	<context:component-scan base-package="com.ruizton.main.dao" />
+	
+	<context:component-scan base-package="com.ruizton.main.controller.front" />
+	<context:component-scan base-package="com.ruizton.main.service.front" />
+	<context:component-scan base-package="com.ruizton.main.controller.admin" />
+	<context:component-scan base-package="com.ruizton.main.service.admin" />
+	<context:component-scan base-package="com.ruizton.main.service.app" />
+
+	<context:component-scan base-package="com.ruizton.main.auto" />
+	<context:component-scan base-package="com.ruizton.main.quartz" />
+	<context:component-scan base-package="com.ruizton.main.comm" />
+	<mvc:annotation-driven />
+
+	<task:executor id="executor" pool-size="5" />
+	<task:scheduler id="scheduler" pool-size="10" />
+	<task:annotation-driven executor="executor" scheduler="scheduler" />
+
+	<!--获取热门推荐的上线-->
+	<bean id="loadMain1" class="com.ruizton.main.quartz.MainQuartz" init-method="hostNumber"></bean>
+	<!--获取资讯标签-->
+	<bean id="loadMain2" class="com.ruizton.main.quartz.MainQuartz" init-method="tagList"></bean>
+
+</beans>
