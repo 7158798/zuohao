@@ -1,0 +1,15 @@
+ALTER TABLE t_virtual_coin ADD withdraw_des varchar(500) NULL COMMENT '提现说明' ;
+
+alter table t_virtual_coin ADD recharge_des varchar(500) null comment '充值说明';
+
+
+CREATE TABLE `t_withdrawfees` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `fee` decimal(16,6) DEFAULT NULL COMMENT '手续费',
+  `vid` bigint(20) DEFAULT NULL,
+  `fee_level` int(11) DEFAULT NULL COMMENT '用户等级',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='提现费率，根据用户等级'
+
+
+ALTER TABLE t_message ADD content_code char(2) NULL COMMENT '消息code' ;

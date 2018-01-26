@@ -1,0 +1,6 @@
+#添加索引
+ alter table fentrustlog add index fentrustlog_fCreateTime (ftrademapping, fCreateTime);
+
+
+
+alter table fentrustlog add index ftrademapping_price_fid (ftrademapping, fPrize, fid);

@@ -1,0 +1,74 @@
+/* 查询已存在的事件 */
+select * from mysql.event;
+
+/* 删除之前的事件 */
+delete from mysql.event where name = 'calculatePriceEvent';
+
+/*创建事件*/
+create TRIGGER calculatePriceTrigger
+AFTER insert on t_quotes 
+for each row 
+begin 
+	call calculateprice();
+end;
+
+
+drop procedure if exists calculateprice;
+delimiter //
+/* 存储过程 */
+CREATE DEFINER=`root`@`%` PROCEDURE `otc`.`calculateprice`()
+begin
+	/*币种id*/
+	declare coin_id int;
+	declare ad_id int;
+	declare done int default 0;
+	declare item int default 0;
+	/*币种所在平台的价格*/
+	declare price varchar(20);
+	/*币种所在的平台*/
+	declare platform varchar(20);
+	/*广告中最大量*/
+	declare max_count float;
+	/*广告中最小量*/
+	declare min_count float;
+	/*广告中溢价率*/
+	declare premium_rate float;
+	/*通过最大量计算到的最大额度*/
+	declare max_amount float;
+	/*通过最小量计算到的最小额度*/
+	declare min_amount float;
+	/*计算到的最新价格*/
+	declare new_price float;
+	
+	/*定义光标  获取第三方平台价格*/
+	declare _ad cursor for(
+		select ad.id, ad.max_trans_count, ad.min_trans_count, ad.trade_platform, ad.coin_type, ad.premium_rate
+			from t_advertisement ad 
+			where ad.status = 1 and ad.prict_type = 2);
+	
+	declare continue handler for sqlstate '02000' set done = 1; #错误定义，标记循环结束
+	
+	/*打开光标*/
+	open _ad;
+		repeat
+		fetch _ad into ad_id, max_count, min_count, platform, coin_id, premium_rate;
+			if done=0 then
+				select case when count(1) = 0 then 0 else frmb end into price 
+					from t_quotes q 
+					where q.fvirtualcointypeid = coin_id and q.fplatform = platform;
+				if price != 0 then 
+					/*计算价格*/
+					set new_price = price * (1 + 0.01 * premium_rate);
+					set max_amount = max_count * new_price;
+					set min_amount = min_count * new_price;
+					
+					/*更新数据*/
+					update t_advertisement set transaction_price=new_price, max_trans_amount=max_amount, min_trans_amount=min_amount
+						where id=ad_id and prict_type=2;
+				end if ;
+			end if;
+		until done = 1 end repeat; #档_done=1时退出被循
+	/*关闭光标*/
+	close _ad;
+end
+//

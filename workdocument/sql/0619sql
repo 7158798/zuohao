@@ -1,0 +1,64 @@
+CREATE TABLE `factivity620` (
+  `fid` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `userid` int(11) NOT NULL COMMENT '用户id',
+  `issign` tinyint(1) NOT NULL COMMENT '今日是否签到',
+  `transactiontime` int(11) NOT NULL COMMENT '今日交易次数',
+  `chargetime` int(11) NOT NULL COMMENT '今日充值次数',
+  `friendsnumber` int(11) NOT NULL COMMENT '邀请好友抽奖次数',
+  `coinmoney` decimal(11,2) NOT NULL COMMENT '冲币总金额',
+  `totalfriendsnumber` int(11) NOT NULL COMMENT '邀请用户总数',
+  `signtotal` int(11) NOT NULL COMMENT '签到获取总币数',
+  `lottery_number` int(2) NOT NULL COMMENT '抽奖次数',
+  PRIMARY KEY (`fid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='620活动'
+
+
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('活动统计','活动统计',2,1,'activity') ;
+
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('620数字狂欢节','620数字狂欢节',3, (select fid from fsecurity t where t.furl = 'activity'), 'ssadmin/activity620List.html') ;
+
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('用户获奖记录','用户获奖记录',3, (select fid from fsecurity t where t.furl = 'ssadmin/activity620List.html'), 'ssadmin/activityUserList.html') ;
+
+
+INSERT into frole_security (fsecurityid, froleid)
+values ((select t.fid from fsecurity t where t.furl = 'activity'), 1);
+
+INSERT into frole_security (fsecurityid, froleid)
+values ((select t.fid from fsecurity t where t.furl = 'ssadmin/activity620List.html'), 1);
+
+INSERT into frole_security (fsecurityid, froleid)
+values ((select t.fid from fsecurity t where t.furl = 'ssadmin/activityUserList.html'), 1);
+
+INSERT into fsystemargs (fKey, fValue, fDescription, version, type)
+VALUES ("activity620_start_time", "2017-06-20", "620活动开始时间", 0, 1)
+
+INSERT into fsystemargs (fKey, fValue, fDescription, version, type)
+VALUES ("activity620_end_time", "2017-06-28", "620活动结束时间", 0, 1)
+
+
+
+INSERT INTO factivity620
+(userid, issign, transactiontime, chargetime, friendsnumber, coinmoney, totalfriendsnumber, signtotal, lottery_number)
+VALUES((select fid from fuser where floginName = '0593865004@jucaifu.com'), 0, 0, 0, 0, 0, 0, 0, 0);
+
+INSERT INTO factivity620
+(userid, issign, transactiontime, chargetime, friendsnumber, coinmoney, totalfriendsnumber, signtotal, lottery_number)
+VALUES((select fid from fuser where floginName = '6952696971@jucaifu.com'), 0, 0, 0, 0, 0, 0, 0, 0);
+
+INSERT INTO factivity620
+(userid, issign, transactiontime, chargetime, friendsnumber, coinmoney, totalfriendsnumber, signtotal, lottery_number)
+VALUES((select fid from fuser where floginName = '2969490609@jucaifu.com'), 0, 0, 0, 0, 0, 0, 0, 0);
+
+INSERT INTO factivity620
+(userid, issign, transactiontime, chargetime, friendsnumber, coinmoney, totalfriendsnumber, signtotal, lottery_number)
+VALUES((select fid from fuser where floginName = '2806334145@jucaifu.com'), 0, 0, 0, 0, 0, 0, 0, 0);
+
+INSERT INTO factivity620
+(userid, issign, transactiontime, chargetime, friendsnumber, coinmoney, totalfriendsnumber, signtotal, lottery_number)
+VALUES((select fid from fuser where floginName = '1134120590@jucaifu.com'), 0, 0, 0, 0, 0, 0, 0, 0);
+
+
+

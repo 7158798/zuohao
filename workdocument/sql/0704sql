@@ -1,0 +1,2 @@
+/* url前缀换成生产的 */
+update fvirtualcointype set furl = 'https://51szzc.oss-cn-shanghai.aliyuncs.com/static/app/images/logo_rmb.png' where fShortName = 'CNY';

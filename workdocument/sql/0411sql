@@ -1,0 +1,33 @@
+/*update fvirtualcointype set furl2 = "https://hy51szzc.oss-cn-shanghai.aliyuncs.com//static/app/images/xiaoyigu.png" where fShortName = "ANS";*/
+/*update fvirtualcointype set furl2 = "https://hy51szzc.oss-cn-shanghai.aliyuncs.com//static/app/images/ZCash.png" where fShortName = "ZEC";*/
+update fvirtualcointype set furl2 = "https://51szzc.oss-cn-shanghai.aliyuncs.com//static/app/images/xiaoyigu.png" where fShortName = "ANS";
+update fvirtualcointype set furl2 = "https://51szzc.oss-cn-shanghai.aliyuncs.com//static/app/images/ZCash.png" where fShortName = "ZEC";
+
+=====================================================================================================================================================
+
+/*配置文件有更新*/
+
+CREATE TABLE `fapppush` (
+  `fid` int(11) NOT NULL AUTO_INCREMENT,
+  `fuser` int(11) NOT NULL COMMENT '用户',
+  `fispush` int(1) DEFAULT NULL COMMENT '1：不推送  2：推送',
+  `fissms` int(1) DEFAULT NULL COMMENT '1：不发送短信  2：发送短信',
+  `fcointype` int(1) DEFAULT NULL COMMENT '币种类别',
+  `fphonecode` varchar(100) DEFAULT NULL COMMENT '手机设备码',
+  `fhighprice` double(8,2) DEFAULT NULL COMMENT '最高价',
+  `flowprice` double(8,2) DEFAULT NULL COMMENT '最低价',
+  `fphonetype` int(1) DEFAULT NULL COMMENT '1：android 2：ios',
+  `flastsendtime` timestamp NULL DEFAULT NULL COMMENT '最新一次发送时间',
+  PRIMARY KEY (`fid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='价格推送表'
+
+
+INSERT INTO fsystemargs
+(fKey, fValue, fDescription, version, `type`)
+VALUES('push_message_content', '#coinType#行情现为#price#', '价格变动推送内容', 0, 0);
+
+
+
+
+
+

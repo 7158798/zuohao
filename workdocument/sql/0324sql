@@ -1,0 +1,40 @@
+CREATE TABLE `fquotes` (
+  `fId` int(11) NOT NULL AUTO_INCREMENT,
+  `fplatform` varchar(100) DEFAULT NULL COMMENT '平台',
+  `frmb` varchar(100) DEFAULT NULL COMMENT '人民币',
+  `fdollar` varchar(100) DEFAULT NULL COMMENT '美元',
+  `frate` varchar(100) DEFAULT NULL COMMENT '比率',
+  `fupordown` char(1) DEFAULT NULL COMMENT '1:up   2:down',
+  `fcreatetime` timestamp NULL DEFAULT NULL,
+  `fvirtualcointypeid` int(11) DEFAULT NULL COMMENT '币种id',
+  PRIMARY KEY (`fId`)
+)
+
+
+
+delete from frole_security  where fsecurityid in (select fid FROM fsecurity WHERE furl='ssadmin/aboutList.html')
+delete from frole_security  where fsecurityid in (select fid from fsecurity where fparentid = (select fid FROM fsecurity WHERE furl='ssadmin/aboutList.html'))
+
+delete from fsecurity where furl in ('ssadmin/aboutList.html', 'ssadmin/addAbout', 'ssadmin/deleteAbout.html', 'ssadmin/updateAbout.html')
+
+======================================================================================================================================
+
+
+ALTER TABLE fuser ADD favatarUrl varchar(200) NULL COMMENT '头像url' ;
+
+CREATE INDEX fquotes_fvirtualcointypeid_idx ON fquotes (fvirtualcointypeid,fcreatetime) ;
+
+
+
+=======================================================================================================================================
+
+update ftrademapping set fcount2 = 4 
+
+ALTER TABLE fvirtualcointype ADD furl2 varchar(100) NULL COMMENT 'logo 备用url' ;
+
+update fvirtualcointype set furl2 = "https://hy51szzc.oss-cn-shanghai.aliyuncs.com//static/app/images/deal_sel_logo_btc@3x.png" where fShortName = "BTC";
+update fvirtualcointype set furl2 = "https://hy51szzc.oss-cn-shanghai.aliyuncs.com//static/app/images/deal_sel_logo_ltc@3x.png" where fShortName = "LTC";
+update fvirtualcointype set furl2 = "https://hy51szzc.oss-cn-shanghai.aliyuncs.com//static/app/images/201702161058007_gkKA5.png" where fShortName = "ETH";
+
+
+

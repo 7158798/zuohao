@@ -1,0 +1,6 @@
+
+
+INSERT into fsystemargs (fKey, fValue, fDescription, version, type)
+VALUES ("total_Luckdraw_number", "40", "抽奖次数", 0, 1)
+
+

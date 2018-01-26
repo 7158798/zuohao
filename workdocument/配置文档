@@ -1,0 +1,11 @@
+tzgl:
+-ea 
+-Dconfig-base.properties="file:/home/luwei/work/git/configFile/jcf/config/config-base.properties" 
+-Dconfig-project.properties="file:/home/luwei/work/git/configFile/jcf/config/config-tzgl.properties" 
+-Dlogback.configurationFile="/home/luwei/work/git/configFile/jcf/config/logback-service.xml" 
+-Dlog4j.configuration="file:/home/luwei/work/git/configFile/jcf/config/log4j.properties"
+
+szzc:
+-ea
+-Dconfig.properties="file:/home/zygong/wordspace/resource/config-szzc.properties"
+-Dlogback.configurationFile="file:/home/zygong/wordspace/resource/logback.xml"

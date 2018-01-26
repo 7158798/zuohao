@@ -1,0 +1,76 @@
+
+ALTER TABLE fintegralactivity ADD type int(3) NULL ;
+ALTER TABLE fintegralactivity MODIFY COLUMN type int(11) NULL COMMENT '积分类型' ;
+ALTER TABLE fintegralactivity MODIFY COLUMN status char(2) NOT NULL COMMENT '状态 0删除 1 待启动 2 已进行  3暂停 4已结束' ;
+
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('开积分获取途径管理','积分获取途径管理',3,2,'ssadmin/integralactivityList.html') ;
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('新增','新增',4,316,'ssadmin/addIntegralactivity.html') ;
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('修改','修改',4,316,'ssadmin/updateIntegralactivity.html') ;
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('删除','删除',4,316,'ssadmin/deleteIntegralactivity.html') ;
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('开启和暂停','开启和暂停',4,316,'ssadmin/startOrShutDown.html') ;
+
+
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('标签管理','标签管理',3,4,'ssadmin/tagManagementView.html') ;
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('推荐管理','推荐管理',3,4,'ssadmin/hostRecommendedList.html') ;
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('修改','修改',3,329,'ssadmin/updateHostRecommended.html') ;
+
+
+ALTER TABLE farticletype ADD fCreateUser int(11) NOT NULL COMMENT '创建人' ;
+
+ALTER TABLE farticle ADD ftag varchar(200) NULL ;
+ALTER TABLE farticle MODIFY COLUMN furl varchar(200) NULL COMMENT '资讯标签' ;
+
+
+CREATE TABLE `ftagmanage` (
+  `fid` int(11) NOT NULL AUTO_INCREMENT,
+  `fname` varchar(100) NOT NULL,
+  `flastupdatetime` datetime NOT NULL,
+  `fcreateuser` int(11) NOT NULL,
+  `fcreatetime` datetime DEFAULT NULL,
+  `fupdateuser` int(11) DEFAULT NULL,
+  `furl` varchar(100) NOT NULL,
+  PRIMARY KEY (`fid`)
+)
+
+CREATE TABLE `fhostrecommended` (
+  `fid` int(11) NOT NULL AUTO_INCREMENT,
+  `fname` varchar(100) NOT NULL,
+  `fnumber` int(3) NOT NULL,
+  `fcreateuser` int(11) DEFAULT NULL,
+  `fcreatetime` timestamp NULL DEFAULT NULL,
+  `fupdateuser` int(11) DEFAULT NULL,
+  `fupdatetime` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`fid`)
+)
+
+CREATE TABLE `ftag` (
+  `fid` int(11) NOT NULL AUTO_INCREMENT,
+  `fname` varchar(100) NOT NULL,
+  `ftagmanageid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`fid`)
+)
+
+
+3/6号  添加权限
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('以太坊金额汇总到主地址','以太坊金额汇总到主地址',4,241,'ssadmin/etcMainAddr.html') ;
+
+===============================================================================================================================================
+
+ALTER TABLE farticle ADD forigin varchar(100) NULL ;
+
+
+
+
+
+
+
+

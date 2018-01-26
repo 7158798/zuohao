@@ -1,0 +1,23 @@
+
+
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('交易通知','交易通知',3,10,'ssadmin/tradeMessageList.html') ;
+
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('新增和修改','新增和修改',4, (select t.fid from fsecurity t where t.furl = 'ssadmin/tradeMessageList.html'),'ssadmin/addOrUpdateTradeMessage.html') ;
+
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('删除','删除',4, (select t.fid from fsecurity t where t.furl = 'ssadmin/tradeMessageList.html'),'ssadmin/delTradeMessage.html') ;
+
+
+INSERT into frole_security (fsecurityid, froleid)
+values ((select t.fid from fsecurity t where t.furl = 'ssadmin/tradeMessageList.html'), 1);
+
+INSERT into frole_security (fsecurityid, froleid)
+values ((select t.fid from fsecurity t where t.furl = 'ssadmin/delTradeMessage.html'), 1);
+
+INSERT into frole_security (fsecurityid, froleid)
+values ((select t.fid from fsecurity t where t.furl = 'ssadmin/addOrUpdateTradeMessage.html'), 1);
+
+INSERT into fsystemargs (fKey, fValue, fDescription, version, type)
+VALUES ("trade_message", "币种：#coinName#, 买卖差价：#agio#， 买单深度：#buyDepth#，卖单深度：#sellDepth#", "交易发送邮件提醒", 0, 1)

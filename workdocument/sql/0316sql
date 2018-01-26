@@ -1,0 +1,70 @@
+ALTER TABLE flog MODIFY COLUMN fkey4 varchar(128) NULL COMMENT 'sessionId' ;
+
+ALTER TABLE flog MODIFY COLUMN fkey5 varchar(128) NULL COMMENT '登录时长' ;
+
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('后台登录日志','后台登录日志',3,10,'ssadmin/sysLoginLog.html') ;
+
+=========================================================================================
+
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('帮助中心','帮助中心',2,1,'help') ;
+
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('帮助列表','帮助列表',3,(select fid from fsecurity t where t.furl = 'help'),'ssadmin/helpList.html') ;
+
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('类型管理','类型管理',3,(select fid from fsecurity t where t.furl = 'help'),'ssadmin/helpTypeList.html') ;
+
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('新增','新增',4,(select fid from fsecurity t where t.furl = 'ssadmin/helpTypeList.html'),'ssadmin/addHelpType.html') ;
+
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('修改','修改',4, (select fid from fsecurity t where t.furl = 'ssadmin/helpTypeList.html'),'ssadmin/updateHelpType.html') ;
+
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('删除','删除',4, (select fid from fsecurity t where t.furl = 'ssadmin/helpTypeList.html'),'ssadmin/deleteHelptype.html') ;
+
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('移动','移动',4, (select fid from fsecurity t where t.furl = 'ssadmin/helpTypeList.html'),'ssadmin/upAndDownHelpType.html') ;
+
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('新增','新增',4, (select fid from fsecurity t where t.furl = 'ssadmin/helpList.html'),'ssadmin/addHelp.html') ;
+
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('修改','修改',4, (select fid from fsecurity t where t.furl = 'ssadmin/helpList.html'),'ssadmin/updateHelp.html') ;
+
+INSERT INTO fsecurity (fdescription,fname,fpriority,fparentid,furl)
+VALUES ('删除','删除',4, (select fid from fsecurity t where t.furl = 'ssadmin/helpList.html'),'ssadmin/deleteHelp.html') ;
+
+
+CREATE TABLE `fhelptype` (
+  `fid` int(11) NOT NULL AUTO_INCREMENT,
+  `fname` varchar(100) NOT NULL COMMENT '帮助类型',
+  `fdescription` varchar(200) DEFAULT NULL COMMENT '描述',
+  `fisding` tinyint(4) DEFAULT NULL COMMENT '0不推荐   1推荐',
+  `fcreatetime` timestamp NULL DEFAULT NULL,
+  `fcreateuser` int(11) NOT NULL,
+  `fupdatetime` timestamp NULL DEFAULT NULL,
+  `fupdateuser` int(11) DEFAULT NULL,
+  `forder` int(11) DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (`fid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `fhelp` (
+  `fid` int(11) NOT NULL AUTO_INCREMENT,
+  `ftitle` varchar(100) NOT NULL COMMENT '标题',
+  `fisding` tinyint(4) DEFAULT NULL COMMENT '0不推荐   1推荐',
+  `fcreatetime` timestamp NULL DEFAULT NULL,
+  `fcreateuser` int(11) NOT NULL,
+  `fupdatetime` timestamp NULL DEFAULT NULL,
+  `fupdateuser` int(11) DEFAULT NULL,
+  `fhelptype` int(11) NOT NULL COMMENT '类型',
+  `fcontent` text NOT NULL COMMENT '内容',
+  PRIMARY KEY (`fid`)
+)
+
+=========================================================================================
+
+

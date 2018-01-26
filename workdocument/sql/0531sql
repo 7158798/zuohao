@@ -1,0 +1,3 @@
+ALTER TABLE farticle ADD fiscommend tinyint(1) NULL COMMENT '是否置顶' ;
+
+update farticle set fiscommend = 0;

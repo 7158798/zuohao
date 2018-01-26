@@ -1,0 +1,76 @@
+idea在启动项目工程的时候需要通过配置加载配置文件信息
+-ea 
+-Dconfig-base.properties="file:/home/luwei/work/git/configFile/jcf/config/config-base.properties" 
+-Dconfig-project.properties="file:/home/luwei/work/git/configFile/jcf/config/config-tzgl.properties" 
+-Dlogback.configurationFile="/home/luwei/work/git/configFile/jcf/config/logback-service.xml" 
+-Dlog4j.configuration="file:/home/luwei/work/git/configFile/jcf/config/log4j.properties"
+
+dbeaver 安装路径 /usr/share/dbeaver
+
+post请求
+
+　　1、使用curl命令(通过-d参数，把访问参数放在里面)：
+
+　　curl -d “param1=value1&param2=value2” “http://www.xuexila.com”
+
+　　2、使用wget命令：(--post-data参数来实现)
+
+　　wget --post-data ‘user=foo&password=bar’ http://www.xuexila.com
+
+zookeeper 启动路径
+	/root/.jenv/candidates/zookeeper/3.4.8/bin
+	启动命令：./zkServer.sh start
+	停止命令：./zkServer.sh stop
+	重启命令：./zkServer.sh restart
+
+
+redis 安装路径
+	/usr/local/src/
+	启动：/usr/local/redis/bin redis-server
+数据库地址
+	tzgl:
+		ip:130.252.102.80
+		用户名：tzgl
+		密码：tzgl$2016
+		ip:130.252.102.81
+		用户名：tzgl
+		密码：tzgl$2016
+
+安装secureCRT
+	安装SecureCRT 下载安装包deb，pl破解文件 dpkg - i deb文件 
+	whereis SecureCRT 查看软件安装路径 
+	perl securecrt_linux_crack.pl /usr/bin/SecureCRT 破解，成功后，会License等信息，如下： 
+	License: 
+		Name: xiaobo_l 
+		Company: www.boll.me 
+		Serial Number: 03-61-166978 		
+		License Key: ABC89D UFDU94 C94CBU 7V17SU ABTUS5 QXX9E5 PF12H6 R62SHC 
+		Issue Date: 12-22-2013 
+	运行SecureCRT 弹出程序运行界面，在界面上选择EnterLicense Manually，手动输入以上注册内容。 注册成功，再无限制了。
+	
+在使用脚本上传jar/war时，第一次要通过命令行的方式上传
+scp -r /home/zygong/wordspace/git/51tzgl/service/tzgl-service/tzgl-service-all/target/tzgl-service.jar tzgl@130.252.102.80:/home/tzgl/update-res/jar
+
+sshpass安装：
+	源码下载地址：http://sourceforge.net/projects/sshpass/
+ 
+	tar -zxvf sshpass-1.05.tar.gz
+	cd sshpass-1.05
+	./configure
+	make && make install
+	安装完成后输入sshpass出现如下提示即安装成功：
+ 
+	[root@test ~]# sshpass
+	Usage: sshpass [-f|-d|-p|-e] [-hV] command parameters
+	   -f filename   Take password to use from file
+	   -d number     Use number as file descriptor for getting password
+	   -p password   Provide password as argument (security unwise)
+	   -e            Password is passed as env-var "SSHPASS"
+	   With no parameters - password will be taken from stdin
+ 
+	   -h            Show help (this screen)
+	   -V            Print version information
+	At most one of -f, -d, -p or -e should be used
+	[root@test ~]#
+	
+
