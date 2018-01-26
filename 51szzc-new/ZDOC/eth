@@ -1,0 +1,9 @@
+ALTER TABLE `fvirtualcointype`
+ADD COLUMN `isEth`  tinyint(1) NULL DEFAULT 0 AFTER `fminqty`;
+
+ALTER TABLE `fvirtualcointype`
+ADD COLUMN `mainAddr`  varchar(64) NULL AFTER `isEth`;
+
+ALTER TABLE `fvirtualcointype`
+ADD COLUMN `startBlockId`  int(11) NULL DEFAULT 0 AFTER `mainAddr`;
+
