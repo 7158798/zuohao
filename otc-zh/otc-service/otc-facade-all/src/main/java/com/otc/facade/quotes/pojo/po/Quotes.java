@@ -1,0 +1,115 @@
+package com.otc.facade.quotes.pojo.po;
+
+import com.jucaifu.common.pojo.po.BasePo;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class Quotes extends BasePo implements Serializable {
+
+    /**
+     * 对应表字段为：t_quotes.fId
+     */
+    private Integer fid;
+
+    /**
+     * 平台，对应表字段为：t_quotes.fplatform
+     */
+    private String fplatform;
+
+    /**
+     * 人民币，对应表字段为：t_quotes.frmb
+     */
+    private String frmb;
+
+    /**
+     * 美元，对应表字段为：t_quotes.fdollar
+     */
+    private String fdollar;
+
+    /**
+     * 比率，对应表字段为：t_quotes.frate
+     */
+    private String frate;
+
+    /**
+     * 1:up   2:down，对应表字段为：t_quotes.fupordown
+     */
+    private String fupordown;
+
+    /**
+     * 对应表字段为：t_quotes.fcreatetime
+     */
+    private Date fcreatetime;
+
+    /**
+     * 币种id，对应表字段为：t_quotes.fvirtualcointypeid
+     */
+    private Long fvirtualcointypeid;
+
+    private static final long serialVersionUID = 1L;
+
+    public Integer getFid() {
+        return fid;
+    }
+
+    public void setFid(Integer fid) {
+        this.fid = fid;
+    }
+
+    public String getFplatform() {
+        return fplatform;
+    }
+
+    public void setFplatform(String fplatform) {
+        this.fplatform = fplatform == null ? null : fplatform.trim();
+    }
+
+    public String getFrmb() {
+        return frmb;
+    }
+
+    public void setFrmb(String frmb) {
+        this.frmb = frmb == null ? null : frmb.trim();
+    }
+
+    public String getFdollar() {
+        return fdollar;
+    }
+
+    public void setFdollar(String fdollar) {
+        this.fdollar = fdollar == null ? null : fdollar.trim();
+    }
+
+    public String getFrate() {
+        return frate;
+    }
+
+    public void setFrate(String frate) {
+        this.frate = frate == null ? null : frate.trim();
+    }
+
+    public String getFupordown() {
+        return fupordown;
+    }
+
+    public void setFupordown(String fupordown) {
+        this.fupordown = fupordown == null ? null : fupordown.trim();
+    }
+
+    public Date getFcreatetime() {
+        return fcreatetime;
+    }
+
+    public void setFcreatetime(Date fcreatetime) {
+        this.fcreatetime = fcreatetime;
+    }
+
+    public Long getFvirtualcointypeid() {
+        return fvirtualcointypeid;
+    }
+
+    public void setFvirtualcointypeid(Long fvirtualcointypeid) {
+        this.fvirtualcointypeid = fvirtualcointypeid;
+    }
+}

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.advertisement.dao.AdvertisementTimeMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.advertisement.pojo.po.AdvertisementTime">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="type" property="type" />
+        <result column="status" property="status" />
+        <result column="start_time1" property="startTime1" />
+        <result column="end_time1" property="endTime1" />
+        <result column="start_time2" property="startTime2" />
+        <result column="end_time2" property="endTime2" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, user_id, type, status, start_time1, end_time1, start_time2, end_time2, create_time, 
+        update_time
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.advertisement.pojo.po.AdvertisementTime">
+        insert into t_advertisement_time
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="startTime1 != null">
+                start_time1,
+            </if>
+            <if test="endTime1 != null">
+                end_time1,
+            </if>
+            <if test="startTime2 != null">
+                start_time2,
+            </if>
+            <if test="endTime2 != null">
+                end_time2,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="startTime1 != null">
+                #{startTime1},
+            </if>
+            <if test="endTime1 != null">
+                #{endTime1},
+            </if>
+            <if test="startTime2 != null">
+                #{startTime2},
+            </if>
+            <if test="endTime2 != null">
+                #{endTime2},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_advertisement_time
+        where id = #{id}
+    </select>
+
+    <select id="getByUserId" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_advertisement_time
+        where user_id = #{userId}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.advertisement.pojo.po.AdvertisementTime">
+        update t_advertisement_time
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="startTime1 != null">
+                start_time1 = #{startTime1},
+            </if>
+            <if test="endTime1 != null">
+                end_time1 = #{endTime1},
+            </if>
+            <if test="startTime2 != null">
+                start_time2 = #{startTime2},
+            </if>
+            <if test="endTime2 != null">
+                end_time2 = #{endTime2},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_advertisement_time
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteByUserId">
+        delete from t_advertisement_time
+        where user_id = #{userId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.announcement.dao.AnnouncementMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.announcement.pojo.po.Announcement">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="content" property="content" />
+        <result column="last_update_time" property="lastUpdateTime" />
+        <result column="is_ding" property="isDing" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, title, content, last_update_time, is_ding
+    </sql>
+    <sql id="indexColumnList">
+        id, title, last_update_time
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.announcement.pojo.po.Announcement">
+        insert into t_announcement
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="lastUpdateTime != null">
+                last_update_time,
+            </if>
+            <if test="isDing != null">
+                is_ding,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="title != null">
+                #{title},
+            </if>
+            <if test="content != null">
+                #{content},
+            </if>
+            <if test="lastUpdateTime != null">
+                #{lastUpdateTime},
+            </if>
+            <if test="isDing != null">
+                #{isDing},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_announcement
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.announcement.pojo.po.Announcement">
+        update t_announcement
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="lastUpdateTime != null">
+                last_update_time = #{lastUpdateTime},
+            </if>
+            <if test="isDing != null">
+                is_ding = #{isDing},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_announcement
+        where id = #{id}
+    </delete>
+
+    <!-- 后台获取列表 -->
+    <select id="queryCountByConditionPage" parameterType="com.otc.facade.announcement.pojo.vo.AnnouncementVo" resultMap="baseResultMap" >
+        select
+        <include refid="baseColumnList" />
+        from t_announcement
+        <where>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+        </where>
+        ORDER BY is_ding DESC, last_update_time DESC
+    </select>
+
+    <!--推荐-->
+    <update id="updateDing">
+        update t_announcement
+        <set>
+            <if test="isDing != null">
+                is_ding = #{isDing},
+                last_update_time = now()
+            </if>
+
+        </set>
+        where id = #{id}
+    </update>
+
+    <resultMap id="indexResultMap" type="com.otc.facade.announcement.pojo.dto.AnnouncementIndexDto">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="last_update_time" property="date" />
+    </resultMap>
+    <!--获取首页数据-->
+    <select id="getIndexList" parameterType="java.lang.Integer" resultMap="indexResultMap">
+        select
+        <include refid="indexColumnList"/>
+        from t_announcement
+        ORDER BY is_ding DESC, last_update_time DESC
+        limit #{number}
+    </select>
+
+</mapper>

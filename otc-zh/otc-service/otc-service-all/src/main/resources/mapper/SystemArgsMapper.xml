@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.sys.dao.SystemArgsMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.sys.pojo.po.SystemArgs">
+        <id column="id" property="id" />
+        <result column="key_code" property="keyCode" />
+        <result column="value" property="value" />
+        <result column="description" property="description" />
+        <result column="type" property="type" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, key_code, value, description, type
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.sys.pojo.po.SystemArgs">
+        insert into t_system_args
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="keyCode != null">
+                key_code,
+            </if>
+            <if test="value != null">
+                value,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="keyCode != null">
+                #{keyCode},
+            </if>
+            <if test="value != null">
+                #{value},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_system_args
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.sys.pojo.po.SystemArgs">
+        update t_system_args
+        <set>
+            <if test="keyCode != null">
+                key_code = #{keyCode},
+            </if>
+            <if test="value != null">
+                value = #{value},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_system_args
+        where id = #{id}
+    </delete>
+
+
+    <select id="getSystemArgsByKey" parameterType="java.lang.String" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from t_system_args
+        where key_code = #{key}
+    </select>
+
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.virtual.dao.WithdrawfeesMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.virtual.pojo.po.Withdrawfees">
+        <id column="id" property="id" />
+        <result column="fee" property="fee" />
+        <result column="fee_level" property="level" />
+        <result column="vid" property="vid" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, fee, fee_level, vid
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.virtual.pojo.po.Withdrawfees">
+        insert into t_withdrawfees
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="fee != null">
+                fee,
+            </if>
+            <if test="level != null">
+                fee_level,
+            </if>
+            <if test="vid != null">
+                vid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="fee != null">
+                #{fee},
+            </if>
+            <if test="level != null">
+                #{level},
+            </if>
+            <if test="vid != null">
+                #{vid},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_withdrawfees
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.virtual.pojo.po.Withdrawfees">
+        update t_withdrawfees
+        <set>
+            <if test="fee != null">
+                fee = #{fee},
+            </if>
+            <if test="level != null">
+                fee_level = #{level},
+            </if>
+            <if test="vid != null">
+                vid = #{vid},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_withdrawfees
+        where id = #{id}
+    </delete>
+
+    <insert id="insertList" parameterType="java.util.List">
+        INSERT into t_withdrawfees ( fee, fee_level, vid ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.fee}, #{item.level}, #{item.vid})
+        </foreach>
+    </insert>
+
+    <delete id="deleteByCoinId">
+        DELETE FROM t_withdrawfees
+        <where>
+            vid = #{coinId}
+        </where>
+    </delete>
+
+    <select id="selectByConId" resultMap="baseResultMap">
+        SELECT <include refid="baseColumnList"/>
+        FROM t_withdrawfees
+        <where>
+            vid = #{coinId}
+            and fee > 0
+        </where>
+        order by fee_level asc
+    </select>
+
+</mapper>

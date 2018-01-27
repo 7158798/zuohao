@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.advertisement.dao.PriceFormulaMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.advertisement.pojo.po.PriceFormula">
+        <id column="id" property="id" />
+        <result column="coin_id" property="coinId" />
+        <result column="price_formula" property="priceFormula" />
+        <result column="createtime" property="createtime" />
+        <result column="updatetime" property="updatetime" />
+        <result column="is_delete" property="isDelete" />
+        <result column="platform_name" property="platformName" />
+        <result column="coinName" property="coinName" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, coin_id, price_formula, createtime, updatetime, is_delete, platform_name
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.advertisement.pojo.po.PriceFormula">
+        insert into t_price_formula
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="coinId != null">
+                coin_id,
+            </if>
+            <if test="priceFormula != null">
+                price_formula,
+            </if>
+            <if test="createtime != null">
+                createtime,
+            </if>
+            <if test="updatetime != null">
+                updatetime,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+            <if test="platformName != null">
+                platform_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="coinId != null">
+                #{coinId},
+            </if>
+            <if test="priceFormula != null">
+                #{priceFormula},
+            </if>
+            <if test="createtime != null">
+                #{createtime},
+            </if>
+            <if test="updatetime != null">
+                #{updatetime},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete},
+            </if>
+            <if test="platformName != null">
+                #{platformName},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_price_formula
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.advertisement.pojo.po.PriceFormula">
+        update t_price_formula
+        <set>
+            <if test="coinId != null">
+                coin_id = #{coinId},
+            </if>
+            <if test="priceFormula != null">
+                price_formula = #{priceFormula},
+            </if>
+            <if test="createtime != null">
+                createtime = #{createtime},
+            </if>
+            <if test="updatetime != null">
+                updatetime = #{updatetime},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete},
+            </if>
+            <if test="platformName != null">
+                platform_name = #{platformName},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_price_formula
+        where id = #{id}
+    </delete>
+
+    <!-- 后台获取列表 -->
+    <select id="queryCountByConditionPage" parameterType="com.otc.facade.advertisement.pojo.vo.PriceFormulaVo" resultMap="baseResultMap" >
+        select
+        pf.id, pf.coin_id, pf.price_formula, pf.createtime, pf.updatetime, pf.is_delete, pf.platform_name, vc.name as coinName
+        from t_price_formula pf
+        left join t_virtual_coin vc on vc.id = pf.coin_id
+        <where>
+            pf.is_delete = 0
+            <if test="coinId != null and coinId != 0">
+                and pf.coin_id = #{coinId}
+            </if>
+        </where>
+        ORDER BY pf.updatetime DESC
+    </select>
+
+    <select id="detail" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from t_price_formula
+        <where>
+            <if test="id != null and id != 0">
+                id = #{id}
+            </if>
+            <if test="symbol != null and symbol != 0">
+                and coin_id = #{symbol}
+            </if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.user.dao.UserCreditRecordMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.user.pojo.po.UserCreditRecord">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="trade_all_times" property="tradeAllTimes" />
+        <result column="trade_sucess_times" property="tradeSucessTimes" />
+        <result column="sell_all_times" property="sellAllTimes" />
+        <result column="sell_sucess_times" property="sellSucessTimes" />
+        <result column="buy_all_times" property="buyAllTimes" />
+        <result column="buy_sucess_times" property="buySucessTimes" />
+        <result column="appeal_times" property="appealTimes" />
+        <result column="be_appealed_times" property="beAppealedTimes" />
+        <result column="judge_times" property="judgeTimes" />
+        <result column="good_judge_times" property="goodJudgeTimes" />
+        <result column="bad_judge_times" property="badJudgeTimes" />
+        <result column="common_judge_times" property="commonJudgeTimes" />
+        <result column="confirm_minute" property="confirmMinute" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="last_trade_time" property="lastTradeTime" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, user_id, trade_all_times, trade_sucess_times, sell_all_times, sell_sucess_times,
+        buy_all_times, buy_sucess_times, appeal_times, be_appealed_times, judge_times, good_judge_times,
+        bad_judge_times, common_judge_times, confirm_minute, create_time, update_time, last_trade_time
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.user.pojo.po.UserCreditRecord">
+        insert into t_user_credit_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="tradeAllTimes != null">
+                trade_all_times,
+            </if>
+            <if test="tradeSucessTimes != null">
+                trade_sucess_times,
+            </if>
+            <if test="sellAllTimes != null">
+                sell_all_times,
+            </if>
+            <if test="sellSucessTimes != null">
+                sell_sucess_times,
+            </if>
+            <if test="buyAllTimes != null">
+                buy_all_times,
+            </if>
+            <if test="buySucessTimes != null">
+                buy_sucess_times,
+            </if>
+            <if test="appealTimes != null">
+                appeal_times,
+            </if>
+            <if test="beAppealedTimes != null">
+                be_appealed_times,
+            </if>
+            <if test="judgeTimes != null">
+                judge_times,
+            </if>
+            <if test="goodJudgeTimes != null">
+                good_judge_times,
+            </if>
+            <if test="badJudgeTimes != null">
+                bad_judge_times,
+            </if>
+            <if test="commonJudgeTimes != null">
+                common_judge_times,
+            </if>
+            <if test="confirmMinute != null">
+                confirm_minute,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="lastTradeTime != null">
+                last_trade_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="tradeAllTimes != null">
+                #{tradeAllTimes},
+            </if>
+            <if test="tradeSucessTimes != null">
+                #{tradeSucessTimes},
+            </if>
+            <if test="sellAllTimes != null">
+                #{sellAllTimes},
+            </if>
+            <if test="sellSucessTimes != null">
+                #{sellSucessTimes},
+            </if>
+            <if test="buyAllTimes != null">
+                #{buyAllTimes},
+            </if>
+            <if test="buySucessTimes != null">
+                #{buySucessTimes},
+            </if>
+            <if test="appealTimes != null">
+                #{appealTimes},
+            </if>
+            <if test="beAppealedTimes != null">
+                #{beAppealedTimes},
+            </if>
+            <if test="judgeTimes != null">
+                #{judgeTimes},
+            </if>
+            <if test="goodJudgeTimes != null">
+                #{goodJudgeTimes},
+            </if>
+            <if test="badJudgeTimes != null">
+                #{badJudgeTimes},
+            </if>
+            <if test="commonJudgeTimes != null">
+                #{commonJudgeTimes},
+            </if>
+            <if test="confirmMinute != null">
+                #{confirmMinute},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="lastTradeTime != null">
+                #{lastTradeTime},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_user_credit_record
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.user.pojo.po.UserCreditRecord">
+        update t_user_credit_record
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="tradeAllTimes != null">
+                trade_all_times = #{tradeAllTimes},
+            </if>
+            <if test="tradeSucessTimes != null">
+                trade_sucess_times = #{tradeSucessTimes},
+            </if>
+            <if test="sellAllTimes != null">
+                sell_all_times = #{sellAllTimes},
+            </if>
+            <if test="sellSucessTimes != null">
+                sell_sucess_times = #{sellSucessTimes},
+            </if>
+            <if test="buyAllTimes != null">
+                buy_all_times = #{buyAllTimes},
+            </if>
+            <if test="buySucessTimes != null">
+                buy_sucess_times = #{buySucessTimes},
+            </if>
+            <if test="appealTimes != null">
+                appeal_times = #{appealTimes},
+            </if>
+            <if test="beAppealedTimes != null">
+                be_appealed_times = #{beAppealedTimes},
+            </if>
+            <if test="judgeTimes != null">
+                judge_times = #{judgeTimes},
+            </if>
+            <if test="goodJudgeTimes != null">
+                good_judge_times = #{goodJudgeTimes},
+            </if>
+            <if test="badJudgeTimes != null">
+                bad_judge_times = #{badJudgeTimes},
+            </if>
+            <if test="commonJudgeTimes != null">
+                common_judge_times = #{commonJudgeTimes},
+            </if>
+            <if test="confirmMinute != null">
+                confirm_minute = #{confirmMinute},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="lastTradeTime != null">
+                last_trade_time = #{lastTradeTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_user_credit_record
+        where id = #{id}
+    </delete>
+    
+    <select id="getByUserId" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_user_credit_record
+        where user_id = #{userId}
+    </select>
+
+</mapper>

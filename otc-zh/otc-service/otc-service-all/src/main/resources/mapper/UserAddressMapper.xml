@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.virtual.dao.UserAddressMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.virtual.pojo.po.UserAddress">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="coin_id" property="coinId" />
+        <result column="address" property="address" />
+        <result column="create_date" property="createDate" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, user_id, coin_id, address, create_date
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.virtual.pojo.po.UserAddress">
+        insert into t_user_address
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="coinId != null">
+                coin_id,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="coinId != null">
+                #{coinId},
+            </if>
+            <if test="address != null">
+                #{address},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_user_address
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.virtual.pojo.po.UserAddress">
+        update t_user_address
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="coinId != null">
+                coin_id = #{coinId},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_user_address
+        where id = #{id}
+    </delete>
+
+    <sql id="common-filter">
+        <if test="userId != null">
+            and
+            user_id = #{userId}
+        </if>
+        <if test="coinId != null">
+            and
+            coin_id = #{coinId}
+        </if>
+        <if test="address != null and address != ''">
+            and
+            address = #{address}
+        </if>
+    </sql>
+    <select id="queryUserAddress" parameterType="com.otc.facade.virtual.pojo.cond.UserAddressCond" resultMap="baseResultMap">
+        select
+          <include refid="baseColumnList" />
+        from
+          t_user_address
+        where
+          0 = 0
+        <include refid="common-filter"/>
+    </select>
+    <select id="queryListUserAddress" parameterType="com.otc.facade.virtual.pojo.cond.UserAddressCond" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from
+        t_user_address
+        where
+        0 = 0
+        <include refid="common-filter"/>
+    </select>
+
+
+
+</mapper>

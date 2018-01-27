@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.user.dao.UserAuthenticationMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.user.pojo.po.UserAuthentication">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="passport_type" property="passportType" />
+        <result column="passport_no" property="passportNo" />
+        <result column="birthday" property="birthday" />
+        <result column="gender" property="gender" />
+        <result column="create_date" property="createDate" />
+        <result column="identityUrl_On" property="identityurlOn" />
+        <result column="identityUrl_Off" property="identityurlOff" />
+        <result column="identityUrl_hold" property="identityurlHold" />
+        <result column="real_name" property="realName" />
+        <result column="auditor_id" property="auditorId" />
+        <result column="auditor_date" property="auditorDate" />
+        <result column="commit_identity_date" property="commitIdentityDate" />
+        <result column="pass_date" property="passDate" />
+        <result column="status" property="status" />
+        <result column="rejection_reason" property="rejectionReason" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, user_id, passport_type, passport_no, birthday, gender, create_date, identityUrl_On, 
+        identityUrl_Off, identityUrl_hold, real_name, auditor_id, auditor_date, commit_identity_date, 
+        pass_date, status, rejection_reason
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.user.pojo.po.UserAuthentication">
+        insert into t_user_authentication
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="passportType != null">
+                passport_type,
+            </if>
+            <if test="passportNo != null">
+                passport_no,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="identityurlOn != null">
+                identityUrl_On,
+            </if>
+            <if test="identityurlOff != null">
+                identityUrl_Off,
+            </if>
+            <if test="identityurlHold != null">
+                identityUrl_hold,
+            </if>
+            <if test="realName != null">
+                real_name,
+            </if>
+            <if test="auditorId != null">
+                auditor_id,
+            </if>
+            <if test="auditorDate != null">
+                auditor_date,
+            </if>
+            <if test="commitIdentityDate != null">
+                commit_identity_date,
+            </if>
+            <if test="passDate != null">
+                pass_date,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="rejectionReason != null">
+                rejection_reason,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="passportType != null">
+                #{passportType},
+            </if>
+            <if test="passportNo != null">
+                #{passportNo},
+            </if>
+            <if test="birthday != null">
+                #{birthday},
+            </if>
+            <if test="gender != null">
+                #{gender},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="identityurlOn != null">
+                #{identityurlOn},
+            </if>
+            <if test="identityurlOff != null">
+                #{identityurlOff},
+            </if>
+            <if test="identityurlHold != null">
+                #{identityurlHold},
+            </if>
+            <if test="realName != null">
+                #{realName},
+            </if>
+            <if test="auditorId != null">
+                #{auditorId},
+            </if>
+            <if test="auditorDate != null">
+                #{auditorDate},
+            </if>
+            <if test="commitIdentityDate != null">
+                #{commitIdentityDate},
+            </if>
+            <if test="passDate != null">
+                #{passDate},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="rejectionReason != null">
+                #{rejectionReason},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_user_authentication
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.user.pojo.po.UserAuthentication">
+        update t_user_authentication
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="passportType != null">
+                passport_type = #{passportType},
+            </if>
+            <if test="passportNo != null">
+                passport_no = #{passportNo},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="identityurlOn != null">
+                identityUrl_On = #{identityurlOn},
+            </if>
+            <if test="identityurlOff != null">
+                identityUrl_Off = #{identityurlOff},
+            </if>
+            <if test="identityurlHold != null">
+                identityUrl_hold = #{identityurlHold},
+            </if>
+            <if test="realName != null">
+                real_name = #{realName},
+            </if>
+            <if test="auditorId != null">
+                auditor_id = #{auditorId},
+            </if>
+            <if test="auditorDate != null">
+                auditor_date = #{auditorDate},
+            </if>
+            <if test="commitIdentityDate != null">
+                commit_identity_date = #{commitIdentityDate},
+            </if>
+            <if test="passDate != null">
+                pass_date = #{passDate},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="rejectionReason != null">
+                rejection_reason = #{rejectionReason},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_user_authentication
+        where id = #{id}
+    </delete>
+
+    <select id="selectUserByFilter">
+        select id from t_user_authentication
+        <where>
+            real_name = #{filter}
+        </where>
+    </select>
+
+
+    <select id="selectByCondition" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from t_user_authentication
+        <where>
+            <if test="passportNo != null">
+                passport_no = #{passportNo}
+            </if>
+            <if test="realName != null">
+                real_name = #{realName}
+            </if>
+            <if test="userId != null">
+                user_id = #{userId}
+            </if>
+        </where>
+    </select>
+
+</mapper>

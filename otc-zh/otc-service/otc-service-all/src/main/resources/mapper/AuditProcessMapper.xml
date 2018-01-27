@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.sys.dao.AuditProcessMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.sys.pojo.po.AuditProcess">
+        <id column="id" property="id" />
+        <result column="type" property="type" />
+        <result column="role_id1" property="roleId1" />
+        <result column="role_id2" property="roleId2" />
+        <result column="role_id3" property="roleId3" />
+        <result column="is_need_pwd" property="isNeedPwd" />
+        <result column="modified_date" property="modifiedDate" />
+        <result column="modified_id" property="modifiedId" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, type, role_id1, role_id2, role_id3, is_need_pwd, modified_date, modified_id
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.sys.pojo.po.AuditProcess">
+        insert into t_audit_process
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="roleId1 != null">
+                role_id1,
+            </if>
+            <if test="roleId2 != null">
+                role_id2,
+            </if>
+            <if test="roleId3 != null">
+                role_id3,
+            </if>
+            <if test="isNeedPwd != null">
+                is_need_pwd,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+            <if test="modifiedId != null">
+                modified_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="roleId1 != null">
+                #{roleId1},
+            </if>
+            <if test="roleId2 != null">
+                #{roleId2},
+            </if>
+            <if test="roleId3 != null">
+                #{roleId3},
+            </if>
+            <if test="isNeedPwd != null">
+                #{isNeedPwd},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+            <if test="modifiedId != null">
+                #{modifiedId},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_audit_process
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.sys.pojo.po.AuditProcess">
+        update t_audit_process
+        <set>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="roleId1 != null">
+                role_id1 = #{roleId1},
+            </if>
+            <if test="roleId2 != null">
+                role_id2 = #{roleId2},
+            </if>
+            <if test="roleId3 != null">
+                role_id3 = #{roleId3},
+            </if>
+            <if test="isNeedPwd != null">
+                is_need_pwd = #{isNeedPwd},
+            </if>
+            <if test="modifiedDate != null">
+                modified_date = #{modifiedDate},
+            </if>
+            <if test="modifiedId != null">
+                modified_id = #{modifiedId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_audit_process
+        where id = #{id}
+    </delete>
+
+    <select id="queryCountByConditionPage" resultMap="baseResultMap" parameterType="com.otc.facade.sys.pojo.vo.AuditProcessVo">
+        select
+        <include refid="baseColumnList"/>
+        from
+        t_audit_process
+        order by id
+    </select>
+
+    <update id="updateAuditProcess" parameterType="com.otc.facade.sys.pojo.po.AuditProcess">
+        update t_audit_process
+        SET
+            role_id1 = #{roleId1},
+            role_id2 = #{roleId2},
+            role_id3 = #{roleId3},
+            is_need_pwd = #{isNeedPwd},
+            modified_date = #{modifiedDate},
+            modified_id = #{modifiedId}
+        where id = #{id}
+    </update>
+
+    <resultMap id="extendedResultMap" type="com.otc.facade.sys.pojo.poex.AuditProcessEx" >
+        <id column="id" property="id" />
+        <result column="roleName1" property="roleName1" />
+        <result column="roleName2" property="roleName2" />
+        <result column="roleName3" property="roleName3" />
+        <result column="modifiedName" property="modifiedName" />
+        <association property="process" javaType="com.otc.facade.sys.pojo.po.AuditProcess" resultMap="baseResultMap" />
+    </resultMap>
+    <select id="queryAuditProcessByConditionPage" resultMap="extendedResultMap" parameterType="com.otc.facade.sys.pojo.vo.AuditProcessVo">
+        select
+            b.role_name as rolename1,
+            c.role_name as rolename2,
+            d.role_name as rolename3,
+            e.name as modifiedName,
+            a.*
+        from
+            t_audit_process a
+        left join t_role b on a.role_id1 = b.id
+        left join t_role c on a.role_id2 = c.id
+        left join t_role d on a.role_id3 = d.id
+        left join t_employee e on a.modified_id = e.id
+    </select>
+
+    <select id="queryAuditProcessByType" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList"/>
+        from
+        t_audit_process
+        <where>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+        </where>
+    </select>
+
+
+
+
+</mapper>

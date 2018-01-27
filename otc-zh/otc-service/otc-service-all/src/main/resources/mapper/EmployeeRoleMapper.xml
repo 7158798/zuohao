@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.sys.dao.EmployeeRoleMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.sys.pojo.po.EmployeeRole">
+        <id column="id" property="id" />
+        <result column="employee_id" property="employeeId" />
+        <result column="role_id" property="roleId" />
+        <result column="create_date" property="createDate" />
+        <result column="deleted" property="deleted" />
+        <result column="create_user" property="createUser" />
+        <result column="modified_date" property="modifiedDate" />
+        <result column="modified_user" property="modifiedUser" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, employee_id, role_id, create_date, deleted, create_user, modified_date, modified_user
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.sys.pojo.po.EmployeeRole">
+        insert into t_employee_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="employeeId != null">
+                employee_id,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+            <if test="modifiedUser != null">
+                modified_user,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="employeeId != null">
+                #{employeeId},
+            </if>
+            <if test="roleId != null">
+                #{roleId},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+            <if test="createUser != null">
+                #{createUser},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+            <if test="modifiedUser != null">
+                #{modifiedUser},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_employee_role
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.sys.pojo.po.EmployeeRole">
+        update t_employee_role
+        <set>
+            <if test="employeeId != null">
+                employee_id = #{employeeId},
+            </if>
+            <if test="roleId != null">
+                role_id = #{roleId},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser},
+            </if>
+            <if test="modifiedDate != null">
+                modified_date = #{modifiedDate},
+            </if>
+            <if test="modifiedUser != null">
+                modified_user = #{modifiedUser},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_employee_role
+        where id = #{id}
+    </delete>
+
+
+    <select id="queryByCondition" resultMap="baseResultMap" parameterType="com.otc.facade.sys.pojo.cond.EmployeeRoleCond">
+        select
+            *
+        from
+            t_employee_role
+        where
+            0=0
+            <if test="employeeId != null">
+                and
+                  employee_id = #{employeeId}
+            </if>
+            <if test="roleId != null">
+                and
+                role_id = #{roleId}
+            </if>
+    </select>
+
+</mapper>

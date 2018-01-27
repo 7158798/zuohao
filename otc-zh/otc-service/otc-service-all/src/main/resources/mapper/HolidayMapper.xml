@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.holiday.dao.HolidayMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.holiday.pojo.po.Holiday">
+        <id column="id" property="id" />
+        <result column="holiday" property="holiday" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, holiday
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.holiday.pojo.po.Holiday">
+        insert into t_holiday
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="holiday != null">
+                holiday,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="holiday != null">
+                #{holiday},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_holiday
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.holiday.pojo.po.Holiday">
+        update t_holiday
+        <set>
+            <if test="holiday != null">
+                holiday = #{holiday},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_holiday
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteAll">
+        delete from t_holiday
+    </delete>
+
+    <insert id="saveList" parameterType="java.util.List">
+        insert into t_holiday
+        (holiday) value
+        <foreach collection="list" item="temp" separator=",">
+            (#{temp})
+        </foreach>
+    </insert>
+
+    <select id="getHoliday" resultType="String">
+        select holiday from t_holiday
+    </select>
+
+</mapper>

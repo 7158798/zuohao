@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.advertisement.dao.AdvertisementMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.advertisement.pojo.po.Advertisement">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="transaction_type" property="transactionType" />
+        <result column="city" property="city" />
+        <result column="coin_type" property="coinType" />
+        <result column="coinName" property="coinName" />
+        <result column="transaction_price" property="transactionPrice" />
+        <result column="min_trans_amount" property="minTransAmount" />
+        <result column="max_trans_amount" property="maxTransAmount" />
+        <result column="pay_type" property="payType" />
+        <result column="pay_type_remark" property="payTypeRemark" />
+        <result column="is_open_safety_veri" property="isOpenSafetyVeri" />
+        <result column="status" property="status" />
+        <result column="createtime" property="createtime" />
+        <result column="prict_type" property="priceType" />
+        <result column="trade_platform" property="tradePlatform" />
+        <result column="premium_rate" property="premiumRate" />
+        <result column="updatetime" property="updatetime" />
+        <result column="pay_type_name" property="payTypeName" />
+        <result column="code" property="code" />
+        <result column="max_trans_count" property="maxTransCount" />
+        <result column="min_trans_count" property="minTransCount" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, user_id, transaction_type, city, coin_type, transaction_price, min_trans_amount, 
+        max_trans_amount, pay_type, pay_type_remark, is_open_safety_veri, status, createtime, 
+        prict_type, trade_platform, premium_rate, updatetime, pay_type_name, code, max_trans_count, 
+        min_trans_count
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.advertisement.pojo.po.Advertisement">
+        insert into t_advertisement
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="transactionType != null">
+                transaction_type,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="coinType != null">
+                coin_type,
+            </if>
+            <if test="transactionPrice != null">
+                transaction_price,
+            </if>
+            <if test="minTransAmount != null">
+                min_trans_amount,
+            </if>
+            <if test="maxTransAmount != null">
+                max_trans_amount,
+            </if>
+            <if test="payType != null">
+                pay_type,
+            </if>
+            <if test="payTypeRemark != null">
+                pay_type_remark,
+            </if>
+            <if test="isOpenSafetyVeri != null">
+                is_open_safety_veri,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createtime != null">
+                createtime,
+            </if>
+            <if test="priceType != null">
+                prict_type,
+            </if>
+            <if test="tradePlatform != null">
+                trade_platform,
+            </if>
+            <if test="premiumRate != null">
+                premium_rate,
+            </if>
+            <if test="updatetime != null">
+                updatetime,
+            </if>
+            <if test="payTypeName != null">
+                pay_type_name,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="maxTransCount != null">
+                max_trans_count,
+            </if>
+            <if test="minTransCount != null">
+                min_trans_count,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="transactionType != null">
+                #{transactionType},
+            </if>
+            <if test="city != null">
+                #{city},
+            </if>
+            <if test="coinType != null">
+                #{coinType},
+            </if>
+            <if test="transactionPrice != null">
+                #{transactionPrice},
+            </if>
+            <if test="minTransAmount != null">
+                #{minTransAmount},
+            </if>
+            <if test="maxTransAmount != null">
+                #{maxTransAmount},
+            </if>
+            <if test="payType != null">
+                #{payType},
+            </if>
+            <if test="payTypeRemark != null">
+                #{payTypeRemark},
+            </if>
+            <if test="isOpenSafetyVeri != null">
+                #{isOpenSafetyVeri},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="createtime != null">
+                #{createtime},
+            </if>
+            <if test="priceType != null">
+                #{priceType},
+            </if>
+            <if test="tradePlatform != null">
+                #{tradePlatform},
+            </if>
+            <if test="premiumRate != null">
+                #{premiumRate},
+            </if>
+            <if test="updatetime != null">
+                #{updatetime},
+            </if>
+            <if test="payTypeName != null">
+                #{payTypeName},
+            </if>
+            <if test="code != null">
+                #{code},
+            </if>
+            <if test="maxTransCount != null">
+                #{maxTransCount},
+            </if>
+            <if test="minTransCount != null">
+                #{minTransCount},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        a.id, a.user_id, a.transaction_type, a.city, a.coin_type, a.transaction_price, a.min_trans_amount,
+        a.max_trans_amount, a.pay_type, a.pay_type_remark, a.is_open_safety_veri, a.status, a.createtime,
+        a.prict_type, a.trade_platform, a.premium_rate, a.updatetime, a.pay_type_name, a.code, a.max_trans_count,
+        a.min_trans_count
+        , vc.short_name as coinName
+        from t_advertisement a
+        left join t_virtual_coin vc on vc.id = a.coin_type
+        where a.id = #{id}
+    </select>
+
+    <select id="detail" resultMap="baseResultMap">
+        select
+        a.id, a.user_id, a.transaction_type, a.city, a.coin_type, a.transaction_price, a.min_trans_amount,
+        a.max_trans_amount, a.pay_type, a.pay_type_remark, a.is_open_safety_veri, a.status, a.createtime,
+        a.prict_type, a.trade_platform, a.premium_rate, a.updatetime, a.pay_type_name, a.code, a.max_trans_count,
+        a.min_trans_count
+        , vc.short_name as coinName
+        from t_advertisement a
+        left join t_virtual_coin vc on vc.id = a.coin_type
+        <where>
+            <if test="id != null and id != 0">
+                a.id = #{id}
+            </if>
+            <if test="userId != null and userId != 0">
+                and a.user_id = #{userId}
+            </if>
+        </where>
+        order by a.createtime desc
+    </select>
+
+    <select id="getList" resultMap="baseResultMap" parameterType="com.otc.facade.advertisement.pojo.vo.AdvertisementVo">
+        select
+        <include refid="baseColumnList" />
+        from t_advertisement
+        <where>
+            <if test="userId != null and userId != 0">
+                user_id = #{userId}
+            </if>
+            <if test="symbol != null">
+                and coin_type = #{symbol}
+            </if>
+            <if test="bigenTime != null">
+                and createtime <![CDATA[>=]]]> #{bigenTime}
+            </if>
+            <if test="endTime != null">
+                and createtime <![CDATA[<=]]]> #{endTime}
+            </if>
+            <if  test="status != null and status != ''">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.advertisement.pojo.po.Advertisement">
+        update t_advertisement
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="transactionType != null">
+                transaction_type = #{transactionType},
+            </if>
+            <if test="city != null">
+                city = #{city},
+            </if>
+            <if test="coinType != null">
+                coin_type = #{coinType},
+            </if>
+            <if test="transactionPrice != null">
+                transaction_price = #{transactionPrice},
+            </if>
+            <if test="minTransAmount != null">
+                min_trans_amount = #{minTransAmount},
+            </if>
+            <if test="maxTransAmount != null">
+                max_trans_amount = #{maxTransAmount},
+            </if>
+            <if test="payType != null">
+                pay_type = #{payType},
+            </if>
+            <if test="payTypeRemark != null">
+                pay_type_remark = #{payTypeRemark},
+            </if>
+            <if test="isOpenSafetyVeri != null">
+                is_open_safety_veri = #{isOpenSafetyVeri},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createtime != null">
+                createtime = #{createtime},
+            </if>
+            <if test="priceType != null">
+                prict_type = #{priceType},
+            </if>
+            <if test="tradePlatform != null">
+                trade_platform = #{tradePlatform},
+            </if>
+            <if test="premiumRate != null">
+                premium_rate = #{premiumRate},
+            </if>
+            <if test="updatetime != null">
+                updatetime = #{updatetime},
+            </if>
+            <if test="payTypeName != null">
+                pay_type_name = #{payTypeName},
+            </if>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            <if test="maxTransCount != null">
+                max_trans_count = #{maxTransCount},
+            </if>
+            <if test="minTransCount != null">
+                min_trans_count = #{minTransCount},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_advertisement
+        where id = #{id}
+    </delete>
+
+    <!-- 后台获取列表 -->
+    <select id="queryCountByConditionPage" parameterType="com.otc.facade.advertisement.pojo.vo.AdvertisementVo" resultMap="baseResultMap" >
+        select
+        a.id, a.user_id, a.transaction_type, a.city, a.coin_type, a.transaction_price, a.min_trans_amount,
+        a.max_trans_amount, a.pay_type, a.pay_type_remark, a.is_open_safety_veri, a.status, a.createtime,
+        a.prict_type, a.trade_platform, a.premium_rate, a.updatetime, a.pay_type_name, a.code
+        , vc.short_name as coinName, pf.price_formula as priceFormula, a.max_trans_count, a.min_trans_count
+        from t_advertisement a
+        left join t_virtual_coin vc on a.coin_type = vc.id
+        left join t_price_formula pf on pf.coin_id = a.coin_type and pf.platform_name like CONCAT('%', a.trade_platform, '%') and a.prict_type = 2
+        <where>
+            <if test="filter != null and filter != ''">
+                (user_id in (select user_id from t_user_authentication
+                <where>
+                    real_name = #{filter}
+                </where>) or user_id in (select id from t_user
+                <where>
+                    id = #{filter} or email_address = #{filter}
+                </where>))
+            </if>
+            <if test="symbol != null">
+                and a.coin_type = #{symbol}
+            </if>
+            <if test="bigenTime != null">
+                and a.createtime <![CDATA[>=]]> #{bigenTime}
+            </if>
+            <if test="endTime != null">
+                and a.createtime <![CDATA[<=]]> #{endTime}
+            </if>
+            <if  test="status != null and status != ''">
+                and a.status = #{status}
+            </if>
+            <if test="transactionType != null">
+                and a.transaction_type = #{transactionType}
+            </if>
+        </where>
+        ORDER BY a.createtime DESC
+    </select>
+
+    <!--更新状态-->
+    <update id="updateStatus">
+        update t_advertisement
+        <set>
+            <if test="status != 0">
+                status = #{status}
+            </if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <resultMap id="indexListMap" type="com.otc.facade.advertisement.pojo.dto.AdvertisementDto">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="userName" property="userName" />
+        <result column="avatar" property="avatar" />
+        <result column="favorableRate" property="favorableRate" />
+        <result column="dealCount" property="dealCount" />
+        <result column="pay_type_name" property="payTypeName" />
+        <result column="transactionPrice" property="transactionPrice" />
+        <result column="min_trans_amount" property="minTransAmount" />
+        <result column="max_trans_amount" property="maxTransAmount" />
+        <result column="max_trans_count" property="maxTransCount" />
+        <result column="min_trans_count" property="minTransCount" />
+    </resultMap>
+
+    <!--首页获取广告列表-->
+    <select id="indexQueryCountByConditionPage" parameterType="com.otc.facade.advertisement.pojo.vo.AdvertisementWebVo" resultMap="indexListMap">
+        select
+        a.id, u.avatar, u.login_name as userName,
+        ucr.good_judge_times/ucr.judge_times as favorableRate,
+        ucr.trade_sucess_times as dealCount,
+        a.pay_type_name, a.transaction_price as transactionPrice, a.max_trans_amount, a.min_trans_amount, a.max_trans_count, a.min_trans_count
+        from t_advertisement a
+        left join t_user u on a.user_id = u.id
+        left join t_user_credit_record ucr on a.user_id = ucr.user_id
+        left join t_virtual_wallet vw on vw.coin_id = a.coin_type and a.user_id = vw.user_id
+        <where>
+            a.status = 1
+            <if test="transactionType == 2">
+                and vw.total >= a.min_trans_count
+            </if>
+            <if test="coinType != null and coinType != 0">
+                and a.coin_type = #{coinType}
+            </if>
+            <if test="payType != null and payType != 0 and payType != ''">
+                and a.pay_type like CONCAT('%', #{payType}, '%')
+            </if>
+            <if test="transactionType != null">
+                and transaction_type = #{transactionType}
+            </if>
+            <if test="advertisementTimeStatus!=null and advertisementTimeStatus!=1 and advertisementTimeStatus!=0">
+                and a.user_id not in
+                (
+                    select tat.user_id from t_advertisement_time tat where
+                        (tat.status = #{advertisementTimeStatus} or tat.status = 1)
+                        and tat.type = #{transactionType}
+                       /* and tat.status = 1*/
+                        and
+                        (
+                            #{time} not BETWEEN tat.start_time1 and tat.end_time1
+                            or
+                            (
+                              #{time} not BETWEEN tat.start_time1 and tat.end_time1
+                              and
+                              #{time} not BETWEEN tat.start_time2 and tat.end_time2
+                            )
+                        )
+                )
+            </if>
+        </where>
+        ORDER BY
+        <choose>
+            <when test="orderField != null and orderField != ''">
+                ${orderField}
+            </when>
+            <otherwise>
+                favorableRate
+            </otherwise>
+        </choose>
+        <choose>
+            <when test="orderDirection != null and orderDirection != ''">
+                ${orderDirection}
+            </when>
+            <otherwise>
+                desc
+            </otherwise>
+        </choose>
+        , createtime desc
+    </select>
+
+    <select id="getLast" resultMap="baseResultMap">
+        SELECT
+        <include refid="baseColumnList" />
+        FROM t_advertisement
+        <where>
+            createtime > CURRENT_DATE
+        </where>
+        limit 1
+    </select>
+
+    <resultMap id="countAdMap" type="com.otc.facade.base.CountVo">
+        <result column="countName" property="countName" />
+        <result column="countTotal" property="countTotal" />
+    </resultMap>
+    <!--综合统计-->
+    <select id="countAdvertisement" resultMap="countAdMap">
+        select a.transaction_type as countName, count(1) as countTotal
+        from t_advertisement a
+        <where>
+            <if test="dayTime != null and dayTime != ''">
+                date_format(a.createtime, '%Y-%m-%d') = #{dayTime}
+            </if>
+        </where>
+        group by a.transaction_type
+        order by countName asc
+    </select>
+
+    <!--获取用户其他交易广告-->
+    <select id="getUserOtherList" resultMap="baseResultMap">
+        select
+        a.id, a.user_id, a.transaction_type, a.city, a.coin_type, a.transaction_price, a.min_trans_amount,
+        a.max_trans_amount, a.pay_type, a.pay_type_remark, a.is_open_safety_veri, a.status, a.createtime,
+        a.prict_type, a.trade_platform, a.premium_rate, a.updatetime, a.pay_type_name, a.code, a.max_trans_count,
+        a.min_trans_count, vc.short_name as coinName
+        from t_advertisement a
+        left join t_virtual_coin vc on vc.id = a.coin_type
+        <where>
+            a.status = 1
+            <if test="id != null and id != 0">
+                and a.id != #{id}
+            </if>
+            <if test="userId != null and userId !=0">
+                and a.user_id = #{userId}
+            </if>
+        </where>
+        order by a.createtime desc
+        <if test="number != null and number != 0">
+            limit #{number}
+        </if>
+    </select>
+
+</mapper>

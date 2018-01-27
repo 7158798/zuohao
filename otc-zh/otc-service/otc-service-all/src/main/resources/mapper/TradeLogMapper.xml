@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.trade.dao.TradeLogMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.trade.pojo.po.TradeLog">
+        <id column="id" property="id" />
+        <result column="trade_id" property="tradeId" />
+        <result column="user_id" property="userId" />
+        <result column="operation_type" property="operationType" />
+        <result column="before_status" property="beforeStatus" />
+        <result column="after_status" property="afterStatus" />
+        <result column="createtime" property="createtime" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, trade_id, user_id, operation_type, before_status, after_status, createtime
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.trade.pojo.po.TradeLog">
+        insert into t_trade_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="tradeId != null">
+                trade_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="operationType != null">
+                operation_type,
+            </if>
+            <if test="beforeStatus != null">
+                before_status,
+            </if>
+            <if test="afterStatus != null">
+                after_status,
+            </if>
+            <if test="createtime != null">
+                createtime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="tradeId != null">
+                #{tradeId},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="operationType != null">
+                #{operationType},
+            </if>
+            <if test="beforeStatus != null">
+                #{beforeStatus},
+            </if>
+            <if test="afterStatus != null">
+                #{afterStatus},
+            </if>
+            <if test="createtime != null">
+                #{createtime},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_trade_log
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.trade.pojo.po.TradeLog">
+        update t_trade_log
+        <set>
+            <if test="tradeId != null">
+                trade_id = #{tradeId},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="operationType != null">
+                operation_type = #{operationType},
+            </if>
+            <if test="beforeStatus != null">
+                before_status = #{beforeStatus},
+            </if>
+            <if test="afterStatus != null">
+                after_status = #{afterStatus},
+            </if>
+            <if test="createtime != null">
+                createtime = #{createtime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_trade_log
+        where id = #{id}
+    </delete>
+
+</mapper>

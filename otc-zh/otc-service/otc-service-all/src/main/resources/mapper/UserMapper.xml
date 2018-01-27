@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.user.dao.UserMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.user.pojo.po.User">
+        <id column="id" property="id" />
+        <result column="mobile_number" property="mobileNumber" />
+        <result column="login_name" property="loginName" />
+        <result column="birthday" property="birthday" />
+        <result column="gender" property="gender" />
+        <result column="region" property="region" />
+        <result column="login_password" property="loginPassword" />
+        <result column="nice_name" property="niceName" />
+        <result column="avatar" property="avatar" />
+        <result column="signature" property="signature" />
+        <result column="email_address" property="emailAddress" />
+        <result column="login_time" property="loginTime" />
+        <result column="login_ip" property="loginIp" />
+        <result column="failed_login_attempts" property="failedLoginAttempts" />
+        <result column="last_login_time" property="lastLoginTime" />
+        <result column="deleted" property="deleted" />
+        <result column="create_date" property="createDate" />
+        <result column="modified_date" property="modifiedDate" />
+        <result column="prevent_fish" property="preventFish" />
+        <result column="status" property="status" />
+        <result column="register_ip" property="registerIp" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, mobile_number, login_name, birthday, gender, region, login_password, nice_name,
+        avatar, signature, email_address, login_time, login_ip, failed_login_attempts, last_login_time,
+        deleted, create_date, modified_date, prevent_fish, status, register_ip
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.user.pojo.po.User" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="mobileNumber != null">
+                mobile_number,
+            </if>
+            <if test="loginName != null">
+                login_name,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="region != null">
+                region,
+            </if>
+            <if test="loginPassword != null">
+                login_password,
+            </if>
+            <if test="niceName != null">
+                nice_name,
+            </if>
+            <if test="avatar != null">
+                avatar,
+            </if>
+            <if test="signature != null">
+                signature,
+            </if>
+            <if test="emailAddress != null">
+                email_address,
+            </if>
+            <if test="loginTime != null">
+                login_time,
+            </if>
+            <if test="loginIp != null">
+                login_ip,
+            </if>
+            <if test="failedLoginAttempts != null">
+                failed_login_attempts,
+            </if>
+            <if test="lastLoginTime != null">
+                last_login_time,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+            <if test="preventFish != null">
+                prevent_fish,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="registerIp != null">
+                register_ip,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="mobileNumber != null">
+                #{mobileNumber},
+            </if>
+            <if test="loginName != null">
+                #{loginName},
+            </if>
+            <if test="birthday != null">
+                #{birthday},
+            </if>
+            <if test="gender != null">
+                #{gender},
+            </if>
+            <if test="region != null">
+                #{region},
+            </if>
+            <if test="loginPassword != null">
+                #{loginPassword},
+            </if>
+            <if test="niceName != null">
+                #{niceName},
+            </if>
+            <if test="avatar != null">
+                #{avatar},
+            </if>
+            <if test="signature != null">
+                #{signature},
+            </if>
+            <if test="emailAddress != null">
+                #{emailAddress},
+            </if>
+            <if test="loginTime != null">
+                #{loginTime},
+            </if>
+            <if test="loginIp != null">
+                #{loginIp},
+            </if>
+            <if test="failedLoginAttempts != null">
+                #{failedLoginAttempts},
+            </if>
+            <if test="lastLoginTime != null">
+                #{lastLoginTime},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+            <if test="preventFish != null">
+                #{preventFish},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="registerIp != null">
+                #{registerIp},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_user
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.user.pojo.po.User">
+        update t_user
+        <set>
+            <if test="mobileNumber != null">
+                mobile_number = #{mobileNumber},
+            </if>
+            <if test="loginName != null">
+                login_name = #{loginName},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="region != null">
+                region = #{region},
+            </if>
+            <if test="loginPassword != null">
+                login_password = #{loginPassword},
+            </if>
+            <if test="niceName != null">
+                nice_name = #{niceName},
+            </if>
+            <if test="avatar != null">
+                avatar = #{avatar},
+            </if>
+            <if test="signature != null">
+                signature = #{signature},
+            </if>
+            <if test="emailAddress != null">
+                email_address = #{emailAddress},
+            </if>
+            <if test="loginTime != null">
+                login_time = #{loginTime},
+            </if>
+            <if test="loginIp != null">
+                login_ip = #{loginIp},
+            </if>
+            <if test="failedLoginAttempts != null">
+                failed_login_attempts = #{failedLoginAttempts},
+            </if>
+            <if test="lastLoginTime != null">
+                last_login_time = #{lastLoginTime},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                modified_date = #{modifiedDate},
+            </if>
+            <if test="preventFish != null">
+                prevent_fish = #{preventFish},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="registerIp != null">
+                register_ip = #{registerIp},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_user
+        where id = #{id}
+    </delete>
+
+    <select id="selectbycondition" resultMap="baseResultMap" parameterType="com.otc.facade.user.pojo.vo.UserVo">
+        select  <include refid="baseColumnList" />
+        from t_user
+        <where>
+            t_user.deleted = false
+            <if test="loginName != null and loginName!=''">
+                and login_name = #{loginName}
+            </if>
+            <if test="email != null and email!=''">
+                and email_address = #{email}
+            </if>
+            <if test="start!=null and start!=''">
+                AND create_date  <![CDATA[>=]]> #{start}
+            </if>
+            <if test="end!=null and end!=''">
+                AND create_date  <![CDATA[<]]> #{end}
+            </if>
+
+        </where>
+    </select>
+
+    <sql id="user-report-condition">
+        a.deleted = false
+        <if test="id != null">
+            and a.id = #{id}
+        </if>
+        <if test="realName != null and realName != ''">
+            and b.real_name = #{realName}
+        </if>
+        <if test="email != null and email!=''">
+            and a.email_address = #{email}
+        </if>
+    </sql>
+
+    <select id="getListByConditionPage" resultType="com.otc.facade.user.pojo.poex.UserReportEx" parameterType="com.otc.facade.user.pojo.vo.UserVo">
+        select
+
+        a.id,
+        email_address as emailAddress,
+        b.real_name as realName,
+        a.status as userStatus,
+        b.status as kycStatus,
+        b.passport_type as passportType,
+        b.passport_no as passportNo,
+        a.create_date as createDate,
+        a.register_ip as registerIp,
+        a.login_time as loginTime,
+        a.login_ip as loginIp,
+        b.identityUrl_On as identityurlOn,
+        b.identityUrl_Off as identityurlOff,
+        b.identityUrl_hold as identityurlHold,
+        b.rejection_reason as rejectionReason,
+        b.commit_identity_date as commitDate,
+        b.id as kycId
+        from t_user a left join t_user_authentication b on a.id = b.user_id
+        <where>
+            a.deleted = false
+            <if test="id != null">
+                and a.id = #{id}
+            </if>
+            <if test="realName != null and realName != ''">
+                and b.real_name = #{realName}
+            </if>
+            <if test="email != null and email!=''">
+                and a.email_address = #{email}
+            </if>
+            <if test="userStatus != null and userStatus!=''">
+                and a.status = #{userStatus}
+            </if>
+            <if test="kycStatus != null ">
+                and b.status is not null
+                <if test="kycStatus != '00'">
+                    and b.status = #{kycStatus}
+                </if>
+            </if>
+            <if test="orderType =='1'.toString()">
+                <if test="start!=null and start!=''">
+                    AND a.create_date  <![CDATA[>=]]> #{start}
+                </if>
+                <if test="end!=null and end!=''">
+                    AND a.create_date  <![CDATA[<]]> #{end}
+                </if>
+            </if>
+            <if test="orderType =='2'.toString()">
+                <if test="start!=null and start!=''">
+                    AND b.commit_identity_date  <![CDATA[>=]]> #{start}
+                </if>
+                <if test="end!=null and end!=''">
+                    AND b.commit_identity_date  <![CDATA[<]]> #{end}
+                </if>
+            </if>
+            <if test="orderType =='1'.toString()">
+                order by  a.id asc
+            </if>
+            <if test="orderType =='2'.toString()">
+                order by  b.commit_identity_date desc
+            </if>
+        </where>
+    </select>
+
+
+    <select id="getUserAddressListByConditionPage" resultType="com.otc.facade.user.pojo.poex.UserReportEx" parameterType="com.otc.facade.user.pojo.vo.UserVo">
+        select
+        a.id,
+        email_address as emailAddress,
+        b.real_name as realName,
+        d.name as coinname,
+        c.address,
+        c.create_date as createDate
+        from t_user_address c
+        left join t_user a on c.user_id = a.id
+        left join t_user_authentication b on a.id = b.user_id
+        left join t_virtual_coin d on c.coin_id = d.id
+        <where>
+            <include refid="user-report-condition"/>
+            <if test="coinId != null and coinId!=''">
+                and d.id = #{coinId}
+            </if>
+        </where>
+        order by c.create_date desc
+    </select>
+
+
+    <select id="getUserOperationListByConditionPage" resultType="com.otc.facade.user.pojo.poex.UserReportEx" parameterType="com.otc.facade.user.pojo.vo.UserVo">
+        select
+        c.operation_type as operationType,
+        a.id,
+        email_address as emailAddress,
+        b.real_name as realName,
+        a.status as userStatus,
+        b.status as kycStatus,
+        c.login_ip as loginIp,
+        c.login_adress as loginAdress,
+        c.create_date as createDate
+        from
+        t_user_operation c
+        left join t_user a on c.user_id = a.id
+        left join t_user_authentication b on a.id = b.user_id
+        <where>
+            <include refid="user-report-condition"/>
+            <if test="operationType != null and operationType!=''">
+                and c.operation_type = #{operationType}
+            </if>
+            <if test="start!=null and start!=''">
+                AND a.create_date  <![CDATA[>=]]> #{start}
+            </if>
+            <if test="end!=null and end!=''">
+                AND a.create_date  <![CDATA[<]]> #{end}
+            </if>
+        </where>
+        order by c.create_date desc
+    </select>
+
+
+    <select id="getUserAssetListByConditionPage" resultType="com.otc.facade.user.pojo.poex.UserReportEx" parameterType="com.otc.facade.user.pojo.vo.UserVo">
+        select
+        a.id,
+        email_address as emailAddress,
+        b.real_name as realName,
+        c.create_date as createDate,
+        c.record_detail as recordDetail
+        from
+        t_user_asset c
+        left join t_user a on c.user_id = a.id
+        left join t_user_authentication b on a.id = b.user_id
+        <where>
+            <include refid="user-report-condition"/>
+            <if test="start!=null and start!=''">
+                AND c.create_date  <![CDATA[>=]]> #{start}
+            </if>
+            <if test="end!=null and end!=''">
+                AND c.create_date  <![CDATA[<]]> #{end}
+            </if>
+        </where>
+        order by c.create_date desc
+    </select>
+
+    <select id="selectUserByFilter" resultType="java.lang.Long" parameterType="java.lang.String">
+        select id from t_user
+        <where>
+            id = #{filter} or email_address = #{filter}
+        </where>
+    </select>
+    
+    <resultMap id="countUserMap" type="com.otc.facade.base.CountVo">
+        <result column="countName" property="countName" />
+        <result column="countTotal" property="countTotal" />
+    </resultMap>
+    
+    <!--会员统计-->
+    <select id="countUser" resultMap="countUserMap">
+        select ua.status as countName, count(1) as countTotal
+        from t_user u
+        left join t_user_authentication ua on u.id = ua.user_id
+        <where>
+            <if test="dayTime != null and dayTime != ''">
+                date_format(u.create_date, '%Y-%m-%d') = #{dayTime}
+            </if>
+        </where>
+        group by ua.status
+        order by countName asc
+    </select>
+
+    <!-- 获取没有钱包的用户 -->
+    <select id="queryNonExistentWallet" resultMap="baseResultMap">
+        select
+            a.*
+        from
+            t_user a
+        left join t_virtual_wallet b on a.id = b.user_id
+        and b.coin_id = #{coinId}
+        where
+            b.id is null
+    </select>
+
+</mapper>

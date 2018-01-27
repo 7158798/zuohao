@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.user.dao.UserOperationMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.user.pojo.po.UserOperation">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="operation_type" property="operationType" />
+        <result column="create_date" property="createDate" />
+        <result column="login_ip" property="loginIp" />
+        <result column="login_adress" property="loginAdress" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, user_id, operation_type, create_date, login_ip, login_adress
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.user.pojo.po.UserOperation">
+        insert into t_user_operation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="operationType != null">
+                operation_type,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="loginIp != null">
+                login_ip,
+            </if>
+            <if test="loginAdress != null">
+                login_adress,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="operationType != null">
+                #{operationType},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="loginIp != null">
+                #{loginIp},
+            </if>
+            <if test="loginAdress != null">
+                #{loginAdress},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_user_operation
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.user.pojo.po.UserOperation">
+        update t_user_operation
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="operationType != null">
+                operation_type = #{operationType},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="loginIp != null">
+                login_ip = #{loginIp},
+            </if>
+            <if test="loginAdress != null">
+                login_adress = #{loginAdress},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_user_operation
+        where id = #{id}
+    </delete>
+
+
+    <select id="getByConditionPage" resultMap="baseResultMap" parameterType="com.otc.facade.user.pojo.vo.UserOperationVo">
+        select
+        <include refid="baseColumnList" />
+        from t_user_operation
+        <where>
+            <if test="userId != null ">
+                user_id = #{userId}
+            </if>
+       </where>
+         order by id desc
+    </select>
+
+</mapper>

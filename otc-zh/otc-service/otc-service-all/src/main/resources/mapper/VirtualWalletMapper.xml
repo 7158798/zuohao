@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.virtual.dao.VirtualWalletMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.virtual.pojo.po.VirtualWallet">
+        <id column="id" property="id" />
+        <result column="coin_id" property="coinId" />
+        <result column="total" property="total" />
+        <result column="frozen" property="frozen" />
+        <result column="user_id" property="userId" />
+        <result column="create_date" property="createDate" />
+        <result column="modified_date" property="modifiedDate" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, coin_id, total, frozen, user_id, create_date, modified_date
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.virtual.pojo.po.VirtualWallet">
+        insert into t_virtual_wallet
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="coinId != null">
+                coin_id,
+            </if>
+            <if test="total != null">
+                total,
+            </if>
+            <if test="frozen != null">
+                frozen,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="coinId != null">
+                #{coinId},
+            </if>
+            <if test="total != null">
+                #{total},
+            </if>
+            <if test="frozen != null">
+                #{frozen},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_virtual_wallet
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.virtual.pojo.po.VirtualWallet">
+        update t_virtual_wallet
+        <set>
+            <if test="coinId != null">
+                coin_id = #{coinId},
+            </if>
+            <if test="total != null">
+                total = #{total},
+            </if>
+            <if test="frozen != null">
+                frozen = #{frozen},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                modified_date = #{modifiedDate},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_virtual_wallet
+        where id = #{id}
+    </delete>
+
+    <select id="queryListVirtualWallet" resultMap="baseResultMap" parameterType="com.otc.facade.virtual.pojo.cond.VirtualWalletCond">
+        select
+        <include refid="baseColumnList" />
+        from
+        t_virtual_wallet
+        where
+        0=0
+        <if test="userId != null">
+            and
+            user_id = #{userId}
+        </if>
+        <if test="coinId != null">
+            and
+              coin_id = #{coinId}
+        </if>
+    </select>
+
+    <resultMap id="extendBaseResultMap" type="com.otc.facade.virtual.pojo.poex.VirtualWalletEx">
+        <id column="id" property="id" />
+        <result column="coinName" property="coinName" />
+        <result column="emailAddress" property="emailAddress"/>
+        <result column="realName" property="realName"/>
+        <result column="coin_id" property="coinId" />
+        <result column="total" property="total" />
+        <result column="frozen" property="frozen" />
+        <result column="user_id" property="userId" />
+        <result column="create_date" property="createDate" />
+        <result column="modified_date" property="modifiedDate" />
+    </resultMap>
+
+    <select id="queryConsoleByConditionPage" parameterType="com.otc.facade.virtual.pojo.vo.VirtualWalletVo" resultMap="extendBaseResultMap">
+        select
+        a.email_address as emailAddress,
+        b.real_name as realName,
+        d.name as coinName,
+        tvw.*
+        from t_virtual_wallet tvw
+        left join t_user a on tvw.user_id = a.id
+        left join t_user_authentication b on a.id = b.user_id
+        left join t_virtual_coin d on tvw.coin_id = d.id
+        where
+        0=0
+        <if test="coinId != null">
+            and
+            tvw.coin_id = #{coinId}
+        </if>
+        <include refid="com.otc.service.user.dao.UserCommonMapper.user-report-condition" />
+        order by tvw.modified_date desc
+    </select>
+
+
+
+    <update id="frozenAccount">
+        update t_virtual_wallet
+        set frozen = frozen+#{account},total = total - #{account}
+        where
+        user_id = #{userId}
+        and coin_id = #{coinId}
+        and total - #{account}  >= 0;
+    </update>
+
+
+    <update id="addAccount">
+        update t_virtual_wallet
+        set total = total + #{account}
+        where
+        user_id = #{userId}
+        and coin_id = #{coinId}
+    </update>
+
+
+    <update id="subtractFrozenAccount">
+        update t_virtual_wallet
+        set frozen = frozen-#{account}
+        where
+        user_id = #{userId}
+        and coin_id = #{coinId}
+        and frozen-#{account}  >= 0;
+    </update>
+
+    <update id="restoreFrozenAccount">
+        update t_virtual_wallet
+        set frozen = frozen-#{account},total = total + #{account}
+        where
+        user_id = #{userId}
+        and coin_id = #{coinId}
+        and  frozen-#{account}  >= 0;
+    </update>
+
+    <resultMap id="countVitralWalletMap" type="com.otc.facade.base.CountVoEx">
+        <result column="countName" property="countName" />
+        <result column="countTotal" property="countTotal" />
+        <result column="countTotal2" property="countTotal2" />
+    </resultMap>
+    <!--综合统计-->
+    <select id="countVitralWallet" resultMap="countVitralWalletMap">
+        select vc.short_name as countName, sum(t.total) as countTotal, sum(t.frozen) as countTotal2
+        from t_virtual_wallet t
+        left join t_virtual_coin vc on vc.id = t.coin_id
+        group by countName
+    </select>
+
+    <!--获取钱包-->
+    <select id="getByUserIdAndCoinId" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList"/>
+        from t_virtual_wallet
+        <where>
+            <if test="userId != null">
+                user_id = #{userId}
+            </if>
+            <if test="coinId != null">
+                and coin_id = #{coinId}
+            </if>
+        </where>
+    </select>
+
+</mapper>

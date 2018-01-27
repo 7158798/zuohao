@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://code.alibabatech.com/schema/dubbo  
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 消费方应用名 -->
+    <dubbo:application name="otc-api-console"/>
+
+    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <!-- |分隔表示同时连接多个不同注册中心，同一注册中心的多个集群地址用,分隔 -->
+    <dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}"/>
+
+    <!-- 监控中心协议配置 -->
+    <dubbo:monitor protocol="registry"/>
+
+    <dubbo:annotation package="com.otc.api.console.service" />
+
+</beans>

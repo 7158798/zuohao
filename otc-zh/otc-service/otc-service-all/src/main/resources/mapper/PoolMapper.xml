@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.virtual.dao.PoolMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.virtual.pojo.po.Pool">
+        <id column="id" property="id" />
+        <result column="coin_id" property="coinId" />
+        <result column="address" property="address" />
+        <result column="status" property="status" />
+        <result column="create_date" property="createDate" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, coin_id, address, status, create_date
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.virtual.pojo.po.Pool">
+        insert into t_pool
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="coinId != null">
+                coin_id,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="coinId != null">
+                #{coinId},
+            </if>
+            <if test="address != null">
+                #{address},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_pool
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.virtual.pojo.po.Pool">
+        update t_pool
+        <set>
+            <if test="coinId != null">
+                coin_id = #{coinId},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_pool
+        where id = #{id}
+    </delete>
+
+    <!-- 增加虚拟地址到池　-->
+    <insert id="saveList" parameterType="java.util.List">
+        insert into t_pool
+        (coin_id,address,status,create_date) value
+        <foreach collection="list" item="temp" separator=",">
+            (#{temp.coinId},#{temp.address},#{temp.status},#{temp.createDate})
+        </foreach>
+    </insert>
+
+    <!-- 获取一个可用的地址-->
+    <select id="queryOnePool" parameterType="java.lang.Long" resultMap="baseResultMap">
+        select
+          <include refid="baseColumnList"/>
+        from
+          t_pool
+        where
+          status = '01'
+        and
+          coin_id = #{coinId}
+        order by id asc limit 0,1
+    </select>
+
+    <resultMap id="countResultMap" type="com.otc.facade.virtual.pojo.bean.PoolBean">
+        <id column="coin_id" property="coinId" />
+        <result column="name" property="name" />
+        <result column="amount" property="amount" />
+    </resultMap>
+    <!-- 统计系统中可用的地址 -->
+    <select id="queryCountByConditionPage" parameterType="com.otc.facade.virtual.pojo.vo.PoolVo" resultMap="countResultMap" >
+        select
+            a.coin_id,
+            b. name,
+            ifnull(a.amount,0) as amount
+        from
+          t_virtual_coin b
+          inner join
+            (
+                select
+                    a.coin_id,
+                    count(a.id) as amount
+                from
+                    t_pool a
+                where
+                  0=0
+                  <if test="status != null and status != ''">
+                      and
+                        a.status = #{status}
+                  </if>
+                  <if test="coinId != null">
+                      and
+                        a.coin_id = #{coinId}
+                  </if>
+                group by
+                    a.coin_id
+            ) a on a.coin_id = b.id
+    </select>
+
+</mapper>

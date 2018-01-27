@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.trade.dao.TradeMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.trade.pojo.po.Trade">
+        <id column="id" property="id" />
+        <result column="trade_no" property="tradeNo" />
+        <result column="advert_id" property="advertId" />
+        <result column="coin_id" property="coinId" />
+        <result column="buy_user_id" property="buyUserId" />
+        <result column="sell_user_id" property="sellUserId" />
+        <result column="chart_id" property="chartId" />
+        <result column="trade_account" property="tradeAccount" />
+        <result column="trade_price" property="tradePrice" />
+        <result column="trade_amount" property="tradeAmount" />
+        <result column="trade_fee" property="tradeFee" />
+        <result column="pay_time" property="payTime" />
+        <result column="confirm_time" property="confirmTime" />
+        <result column="appeal_time" property="appealTime" />
+        <result column="pay_end_time" property="payEndTime" />
+        <result column="trade_status" property="tradeStatus" />
+        <result column="complete_time" property="completeTime" />
+        <result column="cancel_type" property="cancelType" />
+        <result column="remark" property="remark" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="judge_status" property="judgeStatus" />
+        <result column="is_appeal" property="isAppeal" />
+        <result column="remark_console" property="remarkConsole" />
+        <result column="real_account" property="realAccount" />
+
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, trade_no, advert_id, coin_id, buy_user_id, sell_user_id, chart_id, trade_account,
+        trade_price, trade_amount, trade_fee, pay_time, confirm_time, appeal_time, pay_end_time,
+        trade_status, complete_time, cancel_type, remark, create_time, update_time, judge_status,
+        is_appeal, remark_console,real_account
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.trade.pojo.po.Trade"  useGeneratedKeys="true" keyProperty="id">
+        insert into t_trade
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="tradeNo != null">
+                trade_no,
+            </if>
+            <if test="advertId != null">
+                advert_id,
+            </if>
+            <if test="coinId != null">
+                coin_id,
+            </if>
+            <if test="buyUserId != null">
+                buy_user_id,
+            </if>
+            <if test="sellUserId != null">
+                sell_user_id,
+            </if>
+            <if test="chartId != null">
+                chart_id,
+            </if>
+            <if test="tradeAccount != null">
+                trade_account,
+            </if>
+            <if test="tradePrice != null">
+                trade_price,
+            </if>
+            <if test="tradeAmount != null">
+                trade_amount,
+            </if>
+            <if test="tradeFee != null">
+                trade_fee,
+            </if>
+            <if test="payTime != null">
+                pay_time,
+            </if>
+            <if test="confirmTime != null">
+                confirm_time,
+            </if>
+            <if test="appealTime != null">
+                appeal_time,
+            </if>
+            <if test="payEndTime != null">
+                pay_end_time,
+            </if>
+            <if test="tradeStatus != null">
+                trade_status,
+            </if>
+            <if test="completeTime != null">
+                complete_time,
+            </if>
+            <if test="cancelType != null">
+                cancel_type,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="judgeStatus != null">
+                judge_status,
+            </if>
+            <if test="isAppeal != null">
+                is_appeal,
+            </if>
+            <if test="remarkConsole != null">
+                remark_console,
+            </if>
+            <if test="realAccount != null">
+                real_account,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="tradeNo != null">
+                #{tradeNo},
+            </if>
+            <if test="advertId != null">
+                #{advertId},
+            </if>
+            <if test="coinId != null">
+                #{coinId},
+            </if>
+            <if test="buyUserId != null">
+                #{buyUserId},
+            </if>
+            <if test="sellUserId != null">
+                #{sellUserId},
+            </if>
+            <if test="chartId != null">
+                #{chartId},
+            </if>
+            <if test="tradeAccount != null">
+                #{tradeAccount},
+            </if>
+            <if test="tradePrice != null">
+                #{tradePrice},
+            </if>
+            <if test="tradeAmount != null">
+                #{tradeAmount},
+            </if>
+            <if test="tradeFee != null">
+                #{tradeFee},
+            </if>
+            <if test="payTime != null">
+                #{payTime},
+            </if>
+            <if test="confirmTime != null">
+                #{confirmTime},
+            </if>
+            <if test="appealTime != null">
+                #{appealTime},
+            </if>
+            <if test="payEndTime != null">
+                #{payEndTime},
+            </if>
+            <if test="tradeStatus != null">
+                #{tradeStatus},
+            </if>
+            <if test="completeTime != null">
+                #{completeTime},
+            </if>
+            <if test="cancelType != null">
+                #{cancelType},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="judgeStatus != null">
+                #{judgeStatus},
+            </if>
+            <if test="isAppeal != null">
+                #{isAppeal},
+            </if>
+            <if test="remarkConsole != null">
+                #{remarkConsole},
+            </if>
+            <if test="realAccount != null">
+                #{realAccount}
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_trade
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.trade.pojo.po.Trade">
+        update t_trade
+        <set>
+            <if test="tradeNo != null">
+                trade_no = #{tradeNo},
+            </if>
+            <if test="advertId != null">
+                advert_id = #{advertId},
+            </if>
+            <if test="coinId != null">
+                coin_id = #{coinId},
+            </if>
+            <if test="buyUserId != null">
+                buy_user_id = #{buyUserId},
+            </if>
+            <if test="sellUserId != null">
+                sell_user_id = #{sellUserId},
+            </if>
+            <if test="chartId != null">
+                chart_id = #{chartId},
+            </if>
+            <if test="tradeAccount != null">
+                trade_account = #{tradeAccount},
+            </if>
+            <if test="tradePrice != null">
+                trade_price = #{tradePrice},
+            </if>
+            <if test="tradeAmount != null">
+                trade_amount = #{tradeAmount},
+            </if>
+            <if test="tradeFee != null">
+                trade_fee = #{tradeFee},
+            </if>
+            <if test="payTime != null">
+                pay_time = #{payTime},
+            </if>
+            <if test="confirmTime != null">
+                confirm_time = #{confirmTime},
+            </if>
+            <if test="appealTime != null">
+                appeal_time = #{appealTime},
+            </if>
+            <if test="payEndTime != null">
+                pay_end_time = #{payEndTime},
+            </if>
+            <if test="tradeStatus != null">
+                trade_status = #{tradeStatus},
+            </if>
+            <if test="completeTime != null">
+                complete_time = #{completeTime},
+            </if>
+            <if test="cancelType != null">
+                cancel_type = #{cancelType},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="judgeStatus != null">
+                judge_status = #{judgeStatus},
+            </if>
+            <if test="isAppeal != null">
+                is_appeal = #{isAppeal},
+            </if>
+            <if test="remarkConsole != null">
+                remark_console = #{remarkConsole},
+            </if>
+            <if test="realAccount != null">
+                real_account = #{realAccount},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_trade
+        where id = #{id}
+    </delete>
+
+
+    <resultMap id="countTradeMap" type="com.otc.facade.base.CountVoEx">
+        <result column="countName" property="countName" />
+        <result column="countTotal" property="countTotal" />
+        <result column="countTotal2" property="countTotal2" />
+    </resultMap>
+    <!--综合统计-->
+    <select id="countTrade" resultMap="countTradeMap">
+        select vc.short_name as countName, sum(t.trade_account) as countTotal, sum(t.trade_fee) as countTotal2
+        from t_trade t
+        left join t_virtual_coin vc on vc.id = t.coin_id
+        <where>
+            <if test="status != null and status != ''">
+                t.trade_status = #{status}
+            </if>
+            <if test="dayTime != null and dayTime != ''">
+                and t.create_time = #{dayTime}
+            </if>
+        </where>
+        group by countName;
+    </select>
+
+    <select id="getByConditionPage" resultMap="baseResultMap" parameterType="com.otc.facade.trade.pojo.vo.TradeVo">
+        select
+        <include refid="baseColumnList" />
+        from t_trade
+        where 1=1
+        <if test="tradeType == 0">
+            and (buy_user_id = #{userId}
+            or sell_user_id = #{userId})
+        </if>
+        <if test="tradeType == 1">
+            and (buy_user_id = #{userId})
+        </if>
+        <if test="tradeType == 2">
+            and (sell_user_id = #{userId})
+        </if>
+        <if test="coinId !=null">
+            and coin_id = #{coinId}
+        </if>
+
+        order by trade_status asc,create_time desc
+    </select>
+
+    <select id="getByCondition" resultMap="baseResultMap" parameterType="com.otc.facade.trade.pojo.vo.TradeVo">
+        select
+        <include refid="baseColumnList" />
+        from t_trade
+        where  1=1
+        <if test="userId !=null ">
+            AND ( buy_user_id = #{userId}
+            or sell_user_id = #{userId})
+        </if>
+        <if test="statuList != null and statuList.size() > 0">
+            AND trade_status in
+            <foreach collection="statuList" item="statuList" open="(" separator="," close=")">
+                #{statuList}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="getLastTrade" resultMap="baseResultMap" >
+        select
+        <include refid="baseColumnList" />
+        from t_trade
+        where  create_time <![CDATA[>=]]> #{today}
+        order by id desc
+        limit 1
+    </select>
+
+    <update id="cancelForTimeOut">
+        UPDATE t_trade set trade_status = '99',
+        cancel_type = #{cancelType}
+        where trade_status = '00'
+        and pay_end_time  <![CDATA[<=]]> SYSDATE()
+    </update>
+
+    <update id="cancelForTradeId">
+        UPDATE t_trade set trade_status = '99',
+        cancel_type = #{cancelType}
+        where id=#{tradeId}
+    </update>
+
+    <select id="getTimeOutList" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from t_trade
+        where  trade_status = #{cancelStatus}
+        and pay_end_time  <![CDATA[<=]]> SYSDATE()
+    </select>
+
+    <select id="getJudgeTimeOutList" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from t_trade
+        where  trade_status = #{status}
+        and complete_time  <![CDATA[<=]]> #{endTime}
+        and judge_status != #{judgeStatus}
+    </select>
+
+    <select id="getConsoleListByConditionPage" resultMap="baseResultMap" parameterType="com.otc.facade.trade.pojo.vo.TradeVo">
+        select
+        <include refid="baseColumnList" />
+        from t_trade
+        where 1=1
+            <if test="tradeNo != null and tradeNo != ''">
+                AND trade_no = #{tradeNo}
+            </if>
+            <if test="status != null ">
+                AND trade_status = #{status}
+            </if>
+            <if test="isAppeal != null ">
+                AND is_appeal = #{isAppeal}
+            </if>
+            <if test="createStart!=null and createStart!=''">
+                AND create_time  <![CDATA[>=]]> #{createStart}
+            </if>
+            <if test="createEnd!=null and createEnd!=''">
+                AND create_time  <![CDATA[<]]> #{createEnd}
+            </if>
+            <if test="completeStart!=null and completeStart!=''">
+                AND complete_time  <![CDATA[>=]]> #{completeStart}
+            </if>
+            <if test="completeEnd!=null and completeEnd!=''">
+                AND complete_time  <![CDATA[<]]> #{completeEnd}
+            </if>
+            <if test="statuList != null and statuList.size() > 0">
+                AND trade_status in
+                <foreach collection="statuList" item="statu" open="(" separator="," close=")">
+                    ${statu}
+                </foreach>
+            </if>
+            <if test="userIds != null and userIds.size() > 0">
+                AND ((buy_user_id in
+                <foreach collection="userIds" item="userId" open="(" separator="," close=")">
+                    ${userId}
+                </foreach>
+                ) or
+                (sell_user_id in
+                <foreach collection="userIds" item="userId" open="(" separator="," close=")">
+                    ${userId}
+                </foreach>
+                ))
+            </if>
+            <if test="orderType != null">
+                <if test="orderType == 1">
+                    order by create_time desc
+                </if>
+                <if test="orderType == 2">
+                    order by update_time desc
+                </if>
+                <if test="orderType == 3">
+                    order by update_time desc
+                </if>
+                <if test="orderType == 4">
+                    order by update_time desc
+                </if>
+            </if>
+
+
+
+    </select>
+
+</mapper>

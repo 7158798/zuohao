@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.virtual.dao.VirtualRecordMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.virtual.pojo.po.VirtualRecord">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="type" property="type" />
+        <result column="status" property="status" />
+        <result column="remark" property="remark" />
+        <result column="address" property="address" />
+        <result column="amount" property="amount" />
+        <result column="confirmations" property="confirmations" />
+        <result column="create_date" property="createDate" />
+        <result column="modified_date" property="modifiedDate" />
+        <result column="fees" property="fees" />
+        <result column="tx_id" property="txId" />
+        <result column="coin_id" property="coinId" />
+        <result column="reason" property="reason" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, user_id, type, status, remark, address, amount, confirmations, create_date, modified_date, 
+        fees, tx_id, coin_id, reason
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.virtual.pojo.po.VirtualRecord">
+        insert into t_virtual_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="confirmations != null">
+                confirmations,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+            <if test="fees != null">
+                fees,
+            </if>
+            <if test="txId != null">
+                tx_id,
+            </if>
+            <if test="coinId != null">
+                coin_id,
+            </if>
+            <if test="reason != null">
+                reason,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+            <if test="address != null">
+                #{address},
+            </if>
+            <if test="amount != null">
+                #{amount},
+            </if>
+            <if test="confirmations != null">
+                #{confirmations},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+            <if test="fees != null">
+                #{fees},
+            </if>
+            <if test="txId != null">
+                #{txId},
+            </if>
+            <if test="coinId != null">
+                #{coinId},
+            </if>
+            <if test="reason != null">
+                #{reason},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_virtual_record
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.virtual.pojo.po.VirtualRecord">
+        update t_virtual_record
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="amount != null">
+                amount = #{amount},
+            </if>
+            <if test="confirmations != null">
+                confirmations = #{confirmations},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                modified_date = #{modifiedDate},
+            </if>
+            <if test="fees != null">
+                fees = #{fees},
+            </if>
+            <if test="txId != null">
+                tx_id = #{txId},
+            </if>
+            <if test="coinId != null">
+                coin_id = #{coinId},
+            </if>
+            <if test="reason != null">
+                reason = #{reason},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_virtual_record
+        where id = #{id}
+    </delete>
+
+    <!--分页查询虚拟币记录-->
+    <select id="queryByConditionPage" parameterType="com.otc.facade.virtual.pojo.vo.VirtualRecordVo" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from
+        t_virtual_record
+        where
+        0=0
+        <if test="type != null and type != ''">
+            and
+            type = #{type}
+        </if>
+        <if test="status != null and status != ''">
+            and
+            status = #{status}
+        </if>
+        <if test="userId != null">
+            and
+            user_id = #{userId}
+        </if>
+        <if test="coinId != null">
+            and
+            coin_id = #{coinId}
+        </if>
+    </select>
+
+    <select id="queryListVirtualRecord" parameterType="com.otc.facade.virtual.pojo.cond.VirtualRecordCond" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from
+        t_virtual_record
+        where
+        0=0
+        <if test="type != null and type != ''">
+            and
+            type = #{type}
+        </if>
+        <if test="txId != null and txId != ''">
+            and
+            tx_id = #{txId}
+        </if>
+        <if test="userId != null">
+            and
+            user_id = #{userId}
+        </if>
+        <if test="coinId != null">
+            and
+            coin_id = #{coinId}
+        </if>
+        <if test="address != null and address != ''">
+            and
+            address = #{address}
+        </if>
+        <if test="status != null and status != ''">
+            and
+            status = #{status}
+        </if>
+        order by id desc
+    </select>
+
+    <resultMap id="extendBaseResultMap" type="com.otc.facade.virtual.pojo.poex.VirtualRecordEx">
+        <id column="id" property="id" />
+        <result column="coinName" property="coinName" />
+        <result column="emailAddress" property="emailAddress"/>
+        <result column="realName" property="realName"/>
+        <result column="user_id" property="userId" />
+        <result column="type" property="type" />
+        <result column="status" property="status" />
+        <result column="remark" property="remark" />
+        <result column="address" property="address" />
+        <result column="amount" property="amount" />
+        <result column="confirmations" property="confirmations" />
+        <result column="create_date" property="createDate" />
+        <result column="modified_date" property="modifiedDate" />
+        <result column="fees" property="fees" />
+        <result column="tx_id" property="txId" />
+        <result column="coin_id" property="coinId" />
+    </resultMap>
+
+    <select id="queryConsoleByConditionPage" resultMap="extendBaseResultMap" parameterType="com.otc.facade.virtual.pojo.vo.VirtualRecordVo">
+        select
+        a.email_address as emailAddress,
+        b.real_name as realName,
+        d.name as coinName,
+        tvr.*
+        from t_virtual_record tvr
+        left join t_user a on tvr.user_id = a.id
+        left join t_user_authentication b on a.id = b.user_id
+        left join t_virtual_coin d on tvr.coin_id = d.id
+        where
+        0=0
+        <if test="type != null and type != ''">
+            and
+            tvr.type = #{type}
+        </if>
+        <if test="status != null and status != '' ">
+            and
+            tvr.status = #{status}
+        </if>
+        <if test="statusList != null and statusList.size() > 0">
+            <foreach collection="statusList" item="item" index="index" open="and (" separator=" or " close=")">
+                tvr.status = #{statusList[${index}]}
+            </foreach>
+        </if>
+        <if test="coinId != null">
+            and
+            tvr.coin_id = #{coinId}
+        </if>
+        <if test="start!=null">
+            AND tvr.create_date  <![CDATA[>=]]> #{start}
+        </if>
+        <if test="end!=null">
+            AND tvr.create_date  <![CDATA[<]]> #{end}
+        </if>
+        <include refid="com.otc.service.user.dao.UserCommonMapper.user-report-condition" />
+        order by tvr.create_date desc
+    </select>
+
+    <resultMap id="countVitralRecordMap" type="com.otc.facade.base.CountVoEx">
+        <result column="countName" property="countName" />
+        <result column="countTotal" property="countTotal" />
+        <result column="countTotal2" property="countTotal2" />
+    </resultMap>
+    <!--综合统计-->
+    <select id="countVitralRecord" resultMap="countVitralRecordMap">
+        select vc.short_name as countName, sum(t.amount) as countTotal, sum(t.fees) as countTotal2
+        from t_virtual_record t
+        left join t_virtual_coin vc on vc.id = t.coin_id
+        <where>
+            <if test="status != null and status != ''">
+                t.status = #{status}
+            </if>
+            <if test="type != null and type != ''">
+                and t.type = #{type}
+            </if>
+            <if test="dayTime != null and dayTime != ''">
+                and date_format(t.modified_date, '%Y-%m-%d') = #{dayTime}
+            </if>
+        </where>
+        group by countName
+    </select>
+
+</mapper>

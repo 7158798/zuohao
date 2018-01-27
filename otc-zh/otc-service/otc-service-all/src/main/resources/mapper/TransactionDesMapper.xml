@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.advertisement.dao.TransactionDesMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.advertisement.pojo.po.TransactionDes">
+        <id column="id" property="id" />
+        <result column="type" property="type" />
+        <result column="title" property="title" />
+        <result column="content" property="content" />
+        <result column="last_update_time" property="lastUpdateTime" />
+        <result column="is_delete" property="isDelete" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, type, title, content, last_update_time, is_delete
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.advertisement.pojo.po.TransactionDes">
+        insert into t_transaction_des
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="lastUpdateTime != null">
+                last_update_time,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="title != null">
+                #{title},
+            </if>
+            <if test="content != null">
+                #{content},
+            </if>
+            <if test="lastUpdateTime != null">
+                #{lastUpdateTime},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_transaction_des
+        where is_delete = 0 and id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.advertisement.pojo.po.TransactionDes">
+        update t_transaction_des
+        <set>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="lastUpdateTime != null">
+                last_update_time = #{lastUpdateTime},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete},
+            </if>
+        </set>
+        where is_delete = 0 and id = #{id}
+    </update>
+
+    <update id="delete" parameterType="java.lang.Long">
+        update t_transaction_des
+        <set>
+            is_delete = 1
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <!-- 后台获取列表 -->
+    <select id="queryCountByConditionPage" parameterType="com.otc.facade.advertisement.pojo.vo.TransactionDesVo" resultMap="baseResultMap" >
+        select
+        <include refid="baseColumnList" />
+        from t_transaction_des
+        <where>
+            is_delete = 0
+            <if test="type != null">
+                and type = #{type}
+            </if>
+        </where>
+        ORDER BY last_update_time DESC
+    </select>
+
+    <!--通过类型获取-->
+    <select id="getByTypeAndId" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from t_transaction_des
+        <where>
+            is_delete = 0
+            <if test="type != null and type != 0">
+                and type = #{type}
+            </if>
+            <if test="id != null and id != 0">
+                and id = #{id}
+            </if>
+        </where>
+    </select>
+
+</mapper>

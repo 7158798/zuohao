@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.quotes.dao.QuotesMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.quotes.pojo.po.Quotes">
+        <id column="fId" property="fid" />
+        <result column="fplatform" property="fplatform" />
+        <result column="frmb" property="frmb" />
+        <result column="fdollar" property="fdollar" />
+        <result column="frate" property="frate" />
+        <result column="fupordown" property="fupordown" />
+        <result column="fcreatetime" property="fcreatetime" />
+        <result column="fvirtualcointypeid" property="fvirtualcointypeid" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        fId, fplatform, frmb, fdollar, frate, fupordown, fcreatetime, fvirtualcointypeid
+    </sql>
+
+    <insert id="saveList"  parameterType="java.util.List">
+        insert into t_quotes
+        (fplatform, frmb, fdollar, frate, fupordown, fcreatetime, fvirtualcointypeid)
+        value
+        <foreach collection="list" item="temp" separator=",">
+            (#{temp.fplatform},#{temp.frmb},#{temp.fdollar},#{temp.frate},#{temp.fupordown},#{temp.fcreatetime},#{temp.fvirtualcointypeid})
+        </foreach>
+    </insert>
+
+    <insert id="insert" parameterType="com.otc.facade.quotes.pojo.po.Quotes">
+        insert into t_quotes
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fid != null">
+                fId,
+            </if>
+            <if test="fplatform != null">
+                fplatform,
+            </if>
+            <if test="frmb != null">
+                frmb,
+            </if>
+            <if test="fdollar != null">
+                fdollar,
+            </if>
+            <if test="frate != null">
+                frate,
+            </if>
+            <if test="fupordown != null">
+                fupordown,
+            </if>
+            <if test="fcreatetime != null">
+                fcreatetime,
+            </if>
+            <if test="fvirtualcointypeid != null">
+                fvirtualcointypeid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fid != null">
+                #{fid},
+            </if>
+            <if test="fplatform != null">
+                #{fplatform},
+            </if>
+            <if test="frmb != null">
+                #{frmb},
+            </if>
+            <if test="fdollar != null">
+                #{fdollar},
+            </if>
+            <if test="frate != null">
+                #{frate},
+            </if>
+            <if test="fupordown != null">
+                #{fupordown},
+            </if>
+            <if test="fcreatetime != null">
+                #{fcreatetime},
+            </if>
+            <if test="fvirtualcointypeid != null">
+                #{fvirtualcointypeid},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="baseColumnList" />
+        from t_quotes
+        where fId = #{fid}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.quotes.pojo.po.Quotes">
+        update t_quotes
+        <set>
+            <if test="fplatform != null">
+                fplatform = #{fplatform},
+            </if>
+            <if test="frmb != null">
+                frmb = #{frmb},
+            </if>
+            <if test="fdollar != null">
+                fdollar = #{fdollar},
+            </if>
+            <if test="frate != null">
+                frate = #{frate},
+            </if>
+            <if test="fupordown != null">
+                fupordown = #{fupordown},
+            </if>
+            <if test="fcreatetime != null">
+                fcreatetime = #{fcreatetime},
+            </if>
+            <if test="fvirtualcointypeid != null">
+                fvirtualcointypeid = #{fvirtualcointypeid},
+            </if>
+        </set>
+        where fId = #{fid}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from t_quotes
+        where fId = #{fid}
+    </delete>
+
+    <delete id="deleteAll">
+        delete from t_quotes
+    </delete>
+
+</mapper>

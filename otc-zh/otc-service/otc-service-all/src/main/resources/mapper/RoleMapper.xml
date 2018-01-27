@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.sys.dao.RoleMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.sys.pojo.po.Role">
+        <id column="id" property="id" />
+        <result column="role_name" property="roleName" />
+        <result column="description" property="description" />
+        <result column="role_mark" property="roleMark" />
+        <result column="deleted" property="deleted" />
+        <result column="create_date" property="createDate" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="modified_date" property="modifiedDate" />
+        <result column="modified_user_id" property="modifiedUserId" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, role_name, description, role_mark, deleted, create_date, create_user_id,
+        modified_date, modified_user_id
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.sys.pojo.po.Role" useGeneratedKeys="true" keyProperty="id">
+        insert into t_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="roleName != null">
+                role_name,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="roleMark != null">
+                role_mark,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+            <if test="modifiedUserId != null">
+                modified_user_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="roleName != null">
+                #{roleName},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="roleMark != null">
+                #{roleMark},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+            <if test="modifiedUserId != null">
+                #{modifiedUserId},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_role
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.sys.pojo.po.Role">
+        update t_role
+        <set>
+            <if test="roleName != null">
+                role_name = #{roleName},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="roleMark != null">
+                role_mark = #{roleMark},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId},
+            </if>
+            <if test="modifiedDate != null">
+                modified_date = #{modifiedDate},
+            </if>
+            <if test="modifiedUserId != null">
+                modified_user_id = #{modifiedUserId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_role
+        where id = #{id}
+    </delete>
+
+    <!--分页查询角色信息-->
+    <select id="queryRolePageListByConditionPage" resultMap="baseResultMap" parameterType="com.otc.facade.sys.pojo.vo.RoleVo">
+        select
+        <include refid="baseColumnList" />
+        from t_role
+        where deleted = false
+        <if test="roleName != null">
+            and role_Name  like <![CDATA[concat('%',#{roleName},'%')]]>
+        </if>
+        order by ifnull(modified_date, create_date) desc
+    </select>
+
+    <select id="queryExistsNameByAdd" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(id) from t_role where deleted = 0 and role_name = #{roleName}
+    </select>
+
+    <update id="deleteById" parameterType="java.lang.Long">
+        update t_role set deleted = 1 where id = #{id}
+    </update>
+
+    <select id="selectById" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_role
+        where id = #{id} and deleted = 0
+    </select>
+
+    <select id="queryExistsNameByUpdate" resultType="java.lang.Integer">
+        select count(id) from t_role where deleted = 0 and role_name = #{roleName} and id <![CDATA[ <>#{id} ]]>
+    </select>
+
+</mapper>

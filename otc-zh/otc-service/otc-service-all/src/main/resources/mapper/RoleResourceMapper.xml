@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.sys.dao.RoleResourceMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.sys.pojo.po.RoleResource">
+        <id column="id" property="id" />
+        <result column="role_id" property="roleId" />
+        <result column="resource_id" property="resourceId" />
+        <result column="deleted" property="deleted" />
+        <result column="create_user" property="createUser" />
+        <result column="create_date" property="createDate" />
+        <result column="modified_user" property="modifiedUser" />
+        <result column="modified_date" property="modifiedDate" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, role_id, resource_id, deleted, create_user, create_date, modified_user, modified_date
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.sys.pojo.po.RoleResource">
+        insert into t_role_resource
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="resourceId != null">
+                resource_id,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="modifiedUser != null">
+                modified_user,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="roleId != null">
+                #{roleId},
+            </if>
+            <if test="resourceId != null">
+                #{resourceId},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+            <if test="createUser != null">
+                #{createUser},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="modifiedUser != null">
+                #{modifiedUser},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_role_resource
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.sys.pojo.po.RoleResource">
+        update t_role_resource
+        <set>
+            <if test="roleId != null">
+                role_id = #{roleId},
+            </if>
+            <if test="resourceId != null">
+                resource_id = #{resourceId},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifiedUser != null">
+                modified_user = #{modifiedUser},
+            </if>
+            <if test="modifiedDate != null">
+                modified_date = #{modifiedDate},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_role_resource
+        where id = #{id}
+    </delete>
+
+    <!-- 增加虚拟地址到池　-->
+    <insert id="saveList" parameterType="java.util.List">
+        insert into t_role_resource
+        (role_id,resource_id,deleted,create_user,create_date,modified_user,modified_date) value
+        <foreach collection="list" item="temp" separator=",">
+            (#{temp.roleId},#{temp.resourceId},#{temp.deleted},#{temp.createUser},#{temp.createDate},#{temp.modifiedUser},#{temp.modifiedDate})
+        </foreach>
+    </insert>
+
+    <!-- 根据角色ID、资源id 删除角色菜单信息 -->
+    <update id="deleteByRoleIdAndResource">
+        update t_role_resource set deleted = true where role_id = #{roleId}
+        and resource_id not in
+        <foreach collection="resourceIds" item="code" open="(" close=")" separator=",">
+            #{code}
+        </foreach>
+    </update>
+
+    <select id="queryByRoleIdAndResourceId" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from t_role_resource
+        where deleted = false
+        and role_id = #{roleId}
+        and resource_id = #{resourceId}
+    </select>
+
+    <update id="deleteByRoleId" parameterType="java.lang.Long">
+        update t_role_resource set deleted = true where role_code = #{roleId}
+    </update>
+
+    <select id="queryRoleResourceByRoleId" resultMap="baseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="baseColumnList" />
+        from t_role_resource
+        where deleted = false
+        <if test="roleId != null">
+            and role_id = #{roleId}
+        </if>
+        order by create_date desc
+    </select>
+
+    <!--根据员工id获取员工可访问的菜单-->
+    <select id="queryRoleResourceByEmpId" resultMap="baseResultMap" parameterType="java.lang.Long" >
+        select distinct b.role_code as roleCode,b.menu_code as menuCode,b.operation as operation,b.search as search,c.url as menuUrl
+        from t_employee_role a
+        inner join t_role_menu b on b.role_code = a.role_code and b.deleted = 0
+        inner join t_sys_resource c on c.code = b.menu_code and c.deleted =0
+        where a.deleted = 0 and a.employee_id = #{employeeId}
+    </select>
+
+</mapper>

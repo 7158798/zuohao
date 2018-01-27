@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.user.dao.UserAssetMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.user.pojo.po.UserAsset">
+        <id column="id" property="id" />
+        <result column="record_detail" property="recordDetail" />
+        <result column="user_id" property="userId" />
+        <result column="create_date" property="createDate" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, record_detail, user_id, create_date
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.user.pojo.po.UserAsset">
+        insert into t_user_asset
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="recordDetail != null">
+                record_detail,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="recordDetail != null">
+                #{recordDetail},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_user_asset
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.user.pojo.po.UserAsset">
+        update t_user_asset
+        <set>
+            <if test="recordDetail != null">
+                record_detail = #{recordDetail},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_user_asset
+        where id = #{id}
+    </delete>
+
+</mapper>

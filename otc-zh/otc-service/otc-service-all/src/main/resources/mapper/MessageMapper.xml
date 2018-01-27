@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.message.dao.MessageMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.message.pojo.po.Message">
+        <id column="id" property="id" />
+        <result column="type" property="type" />
+        <result column="content" property="content" />
+        <result column="create_date" property="createDate" />
+        <result column="create_user" property="createUser" />
+        <result column="is_read" property="isRead" />
+        <result column="receive" property="receive" />
+        <result column="relation_id" property="relationId" />
+        <result column="content_code" property="contentCode" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, type, content, create_date, create_user, is_read, receive, relation_id, content_code
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.message.pojo.po.Message">
+        insert into t_message
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="isRead != null">
+                is_read,
+            </if>
+            <if test="receive != null">
+                receive,
+            </if>
+            <if test="relationId != null">
+                relation_id,
+            </if>
+            <if test="contentCode != null">
+                content_code,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="content != null">
+                #{content},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="createUser != null">
+                #{createUser},
+            </if>
+            <if test="isRead != null">
+                #{isRead},
+            </if>
+            <if test="receive != null">
+                #{receive},
+            </if>
+            <if test="relationId != null">
+                #{relationId},
+            </if>
+            <if test="contentCode != null">
+                #{contentCode},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_message
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.message.pojo.po.Message">
+        update t_message
+        <set>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser},
+            </if>
+            <if test="isRead != null">
+                is_read = #{isRead},
+            </if>
+            <if test="receive != null">
+                receive = #{receive},
+            </if>
+            <if test="relationId != null">
+                relation_id = #{relationId},
+            </if>
+            <if test="contentCode != null">
+                content_code = #{contentCode},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_message
+        where id = #{id}
+    </delete>
+
+    <sql id="common-filter">
+        <if test="type != null and type != ''">
+            and
+            type = #{type}
+        </if>
+        <if test="receive != null">
+            and
+            receive = #{receive}
+        </if>
+        <if test="relationId != null">
+            and
+            relation_id = #{relationId}
+        </if>
+        <if test="isRead != null">
+            and
+            is_read = #{isRead}
+        </if>
+    </sql>
+    <select id="queryByConditionPage" parameterType="com.otc.facade.message.pojo.vo.MessageVo" resultMap="baseResultMap">
+        select
+            <include refid="baseColumnList"/>
+        from
+            t_message
+        where
+            0=0
+            and date_format(create_date, '%Y-%m-%d') > #{timeStr}
+        <include refid="common-filter"/>
+        order by
+          create_date desc,id desc
+    </select>
+
+    <select id="queryListByCondition" parameterType="com.otc.facade.message.pojo.cond.MessageCond" resultMap="baseResultMap">
+        select
+          <include refid="baseColumnList"/>
+        from
+          t_message
+        where
+        0=0
+        <include refid="common-filter"/>
+        order by
+          create_date desc,id asc
+    </select>
+
+    <select id="queryChatByConditionPage" parameterType="com.otc.facade.message.pojo.vo.MessageVo" resultMap="baseResultMap">
+        select
+          <include refid="baseColumnList"/>
+        from
+            t_message
+        <where>
+            <if test="type != null and type != ''">
+                and
+                  type = #{type}
+            </if>
+            <if test="relationId != null">
+                and
+                  relation_id = #{relationId}
+            </if>
+            <if test="receive != null">
+                and (
+                  receive = #{receive}
+                or
+                  create_user = #{receive}
+                )
+            </if>
+        </where>
+    </select>
+
+    <update id="updateChatMessage">
+        <!-- 更新聊天消息-->
+        update t_message
+        set is_read = true
+        where
+            receive = #{userId}
+        and relation_id = #{relationId}
+        and is_read = false;
+    </update>
+</mapper>

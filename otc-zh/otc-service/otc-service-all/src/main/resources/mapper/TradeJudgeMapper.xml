@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.trade.dao.TradeJudgeMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.trade.pojo.po.TradeJudge">
+        <id column="id" property="id" />
+        <result column="trade_id" property="tradeId" />
+        <result column="user_id" property="userId" />
+        <result column="accept_user_id" property="acceptUserId" />
+        <result column="judge_level" property="judgeLevel" />
+        <result column="judge_context" property="judgeContext" />
+        <result column="createtime" property="createtime" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, trade_id, user_id, accept_user_id, judge_level, judge_context, createtime
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.trade.pojo.po.TradeJudge">
+        insert into t_trade_judge
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="tradeId != null">
+                trade_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="acceptUserId != null">
+                accept_user_id,
+            </if>
+            <if test="judgeLevel != null">
+                judge_level,
+            </if>
+            <if test="judgeContext != null">
+                judge_context,
+            </if>
+            <if test="createtime != null">
+                createtime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="tradeId != null">
+                #{tradeId},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="acceptUserId != null">
+                #{acceptUserId},
+            </if>
+            <if test="judgeLevel != null">
+                #{judgeLevel},
+            </if>
+            <if test="judgeContext != null">
+                #{judgeContext},
+            </if>
+            <if test="createtime != null">
+                #{createtime},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_trade_judge
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.trade.pojo.po.TradeJudge">
+        update t_trade_judge
+        <set>
+            <if test="tradeId != null">
+                trade_id = #{tradeId},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="acceptUserId != null">
+                accept_user_id = #{acceptUserId},
+            </if>
+            <if test="judgeLevel != null">
+                judge_level = #{judgeLevel},
+            </if>
+            <if test="judgeContext != null">
+                judge_context = #{judgeContext},
+            </if>
+            <if test="createtime != null">
+                createtime = #{createtime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_trade_judge
+        where id = #{id}
+    </delete>
+
+
+    <select id="selectByCondition" resultMap="baseResultMap" >
+        select
+        <include refid="baseColumnList" />
+        from t_trade_judge
+        <where>
+            <if test="tradeId != null">
+                and trade_id = #{tradeId}
+            </if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--指定特定数据库的jdbc驱动jar包的位置 -->
+    <classPathEntry location="/home/zygong/.m2/repository/mysql/mysql-connector-java/5.1.36/mysql-connector-java-5.1.36.jar"/>
+
+    <context id="tbl_user_integral_adjust_log" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+
+        <commentGenerator>
+            <property name="suppressDate" value="true" />
+            <property name="suppressAllComments" value="true" />
+            <property name="suppressFieldComments" value="false" />
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://130.252.100.116:3306/otc?useUnicode=true&amp;characterEncoding=UTF-8"
+                        userId="root" password="jcf@2016">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true" />
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.otc.facade.holiday.pojo.po" targetProject="src/main/java">
+            <property name="trimStrings" value="true" />
+            <!-- 给Model添加一个父类 -->
+            <property name="rootClass" value="com.jucaifu.common.pojo.po.BasePo"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.otc.service.withdrawfees.dao"  targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="rootInterface" value="com.jucaifu.core.dao.BaseMapper"/>
+        </javaClientGenerator>
+
+        <table tableName="t_withdrawfees" domainObjectName="Withdrawfees" />
+        <!--<table tableName="t_virtual_record" domainObjectName="VirtualRecord" />
+        <table tableName="t_virtual_wallet" domainObjectName="VirtualWallet" />-->
+    </context>
+
+</generatorConfiguration>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.user.dao.UserCommonMapper">
+    <!-- 通用查询条件 -->
+    <sql id="user-report-condition">
+        and
+          a.deleted = false
+        <if test="condition != null and condition != ''">
+            and (
+              a.id = #{condition} or b.real_name = #{condition} or a.email_address = #{condition}
+            )
+        </if>
+    </sql>
+</mapper>

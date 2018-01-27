@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.sys.dao.ResourceMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.sys.pojo.po.Resource">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="code" property="code" />
+        <result column="parent_id" property="parentId" />
+        <result column="description" property="description" />
+        <result column="order_no" property="orderNo" />
+        <result column="level" property="level" />
+        <result column="create_date" property="createDate" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, name, code, parent_id, description, order_no, level, create_date
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.sys.pojo.po.Resource">
+        insert into t_resource
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="orderNo != null">
+                order_no,
+            </if>
+            <if test="level != null">
+                level,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="code != null">
+                #{code},
+            </if>
+            <if test="parentId != null">
+                #{parentId},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="orderNo != null">
+                #{orderNo},
+            </if>
+            <if test="level != null">
+                #{level},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_resource
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.sys.pojo.po.Resource">
+        update t_resource
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="orderNo != null">
+                order_no = #{orderNo},
+            </if>
+            <if test="level != null">
+                level = #{level},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_resource
+        where id = #{id}
+    </delete>
+
+    <!-- 获取员工-->
+    <select id="queryResourceByEmpId" resultMap="baseResultMap" parameterType="java.lang.Long">
+         select distinct d.*
+        from t_employee a
+        inner join t_employee_role b on a.id = b.employee_id and b.deleted = 0
+        inner join t_role_resource c on c.deleted = 0 and c.role_id = b.role_id
+        inner join t_resource d on d.deleted = 0 and d.id = c.resource_id
+        where a.deleted = 0
+        and a.id = #{empId}
+        order by level,order_no asc
+    </select>
+
+    <select id="selectAll" resultMap="baseResultMap">
+        select
+          <include refid="baseColumnList"/>
+        from t_resource
+    </select>
+
+</mapper>

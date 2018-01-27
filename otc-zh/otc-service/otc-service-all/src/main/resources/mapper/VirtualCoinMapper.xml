@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.virtual.dao.VirtualCoinMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.virtual.pojo.po.VirtualCoin">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="short_name" property="shortName" />
+        <result column="access_key" property="accessKey" />
+        <result column="secret_key" property="secretKey" />
+        <result column="ip" property="ip" />
+        <result column="port" property="port" />
+        <result column="is_with_draw" property="isWithDraw" />
+        <result column="is_recharge" property="isRecharge" />
+        <result column="is_auto" property="isAuto" />
+        <result column="status" property="status" />
+        <result column="create_date" property="createDate" />
+        <result column="modified_date" property="modifiedDate" />
+        <result column="start_block" property="startBlock" />
+        <result column="main_address" property="mainAddress" />
+        <result column="icon_url" property="iconUrl" />
+        <result column="trade_fees" property="tradeFees" />
+        <result column="low_trade_fees" property="lowTradeFees" />
+        <result column="recharge_fees" property="rechargeFees" />
+        <result column="low_recharge_fees" property="lowRechargeFees" />
+        <result column="withdraw_fees" property="withdrawFees" />
+        <result column="low_withdraw_fees" property="lowWithdrawFees" />
+        <result column="single_low_recharge" property="singleLowRecharge" />
+        <result column="single_high_recharge" property="singleHighRecharge" />
+        <result column="day_high_recharge" property="dayHighRecharge" />
+        <result column="single_low_withdraw" property="singleLowWithdraw" />
+        <result column="single_high_withdraw" property="singleHighWithdraw" />
+        <result column="day_high_withdraw" property="dayHighWithdraw" />
+        <result column="icon_url2" property="iconUrl2" />
+        <result column="withdraw_des" property="withdrawDes" />
+        <result column="recharge_des" property="rechargeDes" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, name, short_name, access_key, secret_key, ip, port, is_with_draw, is_recharge, 
+        is_auto, status, create_date, modified_date, start_block, main_address, icon_url, 
+        trade_fees, low_trade_fees, recharge_fees, low_recharge_fees, withdraw_fees, low_withdraw_fees, 
+        single_low_recharge, single_high_recharge, day_high_recharge, single_low_withdraw, 
+        single_high_withdraw, day_high_withdraw, icon_url2, withdraw_des, recharge_des
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.virtual.pojo.po.VirtualCoin">
+        insert into t_virtual_coin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="shortName != null">
+                short_name,
+            </if>
+            <if test="accessKey != null">
+                access_key,
+            </if>
+            <if test="secretKey != null">
+                secret_key,
+            </if>
+            <if test="ip != null">
+                ip,
+            </if>
+            <if test="port != null">
+                port,
+            </if>
+            <if test="isWithDraw != null">
+                is_with_draw,
+            </if>
+            <if test="isRecharge != null">
+                is_recharge,
+            </if>
+            <if test="isAuto != null">
+                is_auto,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+            <if test="startBlock != null">
+                start_block,
+            </if>
+            <if test="mainAddress != null">
+                main_address,
+            </if>
+            <if test="iconUrl != null">
+                icon_url,
+            </if>
+            <if test="tradeFees != null">
+                trade_fees,
+            </if>
+            <if test="lowTradeFees != null">
+                low_trade_fees,
+            </if>
+            <if test="rechargeFees != null">
+                recharge_fees,
+            </if>
+            <if test="lowRechargeFees != null">
+                low_recharge_fees,
+            </if>
+            <if test="withdrawFees != null">
+                withdraw_fees,
+            </if>
+            <if test="lowWithdrawFees != null">
+                low_withdraw_fees,
+            </if>
+            <if test="singleLowRecharge != null">
+                single_low_recharge,
+            </if>
+            <if test="singleHighRecharge != null">
+                single_high_recharge,
+            </if>
+            <if test="dayHighRecharge != null">
+                day_high_recharge,
+            </if>
+            <if test="singleLowWithdraw != null">
+                single_low_withdraw,
+            </if>
+            <if test="singleHighWithdraw != null">
+                single_high_withdraw,
+            </if>
+            <if test="dayHighWithdraw != null">
+                day_high_withdraw,
+            </if>
+            <if test="iconUrl2 != null">
+                icon_url2,
+            </if>
+            <if test="withdrawDes != null">
+                withdraw_des,
+            </if>
+            <if test="rechargeDes != null">
+                recharge_des,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="shortName != null">
+                #{shortName},
+            </if>
+            <if test="accessKey != null">
+                #{accessKey},
+            </if>
+            <if test="secretKey != null">
+                #{secretKey},
+            </if>
+            <if test="ip != null">
+                #{ip},
+            </if>
+            <if test="port != null">
+                #{port},
+            </if>
+            <if test="isWithDraw != null">
+                #{isWithDraw},
+            </if>
+            <if test="isRecharge != null">
+                #{isRecharge},
+            </if>
+            <if test="isAuto != null">
+                #{isAuto},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+            <if test="startBlock != null">
+                #{startBlock},
+            </if>
+            <if test="mainAddress != null">
+                #{mainAddress},
+            </if>
+            <if test="iconUrl != null">
+                #{iconUrl},
+            </if>
+            <if test="tradeFees != null">
+                #{tradeFees},
+            </if>
+            <if test="lowTradeFees != null">
+                #{lowTradeFees},
+            </if>
+            <if test="rechargeFees != null">
+                #{rechargeFees},
+            </if>
+            <if test="lowRechargeFees != null">
+                #{lowRechargeFees},
+            </if>
+            <if test="withdrawFees != null">
+                #{withdrawFees},
+            </if>
+            <if test="lowWithdrawFees != null">
+                #{lowWithdrawFees},
+            </if>
+            <if test="singleLowRecharge != null">
+                #{singleLowRecharge},
+            </if>
+            <if test="singleHighRecharge != null">
+                #{singleHighRecharge},
+            </if>
+            <if test="dayHighRecharge != null">
+                #{dayHighRecharge},
+            </if>
+            <if test="singleLowWithdraw != null">
+                #{singleLowWithdraw},
+            </if>
+            <if test="singleHighWithdraw != null">
+                #{singleHighWithdraw},
+            </if>
+            <if test="dayHighWithdraw != null">
+                #{dayHighWithdraw},
+            </if>
+            <if test="iconUrl2 != null">
+                #{iconUrl2},
+            </if>
+            <if test="withdrawDes != null">
+                #{withdrawDes},
+            </if>
+            <if test="rechargeDes != null">
+                #{rechargeDes},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_virtual_coin
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.virtual.pojo.po.VirtualCoin">
+        update t_virtual_coin
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="shortName != null">
+                short_name = #{shortName},
+            </if>
+            <if test="accessKey != null">
+                access_key = #{accessKey},
+            </if>
+            <if test="secretKey != null">
+                secret_key = #{secretKey},
+            </if>
+            <if test="ip != null">
+                ip = #{ip},
+            </if>
+            <if test="port != null">
+                port = #{port},
+            </if>
+            <if test="isWithDraw != null">
+                is_with_draw = #{isWithDraw},
+            </if>
+            <if test="isRecharge != null">
+                is_recharge = #{isRecharge},
+            </if>
+            <if test="isAuto != null">
+                is_auto = #{isAuto},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                modified_date = #{modifiedDate},
+            </if>
+            <if test="startBlock != null">
+                start_block = #{startBlock},
+            </if>
+            <if test="mainAddress != null">
+                main_address = #{mainAddress},
+            </if>
+            <if test="iconUrl != null">
+                icon_url = #{iconUrl},
+            </if>
+            <if test="tradeFees != null">
+                trade_fees = #{tradeFees},
+            </if>
+            <if test="lowTradeFees != null">
+                low_trade_fees = #{lowTradeFees},
+            </if>
+            <if test="rechargeFees != null">
+                recharge_fees = #{rechargeFees},
+            </if>
+            <if test="lowRechargeFees != null">
+                low_recharge_fees = #{lowRechargeFees},
+            </if>
+            <if test="withdrawFees != null">
+                withdraw_fees = #{withdrawFees},
+            </if>
+            <if test="lowWithdrawFees != null">
+                low_withdraw_fees = #{lowWithdrawFees},
+            </if>
+            <if test="singleLowRecharge != null">
+                single_low_recharge = #{singleLowRecharge},
+            </if>
+            <if test="singleHighRecharge != null">
+                single_high_recharge = #{singleHighRecharge},
+            </if>
+            <if test="dayHighRecharge != null">
+                day_high_recharge = #{dayHighRecharge},
+            </if>
+            <if test="singleLowWithdraw != null">
+                single_low_withdraw = #{singleLowWithdraw},
+            </if>
+            <if test="singleHighWithdraw != null">
+                single_high_withdraw = #{singleHighWithdraw},
+            </if>
+            <if test="dayHighWithdraw != null">
+                day_high_withdraw = #{dayHighWithdraw},
+            </if>
+            <if test="iconUrl2 != null">
+                icon_url2 = #{iconUrl2},
+            </if>
+            <if test="withdrawDes != null">
+                withdraw_des = #{withdrawDes},
+            </if>
+            <if test="rechargeDes != null">
+                recharge_des = #{rechargeDes},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_virtual_coin
+        where id = #{id}
+    </delete>
+
+    <select id="queryCountByConditionPage" resultMap="baseResultMap" parameterType="com.otc.facade.virtual.pojo.vo.VirtualCoinVo">
+        select
+        <include refid="baseColumnList"/>
+        from
+        t_virtual_coin
+        where
+        0 = 0
+        <if test="coinId != null">
+            and
+            id = #{coinId}
+        </if>
+        order by id
+    </select>
+
+    <select id="queryListByCondition" resultMap="baseResultMap" parameterType="com.otc.facade.virtual.pojo.cond.VirtualCoinCond">
+        select
+        <include refid="baseColumnList"/>
+        from
+        t_virtual_coin
+        where
+        0 = 0
+        <if test="status != null and status != ''">
+            and
+            status = #{status}
+        </if>
+    </select>
+
+    <select id="queryListByShortName" resultMap="baseResultMap" parameterType="com.otc.facade.virtual.pojo.po.VirtualCoin">
+        select
+        <include refid="baseColumnList"/>
+        from
+        t_virtual_coin
+        where
+        short_name=#{shortName}
+    </select>
+
+</mapper>

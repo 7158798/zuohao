@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otc.service.sys.dao.EmployeeMapper">
+    <resultMap id="baseResultMap" type="com.otc.facade.sys.pojo.po.Employee">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="login_name" property="loginName" />
+        <result column="password" property="password" />
+        <result column="salt" property="salt" />
+        <result column="phone_number" property="phoneNumber" />
+        <result column="deleted" property="deleted" />
+        <result column="status" property="status" />
+        <result column="create_date" property="createDate" />
+        <result column="create_user" property="createUser" />
+        <result column="modified_date" property="modifiedDate" />
+        <result column="modified_user" property="modifiedUser" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, name, login_name, password, salt, phone_number, deleted, status, create_date, 
+        create_user, modified_date, modified_user
+    </sql>
+
+    <insert id="insert" parameterType="com.otc.facade.sys.pojo.po.Employee">
+        insert into t_employee
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="loginName != null">
+                login_name,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="salt != null">
+                salt,
+            </if>
+            <if test="phoneNumber != null">
+                phone_number,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+            <if test="modifiedUser != null">
+                modified_user,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="loginName != null">
+                #{loginName},
+            </if>
+            <if test="password != null">
+                #{password},
+            </if>
+            <if test="salt != null">
+                #{salt},
+            </if>
+            <if test="phoneNumber != null">
+                #{phoneNumber},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="createUser != null">
+                #{createUser},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+            <if test="modifiedUser != null">
+                #{modifiedUser},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_employee
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.otc.facade.sys.pojo.po.Employee">
+        update t_employee
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="loginName != null">
+                login_name = #{loginName},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="salt != null">
+                salt = #{salt},
+            </if>
+            <if test="phoneNumber != null">
+                phone_number = #{phoneNumber},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser},
+            </if>
+            <if test="modifiedDate != null">
+                modified_date = #{modifiedDate},
+            </if>
+            <if test="modifiedUser != null">
+                modified_user = #{modifiedUser},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_employee
+        where id = #{id}
+    </delete>
+
+    <!--添加时判断登录名是否存在-->
+    <select id="queryExistsLoginNameByAdd" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(id) from t_employee where deleted = 0 and login_name = #{loginName}
+    </select>
+    <!--修改时判断登录名是否存在-->
+    <select id="queryExistsLoginNameByUpdate" resultType="java.lang.Integer">
+        select count(id) from t_employee where deleted = 0 and login_name = #{loginName} and id <![CDATA[ <>#{id} ]]>
+    </select>
+    <!-- -->
+    <select id="queryEmployeeByConditionPage" resultMap="baseResultMap" parameterType="com.otc.facade.sys.pojo.vo.EmployeeVo">
+        select
+            *
+        from
+            t_employee
+        where
+            0 = 0
+            <if test="employeeName != null and employeeName != ''">
+                and
+                  name like concat('%',#{employeeName},'%')
+            </if>
+    </select>
+    <select id="getEmployeeByLoginName" parameterType="java.lang.String" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList"/>
+        from t_employee
+        where login_name = #{value}
+    </select>
+</mapper>
