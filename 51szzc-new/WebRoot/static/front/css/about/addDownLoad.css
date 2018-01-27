@@ -1,0 +1,257 @@
+#allheader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: #000;
+}
+.addDownLoad-banner {
+	margin-bottom: 240px;
+	width: 100%;
+	height: 650px;
+	background: url('../../images/about/addDownLoad/banner_zh_CN.png') no-repeat top center;
+	background-size: auto 100%;
+}
+.en .addDownLoad-banner {
+	background: url('../../images/about/addDownLoad/banner_en.png') no-repeat top center;
+}
+.addDownLoad-banner .container {
+	position: relative;
+	height: 650px;
+}
+.iphone-btn, .android-btn {
+	position: absolute;
+	right: 300px;
+	display: block;
+	width: 250px;
+	height: 90px;
+}
+.iphone-btn {
+	top: 370px;
+}
+.android-btn {
+	top: 440px;
+}
+.iphone-btn img, .android-btn img {
+	width: 100%;
+}
+.addDownLoad-qr {
+	position: absolute;
+	top: 380px;
+	right: 100px;
+	width: 138px;
+	height: 138px;
+}
+.addDownLoad-phone {
+	position: absolute;
+	top: 180px;
+	left: 100px;
+	width: 300px;
+}
+.addDownLoad-steps {
+}
+.addDownLoadTitle {
+	position: relative;
+	margin-bottom: 70px;
+}
+.addDownLoadTitle h1 {
+	margin: 0;
+	font-size: 40px;
+	color: #4d4d4d;
+}
+.addDownLoadTitle p {
+	font-size: 18px;
+	color: #808080;
+}
+.addDownLoadTitle::before, .addDownLoadTitle::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%);
+	display: block;
+	width: 160px;
+	height: 1px;
+	background: #808080;
+}
+.addDownLoadTitle::before {
+	margin-left: -240px;
+}
+.addDownLoadTitle::after {
+	margin-left: 240px;
+}
+.iphone-step, .android-step {
+	position: relative;
+	height: 840px;
+	padding-top: 40px;
+}
+.iphone-step {
+	background: #ecf6ff;
+}
+.android-step {
+	background: #4db3ff;
+}
+.stepSubTitle {
+	margin-bottom: 20px;
+	font-size: 24px;
+	height: 24px;
+	text-indent: 20px;
+	line-height: 24px;
+	border-left: 8px solid #fff;
+}
+.iphone-step .stepSubTitle {
+	border-color: #298cff;
+	color: #4d4d4d;
+}
+.android-step .stepSubTitle {
+	border-color: #fff;
+	color: #fff;
+}
+.step-navs {
+	margin-bottom: 108px;
+	text-align: center;
+}
+.step-dot {
+	position: relative;
+	margin-right: 34px;
+	display: inline-block;
+	height: 32px;
+	width: 32px;
+	font-size: 18px;
+	color: #f8f8f8;
+	line-height: 32px;
+	text-align: center;
+	border-radius: 50%;
+}
+.step-dot:not(:last-child)::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 100%;
+	width: 38px;
+	height: 1px;
+	transform: translateY(-50%);
+	background: currentcolor;
+}
+.step-dot--iphone {
+	background: #b5b5b5;
+}
+.step-dot--iphone:not(:last-child)::after {
+	background: #b5b5b5;
+}
+.step-dot--android {
+	border: 1px solid #fff;
+	background: transparent;
+}
+.step-dot--android:not(:last-child)::after {
+	background: #fff;
+}
+.step-dot--iphone.active {
+	background: #2a86fe;
+}
+.step-dot--android.active {
+	background: #fff;
+	color: #4db3ff;
+}
+.step-stages {
+	margin: 0 auto;
+	width: 1000px;
+	height: 615px;
+}
+.step-stage {
+	position: relative;
+	width: 100%;
+	height: 615px !important;
+}
+.step-stage-pic {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	height: 615px;
+}
+.step-stage-tips {
+	position: absolute;
+	top: 280px;
+	left: 80px;
+	font-size: 20px;
+}
+.step-stage-tips span {
+	color: #0075ff;
+}
+.slick-prev {
+	left: -70px;
+}
+.slick-next {
+	right: -70px;
+}
+.slick-prev, .slick-next {
+	width: 60px;
+	height: 60px;
+}
+.iphone-step .slick-prev::before, .iphone-step .slick-next::before {
+	font-size: 60px;
+	color: #b5b5b5;
+}
+.android-step .step-stage-tips {
+	left: 700px;
+	color: #fff;
+}
+.android-step .step-stage-tips span {
+	color: #fff;
+}
+.android-step .step-stage-pic {
+	left: 100px;
+}
+.android-step .slick-prev::before, .android-step .slick-next::before {
+	font-size: 60px;
+	color: #fff;
+}
+.addDownLoad-needs {
+	padding: 114px 0;
+	background: #f8f8f8;
+}
+.addDownLoad-needs .addDownLoadTitle::before {
+	margin-left: -360px;
+}
+.addDownLoad-needs .addDownLoadTitle::after {
+	margin-left: 360px;
+}
+.addDownLoad-needInfo {
+	margin-top: 84px;
+}
+.addDownLoad-needPic {
+	width: 606px;
+}
+.addDownLoad-needItems {
+	margin-top: 60px;
+	margin-left: 90px;
+}
+.addDownLoad-needItem {
+	margin: 60px 0;
+	color: #4c4c4c;
+	width: 400px;
+	height: 80px;
+}
+.addDownLoad-needItem h3 {
+	margin-bottom: 8px;
+	color: #00a0e9;
+	font-size: 18px;
+}
+.addDownLoad-needItem img {
+	margin-right: 24px;
+	width: 90px;
+}
+.addDownLoad-needItem p {
+	margin-bottom: 6px;
+}
+.step-stage-qr {
+	position: absolute;
+	top: 200px;
+	width: 200px;
+}
+.iphone-step .step-stage-qr {
+	left: 506px;
+}
+.android-step .step-stage-qr {
+	left: 360px;
+}

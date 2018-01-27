@@ -1,0 +1,122 @@
+body {
+	min-width: 1170px;
+}
+#allheader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, .6);
+	z-index: 10;
+	width: 100%;
+}
+.support > div {
+	position: relative;
+	background: no-repeat center top;
+	background-size: auto 100%;
+	width: 100%;
+	overflow: hidden;
+}
+.support img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.support .support-banner {
+	padding-top: 48%;
+	background-image: url('../../images/support/yop_banner_bg.jpg');
+}
+.support-bannerInner {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 70%;
+}
+.support-strengths, .support-scene {
+	padding-top: 48%;
+}
+.support-strengthsInner, .support-sceneInner {
+	position: absolute;
+	top: 5%;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 70%;
+}
+.support .support-scene {
+	background-image: url('../../images/support/scenarios_bg.jpg');
+}
+.support-tabNavs {
+	padding: 25px 0;
+	line-height: 20px;
+	background: #fff;
+	font-size: 14px;
+}
+.support-tabNavs .container {
+	padding-left: 100px;
+}
+.support-tabNavs span {
+	margin-right: 220px;
+	font-size: 20px;
+	color: #007FD8;
+}
+.support-tabNav {
+	position: relative;
+	display: inline-block;
+	margin-right: 70px;
+	color: #00132D;
+	transition: all ease .3s;
+}
+.support-tabNav.active, .support-tabNav:hover {
+	color: #40AEF9;
+	text-decoration: none;
+}
+.support-tabNav.active::after, .support-tabNav:hover::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: -6px;
+	width: 100%;
+	height: 2px;
+	background: currentcolor;
+}
+.support-tabItems {
+	position: relative;
+	padding: 15px 0;
+	height: 560px;
+	background: #F4F4F4;
+	background-image: linear-gradient(-180deg, #40AEF9 0%, #40AEF9 100%);
+}
+.support .support-tabItem {
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+.support-tabItem.active {
+	display: block;
+}
+.support-tabItem1 {
+	height: 490px;
+}
+.support-tabItem2 {
+	height: 500px;
+}
+.support-tabItem3 {
+	height: 460px;
+}
+.support-tabItem4 {
+	height: 475px;
+}
+.support .support-footer {
+	padding-top: 14%;
+	background-image: url('../../images/support/bottom_nav_bg.jpg');
+}
+.support-footerInner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 70%;
+}

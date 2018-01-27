@@ -1,0 +1,173 @@
+@charset "utf-8";
+
+/*头部图片*/
+body {
+    overflow-y: scroll;
+    /*height: 1000px;*/
+}
+.active-top {
+    width:100%;
+}
+.active-top .active-to {
+    width: 100%;
+}
+.active-top .active-to img {
+    display: block;
+    width:100%;
+}
+/*表单信息*/
+.ap-fo {
+    width:100%;
+    padding:35px 18px 0;
+}
+.ap-fo .ap-detail {
+    margin-bottom:15px;
+}
+.ap-fo .ap-con {
+    padding:15px 0;
+}
+.ap-fo .ap-con .text-down {
+    position: relative;
+}
+.ap-fo .ap-con .text-down .down-toggle {
+    width:100%;
+    display: none;
+    background: #5fa8fa !important;
+    position: absolute;
+    left:0;
+    top:23px;
+    rgba(225,225,0,0.3);
+    color:#fff;
+}
+.ap-fo .ap-con .text-down .down-toggle .num1 {
+    border-bottom: 1px solid #fff;
+}
+.ap-fo .ap-con .ap-text {
+    width: 20%;
+    color:#5fa8fa;
+}
+.ap-fo .ap-con .ap-val {
+    width: 75%;
+    padding-left:10px;
+}
+.ap-fo .ap-con .ap-value {
+    width:55%;
+}
+.ap-fo .ap-con .ap-sel {
+    width:18%;
+    height: 23px;
+    background-color:#0a7cd1;
+    color:#fff;
+    background-color: #0a7cd1;
+    float: left;
+    border:none;
+}
+/*上传*/
+.ap-send {
+    width:100%;
+    padding:18px 0;
+}
+.ap-send .send-top {
+    width:100%;
+    padding:10px 0;
+}
+.ap-send .send-top .top-pic {
+    width:20%;
+    color:#0a7cd1;
+}
+.ap-send .send-top .top-bt {
+    width:40%;
+    height:30px;
+    background-color: #0a7cd1;
+    color:#fff;
+    border:none;
+    border-radius:2px;
+}
+.ap-send .send-top .top-send {
+    width:30%;
+    color:#0a7cd1;
+}
+.ap-send .format {
+    width:100%;
+    box-sizing: border-box;
+    padding-bottom:10px;
+}
+.ap-send .format .for-left {
+    width:20%;
+}
+.ap-send .format .for-right {
+    width:80%;
+    color:#0a7cd1;
+}
+.ap-send .send-center {
+    width:65%;
+    height:128px;
+    padding:10px 0;
+    background-color: #f2f5f5;
+    margin-left:60px;
+    position: relative;
+    background-size: 100% 100%;
+}
+.ap-send .send-center .center-add {
+    display: block;
+    border:none;
+    width:36px;
+    height:35px;
+    background:url("../../images/mobile/e-active/icon.png") no-repeat;
+    position: absolute;
+    left:50%;
+    top:50%;
+    margin-left:-18px;
+    margin-top:-17px;
+}
+/*提交*/
+.ac-contribute {
+    width:100%;
+    padding:50px 0;
+}
+.ac-contribute .ac-click {
+    display: block;
+    height: 50px;
+    width: 75%;
+    text-align: center;
+    line-height: 50px;
+    margin:0 auto;
+    border-radius: 25px;
+    background:url("../../images/mobile/e-active/button_default.png") no-repeat;
+    background-size:100% 50px;
+    font-size:16px;
+    color:#fff;
+    border:none;
+}
+/*提交成功*/
+.sub-suc {
+    margin-top:100px;
+    height:250px;
+    display: none;
+}
+.sub-suc .sub-pic {
+    width:50px;
+    height:50px;
+    margin:0 auto;
+}
+.sub-suc .sub-pic img {
+    width:100%;
+}
+.sub-suc .sub-ok {
+    width:100px;
+    height:45px;
+    margin: 0 auto;
+    text-align: center;
+    font-size:16px;
+    box-sizing: border-box;
+    padding-top:15px;
+    color:#55a1fb;
+}
+.sub-suc .sub-con {
+    margin-top:50px;
+}
+.sub-suc .sub-con>div {
+    padding:5px 0;
+    margin:0 auto;
+    text-align: center;
+}

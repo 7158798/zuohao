@@ -1,0 +1,204 @@
+@charset "utf-8";
+/*顶部*/
+body {
+    overflow-y: scroll;
+    /*height:2200px;*/
+    /*background-color: #eefdff;*/
+}
+.active-top {
+    width:100%;
+    background-color: #eefdff;
+}
+.active-top .active-to {
+    width: 100%;
+}
+.active-top .active-to img {
+    display: block;
+    width:100%;
+}
+/*投稿*/
+.ac-contribute {
+    width:100%;
+    padding:50px 0;
+    background-color: #eefdff;
+}
+.ac-contribute .ac-click {
+    display: block;
+    height: 50px;
+    width: 75%;
+    text-align: center;
+    line-height: 50px;
+    margin:0 auto;
+    border-radius: 25px;
+    background:url("../../images/mobile/e-active/button_default.png") no-repeat;
+    background-size:100% 50px;
+    font-size:20px;
+    color:#fff;
+    font-weight: 100;
+    }
+
+.ac-detail {
+    width: 100%;
+    height: 184px;
+    position: relative;
+    margin:0 auto;
+}
+.ac-detail img {
+    width:100%;
+}
+.ac-detail .ac-de-text {
+    position: absolute;
+    margin-top:20px;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+}
+.ac-detail p {
+    width:100%;
+    text-align: center;
+    font-size:14px;
+    line-height: 22px;
+    margin:0px;
+    color:#fff;
+}
+.ac-detail span {
+    color:#eeed40;
+}
+/*参赛方式*/
+.ac-conpec {
+    padding: 0px 20px;
+    margin-top:30px;
+}
+.ac-conpec .ac-play {
+    border-left: 5px solid #5fa8fa;
+    padding-left:5px;
+    line-height: 20px;
+    color: #5fa8fa;
+}
+.ac-conpec .ac-article {
+    padding: 10px;
+    color:#333;
+}
+/*奖品设置*/
+.ac-setPrize {
+    padding:10px;
+    background-color: #eefdff;
+    box-sizing: border-box;
+}
+.ac-setPrize .ac-setTop {
+    width:27%;
+    height:25px;
+    margin:25px auto;
+    background:url("../../images/mobile/e-active/image_default.png") no-repeat;
+    background-size:100% 100%;
+    font-size:16px;
+    text-align: center;
+    line-height: 25px;
+    color:#fff;
+}
+.ac-setPrize .ac-setBot {
+    width:100%;
+    /*padding-bottom:25px;*/
+    border-bottom:1px solid #0a7cd1;
+}
+.ac-setPrize .ac-setBot .ac-firstPrize {
+    width:33%;
+    float: left;
+    padding-bottom:20px;
+}
+.ac-setPrize .ac-firstPrize>div {
+    font-size:16px;
+    text-align: center;
+    line-height: 32px;
+}
+.ac-setPrize .ac-firstPrize .money {
+    color:#55a1fb;
+}
+/*奖品描述*/
+.ac-des {
+    font-size:16px;
+    color:#fd4142;
+    padding:10px 15px;
+    background-color: #eefdff;
+}
+/*征文要求*/
+.ac-req {
+    width:27%;
+    height:25px;
+    margin:25px auto;
+    background:url("../../images/mobile/e-active/image_default.png") no-repeat;
+    background-size:100% 100%;
+    font-size:16px;
+    text-align: center;
+    line-height: 25px;
+    color:#fff;
+}
+.ac-pad {
+    width:100%;
+    padding:3%;
+}
+.ac-req-det {
+    width:100%;
+    background-color: #eefdff;
+    position: relative;
+}
+.ac-req-det img {
+    width:100%;
+}
+.ac-req-det .ac-con {
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    top: 50%;
+    margin-left: -50%;
+    margin-top: -120px;
+    padding: 30px 17px 30px 25px;
+    box-sizing: border-box;
+}
+ .ac-req-det .ac-con .num {
+     font-size:12px;
+     line-height: 17px;
+     margin: 0 auto;
+     color:#000;
+ }
+.ac-school {
+    width:27%;
+    height:25px;
+    margin:25px auto;
+    font-size:16px;
+    text-align: center;
+    line-height: 25px;
+    color:#000;
+}
+.ac-erCode {
+    width:100%;
+    height:130px;
+    padding:0 20px;
+    margin:25px auto;
+}
+.ac-erCode img {
+    width:100%;
+}
+.ac-bottom {
+    width:100%;
+    height:60px;
+    margin:50px auto;
+    position: relative;
+    margin-bottom:0px;
+}
+.ac-bottom img {
+    width:100%;
+
+}
+.ac-bottom .ac-text {
+    width:100%;
+    position: absolute;
+    left:50%;
+    top:35%;
+    margin-left:-50%;
+    text-align: center;
+    color:#fff;
+}
+
+

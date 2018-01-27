@@ -1,0 +1,325 @@
+@charset "utf-8";
+
+.user .user-top-icon {
+    background: #f2f5fb;
+    height: 120px;
+    padding-top: 23px;
+}
+.user .top-icon {
+    background: url("../../images/user/userplist.png") no-repeat 0 0;
+    width: 75px;
+    height: 75px;
+    display: inline-block;
+}
+.user .top-title1 {
+    font-size: 20px;
+    color: #4c4c4c;
+    margin-right: 10px;
+    display: inline-block;
+    font-weight: bold;
+}
+.user .top-title2 {
+    font-size: 16px;
+    color: #8b8b8b;
+    margin-right: 10px;
+    display: inline-block;
+}
+.user .top-title3 {
+    font-size: 16px;
+    color: #8b8b8b;
+    margin-right: 10px;
+    display: inline-block;
+}
+.user .top-title4 {
+    border-bottom: 1px solid #cdcdce;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    color: #888;
+    padding-top: 6px;
+}
+.user .top-title5 {
+    color: #888;
+}
+.user .top-title6 {
+    color: #834765;
+    font-size: 14px;
+}
+.user_levelTop {
+    display: inline-block;
+    width: 70px;
+    height: 25px;
+    text-indent: 30px;
+    color: #fff;
+    line-height: 27px;
+    background: url('../../images/user/Vip_@2X.png') no-repeat center;
+    background-size: 100%;
+}
+.top-vipMember {
+    font-size: 15px;
+    color: #8b8b8b;
+}
+.user .con-items {
+    width: 32%;
+    padding-top: 30px;
+    float: left;
+}
+.user .con-items .title  a.text-link:hover {
+    opacity: .8;
+    text-decoration: none;
+}
+.user .con-items .title a.bind {
+    color: #ff5353;
+    position: absolute;
+    right: 20px;
+    outline: none;
+    text-decoration: none;
+    font-size: 12px;
+}
+.user .con-items .title a.update {
+    color: #81aeff;
+    position: absolute;
+    right: 20px;
+    outline: none;
+    text-decoration: none;
+    font-size: 12px;
+}
+.user .con-items .content {
+    background: #fff;
+    height: 110px;
+}
+.user .con-items .content-lt {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    line-height: 110px;
+    float: left;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.content-warning {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    bottom: 10px;
+    right: 7px;
+}
+.taskTop {
+    margin-top: 70px;
+    margin-bottom: 20px;
+}
+.taskTopLeft {
+    float: left;
+    width: 9px;
+    height: 28px;
+    background-color: #9fc1ff;
+    border-radius: 10px;
+}
+.taskTopMiddle {
+    font-size: 22px;
+    color: #808080;
+}
+.taskTopRight {
+    width: 400px;
+    height: 2px;
+    background-color: #9fc1ff;
+    margin-top: 22px;
+    margin-left: -20px;
+}
+.content-lt {
+    background-size: 94px 94px;
+}
+.content-lt .mobile {
+    width: 94px;
+    height: 94px;
+    background: url("../../images/user/Phone_ico@2X.png") center center;
+    background-size: 94px 94px;
+}
+.content-lt .emails {
+    width: 94px;
+    height: 94px;
+    background: url("../../images/user/Email_ico@2X.png") center center;
+    background-size: 94px 94px;
+}
+.content-lt .identity {
+    width: 94px;
+    height: 94px;
+    background: url("../../images/user/Certification_ico@2X.png") center center;
+    background-size: 94px 94px;
+}
+.content-lt .bankcard {
+    width: 94px;
+    height: 94px;
+    background: url("../../images/user/Bankcard_ico@2X.png") center center;
+    background-size: 94px 94px;
+}
+.content-lt .pwdWord {
+    width: 94px;
+    height: 94px;
+    background: url("../../images/user/Password_icon@2X.png") center center;
+    background-size: 94px 94px;
+}
+.content-lt .googles {
+    width: 94px;
+    height: 94px;
+    background: url("../../images/user/Google_ico@2X.png") center center;
+    background-size: 94px 94px;
+}
+.content-lt .FirstRecharge {
+    width: 94px;
+    height: 94px;
+    background: url("../../images/user/Recharge_icon@2X.png") center center;
+    background-size: 94px 94px;
+}
+.content-lt .FirstTrade {
+    width: 94px;
+    height: 94px;
+    background: url("../../images/user/Deal_icon@2X.png") center center;
+    background-size: 94px 94px;
+}
+.user .con-items .content-lt i.login {
+    width: 28px;
+    height: 33px;
+    background: url("../../images/user/userplist.png") no-repeat 0 -430px;
+}
+.user .con-items .content-lt i.trade {
+    width: 28px;
+    height: 33px;
+    background: url("../../images/user/userplist.png") no-repeat 0 -490px;
+}
+.user .con-items .content-lt i.realname {
+    width: 28px;
+    height: 31px;
+    background: url("../../images/user/userplist.png") no-repeat 0 -550px;
+}
+.user .con-items .content-lt i.con-items-warn {
+    width: 28px;
+    height: 31px;
+    background: url("../../images/user/personal_icon_fengxian_01@2x.png") no-repeat center/100%;
+}
+.user .con-items .content-lt i.con-items-error {
+    width: 28px;
+    height: 31px;
+    background: url("../../images/user/icon_fengxian_audit@2x.png") no-repeat center/100%;
+}
+.user .con-items .content-lt i.con-items-update {
+    width: 28px;
+    height: 31px;
+    background: url("../../images/user/icon_fengxian_shenhe@2x.png") no-repeat center/100%;
+}
+.user .con-items .content-lt i.settting {
+    background-position-x: -90px !important;
+}
+.user .con-items .content-rt {
+    width: 150px;
+    height: 110px;
+    float: left;
+    font-size: 15px;
+    padding-top: 15px;
+    padding-left: 20px
+}
+.user .con-items .content-rt .icon-ok {
+    padding-left: 24px;
+    width: 90px;
+    color: #81aeff;
+    background: url("../../images/user/userplist.png") no-repeat 0 -609px;
+}
+.user .con-items .content-rt .icon-no {
+    padding-left: 24px;
+    width: 90px;
+    background: url("../../images/user/userplist.png") no-repeat -90px
+    -609px;
+}
+.finacial__table {
+    font-size: 16px;
+    line-height: 45px;
+    text-align: center;
+    color: #808080;
+    width: 100%;
+    border: 1px;
+}
+.finacial__table th {
+    text-align: center;
+    background: #f8f8f8;
+}
+.finacial__table td {
+    position: relative;
+}
+.user_level {
+    display: inline-block;
+    width: 70px;
+    height: 25px;
+    text-indent: 16px;
+    color: #fff;
+    line-height: 27px;
+    background: url('../../images/user/Vip_@2X.png') no-repeat center;
+    background-size: 100%;
+}
+.user_levelDivOne {
+    position: relative;
+    background-color: white;
+    width: 320px;
+    height: 14px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.user_levelDivTwo {
+    background-color: #ffb62b;
+    width: 0;
+    height: 14px;
+    border-radius: 10px;
+    float: left;
+}
+.user_levelDiv_span {
+    position: absolute;
+    top: -6px;
+    right: 50px;
+    z-index: 1;
+}
+.user_level_tips {
+    display: none;
+    position: relative;
+    top: 12px;
+    padding: 4px 8px;
+    background: #fff;
+    color: #ff4848;
+    border-radius: 2px;
+    border: 1px solid rgb(255, 183, 43);
+}
+.user_level_tips::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    border-top: 1px solid rgb(255, 183, 43);
+    border-left: 1px solid rgb(255, 183, 43);
+    background: #fff;
+    transform: translateX(-50%) rotate(45deg);
+}
+.user_level_tips::after {
+    content: '';
+    position: absolute;
+    top: -19px;
+    left: 50%;
+    display: block;
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    transform: translateX(-50%);
+    border-radius: 50%;
+}
+.user_levelDivOne:hover + .user_level_tips {
+    display: inline;
+}
+.task-icon {
+    margin: 0 5px 0 -30px;
+    width: 34px;
+    height: 34px;
+}
+.search {
+    margin-top: 30px;
+}

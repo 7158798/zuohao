@@ -1,0 +1,464 @@
+.account-publish-keywordBar label {
+  font-weight: normal;
+}
+.wrapper {
+  margin: 60px auto;
+  width: 1100px;
+  background: #fff;
+  color: #bfbfbf;
+  border: 1px solid #eee;
+}
+
+.account-section {
+  padding: 10px 0 30px;
+  background: #f8fafa
+}
+
+.accountHome-section .hides {
+  display: none;
+}
+
+.accountHome-section .hides.active {
+  display: block;
+}
+
+.account-section .wrapper {
+  min-height: 600px;
+  border: 1px solid #eee;
+  background: #fff;
+  color: #bfbfbf
+}
+
+.user_set .accountSet-section .wrapper {
+  padding-top: 150px;
+  text-align: center
+}
+
+.accountPoint-section {
+  color: #c2c2c2
+}
+
+.accountSet-downBtn {
+  margin-top: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 14px;
+  color: #fff;
+  background: #68bbef;
+  width: 150px
+}
+
+.accountSet-downBtn:hover {
+  color: #fff
+}
+
+.account-classHeader {
+  padding: 15px 0;
+  color: #333;
+  font-size: 16px;
+  background: #f8fafa;
+}
+
+.account-addClass {
+  position: relative;
+  left: 454px;
+  width: 120px;
+  color: #fff;
+  background: #0091ff;
+}
+
+.account-sectionHeader {
+  padding: 0 35px;
+  height: 90px;
+  line-height: 20px;
+  border-bottom: 1px solid #eee
+}
+
+.account-sectionHeader-item {
+  padding: 35px 0;
+  height: 90px;
+  margin-right: 30px
+}
+
+.account-sectionHeader-btn {
+  margin-top: 20px;
+  margin-left: 20px;
+  padding: 13px 16px;
+  color: #fff;
+  background: #68bbef;
+  border-radius: 3px;
+  cursor: pointer
+}
+
+.account-sectionHeader-btn:hover {
+  text-decoration: none;
+  color: #fff
+}
+
+.account-sectionHeader-btn--green {
+  background: #0ddb97
+}
+
+.account-sectionHeader-keyWord {
+  font-size: 20px;
+  color: #ffa567
+}
+
+.account-sectionFilter {
+  padding: 35px
+}
+
+.account-sectionFilter-item {
+  margin-right: 40px;
+  color: #c2c2c2
+}
+
+.account-sectionFilter-item.active,
+.account-sectionFilter-item:hover {
+  color: #26a5ff;
+  text-decoration: none;
+  cursor: pointer
+}
+
+.account-table.table {
+  color: #333
+}
+
+.account-table.table td,
+.account-table.table th {
+  height: 60px;
+  line-height: 60px;
+  text-align: center
+}
+
+.account-table.table th {
+  background: #f5f5f5;
+  border-bottom-width: 1px
+}
+
+.account-table-avater {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%
+}
+
+.account-table-textBlue {
+  color: #26a5ff;
+  cursor: pointer
+}
+
+.account-table-textBlue:hover,
+.instrtument_title {
+  color: #26a5ff
+}
+
+.account-table-textRed {
+  cursor: pointer;
+  color: #f50a0a
+}
+
+.account-table-textRed:hover {
+  color: #f50a0a
+}
+
+.account-table-textRedDelete {
+  cursor: pointer;
+  color: #f50a0a
+}
+
+.account-table-textRedDelete:hover {
+  color: #f50a0a
+}
+
+
+/* .accountHome-section .wrapper {
+  padding: 0 60px
+} */
+
+.accountHome-section .account-sectionHeader-btn {
+  padding-left: 40px;
+  padding-right: 40px
+}
+
+.account-userInfo {
+  margin: 0 auto;
+  padding: 35px 0;
+  width: 800px;
+  color: #333
+}
+
+.account-userInfo p {
+  padding: 15px 0;
+  line-height: 40px;
+  border-bottom: 1px solid #eee
+}
+
+.account-userInfo-avater {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%
+}
+
+.account-related {
+  margin-top: 60px;
+  text-align: center
+}
+
+.account-related-item {
+  float: left;
+  width: 33.33%
+}
+
+.account-related-item.active .account-related-image,
+.account-related-item.active .account-related-status {
+  display: none
+}
+
+.account-related-item.active .account-related-image--active {
+  display: inline-block
+}
+
+.account-related-item.active .account-related-status--active {
+  display: block
+}
+
+.account-related-image--active,
+.account-related-status--active {
+  display: none
+}
+
+#editor-trigger {
+  min-height: 450px
+}
+
+.account-publishBar .wrapper {
+  padding: 10px 40px;
+  background: #fff;
+  color: #333
+}
+
+.account-publish-type {
+  padding: 20px 0;
+  border-bottom: 1px solid #ccc
+}
+
+.account-publish-type button {
+  margin-left: 20px;
+  color: #333;
+  padding: 2px 12px
+}
+
+.account-publish-type button a {
+  color: #333;
+}
+
+.account-publish-type button.active a {
+  color: #fff;
+}
+
+.account-publish-type button:hover a {
+  color: #fff;
+}
+
+.account-publish-type button.active,
+.account-publish-type button:hover {
+  background: #04bcff;
+  color: #fff
+}
+
+.account-publish-module {
+  float: left;
+  padding: 30px 10px;
+  line-height: 16px
+}
+
+.account-publish-module label {
+  font-size: 16px
+}
+
+.account-publish-module select {
+  margin-left: 10px;
+  width: 270px;
+  outline: none;
+  border: 0;
+  border-bottom: 1px solid #666
+}
+
+.account-publish-source {
+  float: right;
+  padding: 24px 10px;
+  line-height: 16px
+}
+
+.account-publish-originalBtn,
+.account-publish-reproduceBtn {
+  margin: 0 10px;
+  border: 1px solid;
+  padding: 0;
+  width: 70px;
+  height: 34px;
+  font-size: 12px;
+  color: #666;
+  line-height: 34px
+}
+
+.account-publish-originalBtn.active,
+.account-publish-reproduceBtn.active {
+  background: #8ab6ff;
+  color: #fff
+}
+
+.account-publish-originaltext {
+  visibility: hidden;
+  outline: none;
+  border: none;
+  width: 300px;
+  border-bottom: 2px solid #a8c8ff;
+  vertical-align: bottom
+}
+
+.account-publish-reproduceBtn.active+.account-publish-originaltext {
+  visibility: visible
+}
+
+.account-publish-title {
+  padding: 15px 10px;
+  border: 1px solid #ccc;
+  border-bottom: 0
+}
+
+.account-publish-title input {
+  margin-left: 10px;
+  width: 620px;
+  outline: none;
+  border: 0
+}
+
+.account-publish-btns {
+  margin-top: 20px
+}
+
+.account-publish-btns button {
+  margin: 0 5px;
+  width: 110px
+}
+
+.account-publish-thumbnail {
+  margin-top: 30px;
+  padding: 5px;
+  border: 10px solid #fff;
+  box-shadow: 0 0 1px 0 #ccc;
+  height: 100px;
+  width: 150px;
+  font-size: 12px;
+  text-align: center;
+  line-height: 155px
+}
+
+.account-publish-thumbnail label {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background: #f0f0f0 url('/images/account/icon_insert_image.png') no-repeat 50%;
+  background-size: 100%;
+  font-weight: 400
+}
+
+.account-publish-thumbnail #headfile {
+  display: inline-block;
+  height: 0;
+  width: 0;
+  opacity: 0
+}
+
+.account-publish-keyword {
+  margin-top: 60px
+}
+
+.account-publish-keyword #keyword {
+  width: 700px
+}
+
+.account-publish-keyword button,
+.account-publish-keyword input {
+  border-radius: 0
+}
+
+.account-publish-keywordBar {
+  display: none;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  margin-left: -400px;
+  width: 800px;
+  border: 2px solid #04bcff;
+  padding-bottom: 20px;
+  background: #fff;
+  z-index: 10
+}
+
+.account-publish-keywordBar h4 {
+  margin: 0;
+  padding: 10px 0;
+  color: #fff;
+  background: #04bcff;
+  text-align: center
+}
+
+.account-publish-keywordBar h5 {
+  padding: 0 40px;
+  color: #ababab
+}
+
+.account-publish-keywordBar .account-keyword-wrap {
+  margin: 20px 0
+}
+
+.account-publish-keywordBar .account-keyword-item {
+  display: inline-block;
+  width: 240px;
+  padding-left: 120px;
+  line-height: 30px
+}
+
+.account-publish-keywordBar .btn {
+  margin: 0 10px;
+  width: 120px
+}
+
+.account-publish-keywordBar .btn-primary {
+  background: #04bcff
+}
+
+.account-publish-keywordBar .close-keywordBar {
+  margin-right: 20px;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer
+}
+
+.account-publist-btn {
+  color: #fff;
+  background: #44b549
+}
+
+.account-status {
+  display: inline-block;
+  margin-bottom: -10px;
+  width: 33px;
+  height: 35px
+}
+
+.account-publishBar .wrapper {
+  padding: 10px 40px;
+  background: #fff;
+  color: #333;
+} 
+
+.wangEditor-container {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  z-index: 1;
+  width: 100%;
+}

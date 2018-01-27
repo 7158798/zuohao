@@ -1,0 +1,299 @@
+.home .header-mark {
+	background: #fff;
+}
+.home .header .header-nav a {
+	color: #000;
+}
+.home .header .header-nav .active a {
+	color: #90b6ff;
+}
+
+.invite-banner {
+	position: relative;
+	background: #ee4737  url('../../images/invite/invitge_bg_zh_CN.png')no-repeat top center;
+	background-size: auto 100%;
+	height: 750px;
+}
+.en .invite-banner {
+	position: relative;
+	background: #ee4737  url('../../images/invite/invitge_bg_en.png')no-repeat top center;
+	background-size: auto 100%;
+	height: 750px;
+}
+.register {
+	top: 60px;
+	margin-left: 80px;
+}
+.invite-trade {
+	padding: 72px 0 100px;
+	background: #fce9c0 url('../../images/invite/invite_tradeBG.png') no-repeat top center;
+	background-size: auto 100%;
+}
+.invite-tradeTitle {
+	margin: 0 0 66px;
+	font-size: 36px;
+	color: #6a3906;
+}
+.invite-currency {
+	margin: 0 auto;
+	width: 715px;
+	border: 0;
+}
+.invite-currency.table th {
+	padding: 0;
+	height: 70px;
+	background: #fe9446;
+	color: #fff;
+	font-size: 18px;
+	text-align: center;
+	border-color: #fce9c0;
+	line-height: 70px;
+}
+.invite-currency.table td {
+	padding: 0;
+	height: 70px;
+	line-height: 70px;
+	text-align: center;
+	font-size: 18px;
+	color: #fe7e46;
+	background: #fff;
+	border-color: #fce9c0;
+}
+.invite-currency td span {
+	color: #434343;
+}
+.invite-currency img {
+	margin-right: 20px;
+	width: 35px;
+	height: 35px;
+}
+.invite-advantages {
+	padding: 60px 0;
+	background: #fff;
+}
+.invite-title {
+	margin-bottom: 94px;
+	text-align: center;
+}
+.invite-title h1 {
+	font-size: 36px;
+	line-height: 40px;
+	color: #434343;
+}
+.invite-title p {
+	position: relative;
+	margin: 0;
+	font-family: PingFangSC-Thin;
+	font-size: 16px;
+	color: #a3a3a3;
+}
+.invite-title p::after, .invite-title p::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	display: block;
+	margin-top: 2px;
+	width: 70px;
+	height: 1px;
+	transform: translate3d(-50%, -50%, 0);
+	background: currentcolor;
+}
+.invite-title p::before {
+	margin-left: -120px;
+}
+.invite-title p::after {
+	margin-left: 120px;
+}
+.invite-advantageItem {
+	float: left;
+	width: 228px;
+	height: 180px;
+}
+.invite-advantageItem img {
+	height: 70px;
+}
+.invite-advantageItem h3 {
+	font-size: 24px;
+	color: #434343;
+	margin-bottom: 20px;
+}
+.invite-advantageItem p {
+	font-size: 16px;
+	color: #808080;
+}
+.invite-rule {
+	padding: 50px 0;
+	background: #ff8e3b;
+}
+.invite-rule .invite-title h1 {
+	margin: 0 0 104px;
+	color: #9d4200;
+}
+.invite-ruleInner {
+	position: relative;
+	margin: 0 auto;
+	padding-bottom: 80px;
+	width: 900px;
+	color: #fff;
+	font-size: 16px;
+}
+.invite-point {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 140px;
+	height: 165px;
+	line-height: 160px;
+	font-size: 19px;
+	text-align: center;
+	background: url('../../images/invite/invite.png') no-repeat center;
+	background-size: 100%;
+}
+.inviteM-banner {
+	padding-top: 82.7%;
+	background: url('../../images/invite/m/m_bg@3x.png') no-repeat center top;
+	background-size: 100% 100%;
+}
+.inviteM-title {
+	position: relative;
+	margin: 30px 0;
+	color: #6a3906;
+	text-align: center;
+}
+.inviteM-title::after, .inviteM-title::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 30px;
+	height: 1px;
+	font-size: 14px;
+	background: currentcolor;
+	transform: translateX(-50%);
+}
+.inviteM-title::before {
+	margin-left: -65px;
+}
+.inviteM-title::after {
+	margin-left: 65px;
+}
+.inviteM-register {
+	position: relative;
+	padding-bottom: 30px;
+	background: rgb(252, 233, 192);
+}
+.inviteM .register {
+	position: relative;
+	top: 0;
+	left: 0;
+	margin: 0 auto;
+	padding: 10px 0;
+	height: 440px;
+	font-size: 12px;
+}
+.inviteM .login {
+	width: 90%;
+}
+.inviteM .register-form-type {
+	margin-right: 5%;
+	width: 22%;
+	font-size: 12px;
+}
+.inviteM .login .login-ipt {
+	width: 60%;
+	font-size: 12px;
+}
+.inviteM  .register .login-ipt--small {
+	width: 35%;
+}
+.inviteM .register .register-imgmsg, .inviteM .register .register-msg {
+	position: static;
+	margin-top: -2px;
+	padding: 0;
+	width: 25%;
+	font-size: 12px;
+}
+.inviteM .register-pwdStatus {
+	right: 15%;
+}
+.inviteM-advantages {
+	background: #fff;
+}
+.inviteM-advantage {
+	padding: 10px 0;
+	text-align: center;
+	font-size: 12px;
+	color: #808080;
+}
+.inviteM-advantage img {
+	height: 70px;
+}
+.inviteM-advantage h3 {
+	font-size: 14px;
+	color: #434343;
+}
+.inviteM .register-confime {
+	text-align: center;
+}
+.inviteM  #register-submit {
+	margin-top: 20px;
+	width: 80%;
+}
+.inviteM .register .form-group {
+	margin: 10px auto;
+}
+.inviteM-footer {
+	padding-top: 46.3%;
+	background: url('../../images/invite/m/m_bg_last@3x.png') no-repeat center top;
+	background-size: 100% 100%;
+}
+.inviteM-success {
+	display: none;
+	margin: 0 auto;
+	padding: 30px 0;
+	width: 90%;
+	background: #fff;
+	border-radius: 8px;
+}
+.inviteM-success h3 {
+	margin-bottom: 50px;
+	font-size: 18px;
+	color: #6a3906;
+	line-height: 45px;
+}
+.inviteM-success h3 img {
+	height: 45px;
+}
+.inviteM-success-icon {
+	width: 150px;
+}
+.inviteM-down {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	display: none;
+	padding: 10px 5%;
+	color: #fff;
+	background: rgba(94, 88, 76, .7);
+}
+.inviteM-down > div {
+	width: 200px;
+}
+.inviteM-down img {
+	margin-right: 10px;
+	width: 50px;
+}
+.inviteM-down h3 {
+	margin-top: 6px;
+	margin-bottom: 4px;
+	font-size: 16px;
+}
+.inviteM-downBtn {
+	margin-top: 10px;
+	margin-right: 5%;
+	color: #fff;
+	background: #18c0fc;
+	border-radius: 4px;
+}

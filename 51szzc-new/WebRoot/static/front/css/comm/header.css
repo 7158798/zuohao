@@ -1,0 +1,239 @@
+@charset "utf-8";
+
+/********************header***************/
+.relative {
+	position: relative;
+}
+.allheader {
+	background: #fff;
+	position: relative;
+}
+.allheader-index {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	width: 100%;
+}
+.header-mark {
+	position: relative;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	opacity: .45;
+	filter: alpha(opacity =   25);
+	background: #fff;
+	width: 100%;
+	height: 78px;
+	box-shadow: 0 2px 18px rgba(0, 0, 0, .1);
+}
+.home .header-mark {
+	background: #000;
+}
+.home .header .header-nav a {
+	color: #fff;
+}
+.header-mark-bot {
+	position: relative;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	opacity: .25;
+	filter: alpha(opacity =   25);
+	background: #fff;
+	width: 100%;
+	height: 0px;
+}
+.header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	width: 100%;
+}
+.navbar {
+	margin-bottom: 0;
+}
+.navbar-default {
+	min-width: inherit;
+}
+.header .header-nav {
+	border-top: none;
+	padding-top: 12px;
+}
+.header .header-nav a {
+	color: #000;
+	font-size: 16px;
+}
+.header .navbar-nav li {
+	text-align: center;
+	width: 100px;
+}
+.header .navbar-nav .active a {
+	color: #90b6ff;
+}
+.header .navbar-nav .active .line, .header .nav>li>a:hover .line, .header.nav>li>a:active .line, .header.nav>li>a:focus .line, .header.nav>li>a:link .line {
+	background: #90b6ff;
+	width: 100%;
+	height: 2px;
+	position: absolute;
+	bottom: -31px;
+	left: 0;
+	transition: width 0.2s;
+}
+.header .login-register {
+	float: right;
+	position: relative;
+	padding: 10px 0;
+	margin-left: 20px;
+}
+.header .login-register .lr-mark {
+	position: absolute;
+	top: 10px;
+	left: 0;
+	z-index: 1000;
+	opacity: .25;
+	filter: alpha(opacity =   25);
+	background: #fff;
+	width: 100%;
+	height: 30px;
+}
+.header .login-register .lr-con {
+	position: relative;
+	top: 0;
+	left: 0;
+	z-index: 10000;
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	background: #94baff;
+	color: #2f2f2f;
+}
+.header .login-register .lr-item {
+	font-size: 14px !important;
+	color: #fff;
+	height: 30px;
+	display: inline-block;
+	padding: 0 10px;
+}
+.header .login-register .lr-item a {
+	font-size: 14px !important;
+	display: inline-block;
+}
+.header .top .user-slide .slide-box {
+	right: -4px;
+}
+.drop i {
+	position: absolute;
+	display: inline-block;
+	width: 8px;
+	height: 4px;
+	background: url("../../images/comm/b.png")
+	no-repeat center;
+	top: 5px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.drop {
+	overflow: hidden;
+	list-style: none;
+	position: absolute;
+	padding: 0;
+	width: 120px;
+	top: 46px;
+	top: 46px;
+	top: 46px;
+}
+.drop div {
+	-webkit-transform: translate(0, -100%);
+	-moz-transform: translate(0, -100%);
+	-ms-transform: translate(0, -100%);
+	transform: translate(0, -100%);
+	-webkit-transition: all 0.5s 0.1s;
+	-moz-transition: all 0.5s 0.1s;
+	-ms-transition: all 0.5s 0.1s;
+	transition: all 0.5s 0.1s;
+	position: relative;
+	overflow: hidden;
+}
+.drop li {
+	display: block;
+	padding: 0;
+	width: 100%;
+	background: #fff;
+	text-align: center;
+}
+.drop li:hover {
+	background: #fffdcc;
+}
+.drop li:hover span {
+}
+.nav li:nth-child(1):hover ul div {
+	-webkit-transform: translate(0, 0);
+	-moz-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	transform: translate(0, 0);
+}
+.nav li:nth-child(1):hover  ~ #marker {
+	-webkit-transform: translate(0px, 0);
+	-moz-transform: translate(0px, 0);
+	-ms-transform: translate(0px, 0);
+	transform: translate(0px, 0);
+}
+.nav li:nth-child(2):hover ul div {
+	-webkit-transform: translate(0, 0);
+	-moz-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	transform: translate(0, 0);
+}
+.nav li:nth-child(2):hover  ~ #marker {
+	-webkit-transform: translate(120px, 0);
+	-moz-transform: translate(120px, 0);
+	-ms-transform: translate(120px, 0);
+	transform: translate(120px, 0);
+}
+.nav li:nth-child(3):hover ul div {
+	-webkit-transform: translate(0, 0);
+	-moz-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	transform: translate(0, 0);
+}
+.nav li:nth-child(3):hover  ~ #marker {
+	-webkit-transform: translate(240px, 0);
+	-moz-transform: translate(240px, 0);
+	-ms-transform: translate(240px, 0);
+	transform: translate(240px, 0);
+}
+.nav li:nth-child(4):hover ul div {
+	-webkit-transform: translate(0, 0);
+	-moz-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	transform: translate(0, 0);
+}
+.nav li:nth-child(4):hover  ~ #marker {
+	-webkit-transform: translate(360px, 0);
+	-moz-transform: translate(360px, 0);
+	-ms-transform: translate(360px, 0);
+	transform: translate(360px, 0);
+}
+.drop li a {
+	display: block;
+	height: 45px;
+	border-bottom: 1px solid #e1e6ed;
+	padding: 10px 0 10px 0;
+	text-align: center;
+	line-height: 25px;
+	text-decoration: none;
+	color: #fff;
+}
+.drop li a img {
+	width: 24px;
+	height: 24px;
+	float: left;
+	margin-top: 4px;
+}
+.drop li a span {
+	color: #31333e;
+	line-height: 24px;
+	font-size: 16px;
+}
