@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+    配置SqlSessionFactory,从spring和mybatis的整合包中获取
+     -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 加载数据源 -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 配置mybatis-config.xml -->
+        <!-- 自动扫描mapping目录, 省掉mybatis-config.xml里的手工配置,不配置默认同包名 -->
+        <property name="mapperLocations"
+                  value="classpath*:mapper/*.xml"/>
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+    </bean>
+
+    <!--
+    配置 mapper自动扫描器，bean名称就是mapper类型（首字母小写）
+     -->
+    <!--配置添加了Repository注解的接口才去自动扫描mapper-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 如果要扫描多个包中间用逗号或者分号分隔，可以使用通配符-->
+        <property name="basePackage" value="com.**.dao"/>
+        <!-- 配置SqlSessionFactory -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--<property name="annotationClass" value="org.springframework.stereotype.Repository"/>-->
+    </bean>
+
+</beans>

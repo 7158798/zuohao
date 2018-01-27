@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.service.integral.dao.UserIntegralDetailMapper">
+    <resultMap id="baseResultMap" type="com.base.facade.integral.pojo.po.UserIntegralDetail">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="type" property="type" />
+        <result column="operate_type" property="operateType" />
+        <result column="operate_amount" property="operateAmount" />
+        <result column="before_amount" property="beforeAmount" />
+        <result column="after_amount" property="afterAmount" />
+        <result column="remark" property="remark" />
+        <result column="create_date" property="createDate" />
+        <result column="deleted" property="deleted" />
+        <result column="relation_id" property="relationId" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, user_id, type, operate_type, operate_amount, before_amount, after_amount, remark,
+        create_date, deleted, relation_id
+    </sql>
+
+    <insert id="insert" parameterType="com.base.facade.integral.pojo.po.UserIntegralDetail">
+        insert into t_user_integral_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="operateType != null">
+                operate_type,
+            </if>
+            <if test="operateAmount != null">
+                operate_amount,
+            </if>
+            <if test="beforeAmount != null">
+                before_amount,
+            </if>
+            <if test="afterAmount != null">
+                after_amount,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="relationId != null">
+                relation_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="operateType != null">
+                #{operateType},
+            </if>
+            <if test="operateAmount != null">
+                #{operateAmount},
+            </if>
+            <if test="beforeAmount != null">
+                #{beforeAmount},
+            </if>
+            <if test="afterAmount != null">
+                #{afterAmount},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+            <if test="relationId != null">
+                #{relationId},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_user_integral_detail
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.base.facade.integral.pojo.po.UserIntegralDetail">
+        update t_user_integral_detail
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="operateType != null">
+                operate_type = #{operateType},
+            </if>
+            <if test="operateAmount != null">
+                operate_amount = #{operateAmount},
+            </if>
+            <if test="beforeAmount != null">
+                before_amount = #{beforeAmount},
+            </if>
+            <if test="afterAmount != null">
+                after_amount = #{afterAmount},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            <if test="relationId != null">
+                relation_id = #{relationId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="delete" parameterType="java.lang.Long">
+        update t_user_integral_detail
+        set deleted = true
+        where id = #{id}
+    </update>
+
+    <update id="deleteByUserId" >
+        update t_user_integral_detail
+        set deleted = TRUE
+        where user_id = #{userId}
+    </update>
+
+    <select id="selectAll" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList"/>
+        from t_user_integral_detail
+        where deleted = false
+        order by create_date desc
+    </select>
+
+    <select id="getDetailByGroup" resultMap="baseResultMap">
+        select
+        type,
+        sum(operate_amount) as operate_amount
+        from t_user_integral_detail
+        where deleted = false
+        and operate_Type = #{operateType}
+        and user_id = #{userId}
+        group by type
+    </select>
+
+
+    <select id="getByConditionPage" resultMap="baseResultMap" parameterType="com.base.facade.integral.pojo.vo.UserIntegralDetailVo">
+        select
+        <include refid="baseColumnList"/>
+        from t_user_integral_detail
+        where
+        deleted =FALSE
+        <if test="operateType !=null and operateType != ''" >
+            and operate_Type = #{operateType}
+        </if>
+        <if test="userId != null and userId != ''">
+            and user_id = #{userId}
+        </if>
+        order by create_date desc
+    </select>
+
+    <select id="getDetailListByConditionPage" parameterType="com.base.facade.integral.pojo.vo.UserIntegralDetailVo"
+            resultType="com.base.facade.integral.pojo.bean.IntegralDetailBean">
+        select a.user_id as userId,
+        b.nice_name as niceName,
+        b.mobile_number as mobileNumber,
+        d.external_qq_account as qqAccount,
+        d.external_weixin_account as weixinAccount,
+        d.external_weibo_account as weiboAccount,
+        date_format(b.create_date,'%Y-%m-%d %H:%i:%s') as rigistDate,
+        a.type,
+        a.operate_amount as operateAmount,
+        case when c.is_adviser then '攻略顾问' else '普通用户' end as userRole
+        from t_user_integral_detail a
+        left join t_user b on a.user_id = b.id
+        left join t_user_type c on a.user_id = c.user_id
+        left join t_user_thirdMap d on a.user_id = d.user_id
+        where a.deleted = false
+        <if test="niceName!=null and niceName!=''">
+            and b.nice_name = #{niceName}
+        </if>
+        <if test="mobileNumber!=null and mobileNumber!=''">
+            and b.mobile_number = #{mobileNumber}
+        </if>
+        <if test="externalAccount!=null and externalAccount!=''">
+            and (d.external_qq_account =#{externalAccount}
+            or d.external_weixin_account = #{externalAccount}
+            or d.external_weibo_account = #{externalAccount})
+        </if>
+        <if test="startTime!=null and startTime!=''">
+            AND a.create_date  <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            AND a.create_date  <![CDATA[<]]> #{endTime}
+        </if>
+
+        order by  a.create_date desc
+    </select>
+
+
+    <select id="getAccountByDateAndType" resultType="java.math.BigDecimal">
+        select
+        sum(operate_amount)
+        from t_user_integral_detail
+        <where>
+            user_id= #{userId}
+            AND type = #{type}
+            and DATE_FORMAT(create_date,'%Y-%m-%d')= #{strDate}
+        </where>
+    </select>
+
+</mapper>

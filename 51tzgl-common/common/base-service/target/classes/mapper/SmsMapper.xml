@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.service.message.dao.SmsMapper">
+    <resultMap id="baseResultMap" type="com.base.facade.message.pojo.po.Sms">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="content" property="content" />
+        <result column="person_count" property="personCount" />
+        <result column="sms_type" property="smsType" />
+        <result column="send_now" property="sendNow" />
+        <result column="sending_time" property="sendingTime" />
+        <result column="actual_sending_time" property="actualSendingTime" />
+        <result column="status" property="status" />
+        <result column="url" property="url" />
+        <result column="send_result_json" property="sendResultJson" />
+        <result column="deleted" property="deleted" />
+        <result column="create_date" property="createDate" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="modified_date" property="modifiedDate" />
+        <result column="modified_user_id" property="modifiedUserId" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, title, content, person_count, sms_type, send_now, sending_time, actual_sending_time, 
+        status, deleted, create_date, create_user_id, modified_date, modified_user_id,url,send_result_json
+    </sql>
+
+    <insert id="insert" parameterType="com.base.facade.message.pojo.po.Sms" useGeneratedKeys="true" keyProperty="id">
+        insert into t_sms
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="personCount != null">
+                person_count,
+            </if>
+            <if test="smsType != null">
+                sms_type,
+            </if>
+            <if test="sendNow != null">
+                send_now,
+            </if>
+            <if test="sendingTime != null">
+                sending_time,
+            </if>
+            <if test="actualSendingTime != null">
+                actual_sending_time,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="sendResultJson != null">
+               send_result_json,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+            <if test="modifiedUserId != null">
+                modified_user_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="title != null">
+                #{title},
+            </if>
+            <if test="content != null">
+                #{content},
+            </if>
+            <if test="personCount != null">
+                #{personCount},
+            </if>
+            <if test="smsType != null">
+                #{smsType},
+            </if>
+            <if test="sendNow != null">
+                #{sendNow},
+            </if>
+            <if test="sendingTime != null">
+                #{sendingTime},
+            </if>
+            <if test="actualSendingTime != null">
+                #{actualSendingTime},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="url != null">
+                #{url},
+            </if>
+            <if test="sendResultJson != null">
+                sendResultJson,
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+            <if test="modifiedUserId != null">
+                #{modifiedUserId},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_sms
+        where id = #{id} and deleted = 0
+    </select>
+
+    <update id="update" parameterType="com.base.facade.message.pojo.po.Sms">
+        update t_sms
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="personCount != null">
+                person_count = #{personCount},
+            </if>
+            <if test="smsType != null">
+                sms_type = #{smsType},
+            </if>
+            <if test="sendNow != null">
+                send_now = #{sendNow},
+            </if>
+            <if test="sendingTime != null">
+                sending_time = #{sendingTime},
+            </if>
+            <if test="actualSendingTime != null">
+                actual_sending_time = #{actualSendingTime},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="url != null">
+                url = #{url},
+            </if>
+            <if test="sendResultJson != null">
+                send_result_json = #{sendResultJson},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId},
+            </if>
+            <if test="modifiedDate != null">
+                modified_date = #{modifiedDate},
+            </if>
+            <if test="modifiedUserId != null">
+                modified_user_id = #{modifiedUserId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="delete" parameterType="java.lang.Long">
+        update t_sms set deleted = 1
+        where id = #{id}
+    </update>
+
+    <update id="physicalDelete" parameterType="java.lang.Long">
+        delete from  t_sms
+        where id = #{id}
+    </update>
+
+    <select id="querySmsPageListByConditionPage" resultMap="baseResultMap" parameterType="com.base.facade.message.pojo.vo.SmsVo">
+        select
+        <include refid="baseColumnList" />
+        from t_sms
+        where deleted = 0
+
+        <if test="startDate != null">
+            and actual_sending_time  <![CDATA[>=]]> #{startDate}
+        </if>
+        <if test="endDate != null">
+            and actual_sending_time  <![CDATA[<=]]> #{endDate}
+        </if>
+        <if test="status !=null">
+            and status = #{status}
+        </if>
+        <if test="title !=null">
+            and title  like <![CDATA[concat('%',#{title},'%')]]>
+        </if>
+        <!-- 1、优先按照发送状态排序：草稿、发送失败、待发送、发送成功2、发送状态相同的情况下，按发送时间倒序排列 -->
+        order by case
+        when status = 1 then 4
+        when status = 2 then 5
+        else status
+        end asc,ifnull(actual_sending_time,ifnull(sending_time, create_date)) desc
+    </select>
+
+    <!-- 查询待发送的短信 -->
+    <select id="queryWaitSendSms" parameterType="java.lang.Integer" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from t_sms
+        where deleted = 0
+        and status = #{status} and sending_time  <![CDATA[<=]]> now()
+    </select>
+
+</mapper>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.service.integral.dao.IntegralTaskMapper">
+    <resultMap id="baseResultMap" type="com.base.facade.integral.pojo.po.IntegralTask">
+        <id column="id" property="id" />
+        <result column="task_name" property="taskName" />
+        <result column="task_no" property="taskNo" />
+        <result column="integral_account" property="integralAccount" />
+        <result column="daily_limit" property="dailyLimit" />
+        <result column="active" property="active" />
+        <result column="deleted" property="deleted" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="create_date" property="createDate" />
+        <result column="modified_user_id" property="modifiedUserId" />
+        <result column="modified_date" property="modifiedDate" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, task_name, task_no, integral_account, daily_limit, active, deleted, create_user_id, 
+        create_date, modified_user_id, modified_date
+    </sql>
+
+    <insert id="insert" parameterType="com.base.facade.integral.pojo.po.IntegralTask">
+        insert into t_integral_task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="taskName != null">
+                task_name,
+            </if>
+            <if test="taskNo != null">
+                task_no,
+            </if>
+            <if test="integralAccount != null">
+                integral_account,
+            </if>
+            <if test="dailyLimit != null">
+                daily_limit,
+            </if>
+            <if test="active != null">
+                active,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="modifiedUserId != null">
+                modified_user_id,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="taskName != null">
+                #{taskName},
+            </if>
+            <if test="taskNo != null">
+                #{taskNo},
+            </if>
+            <if test="integralAccount != null">
+                #{integralAccount},
+            </if>
+            <if test="dailyLimit != null">
+                #{dailyLimit},
+            </if>
+            <if test="active != null">
+                #{active},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="modifiedUserId != null">
+                #{modifiedUserId},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_integral_task
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.base.facade.integral.pojo.po.IntegralTask">
+        update t_integral_task
+        <set>
+            <if test="taskName != null">
+                task_name = #{taskName},
+            </if>
+            <if test="taskNo != null">
+                task_no = #{taskNo},
+            </if>
+            <if test="integralAccount != null">
+                integral_account = #{integralAccount},
+            </if>
+            <if test="dailyLimit != null">
+                daily_limit = #{dailyLimit},
+            </if>
+            <if test="active != null">
+                active = #{active},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifiedUserId != null">
+                modified_user_id = #{modifiedUserId},
+            </if>
+            <if test="modifiedDate != null">
+                modified_date = #{modifiedDate},
+            </if>
+        </set>
+        where id = #{id}
+        and deleted = false
+    </update>
+
+    <update id="delete" parameterType="java.lang.Long">
+        update t_integral_task set deleted = true,modified_date = now()
+        where id = #{id}
+    </update>
+
+    <select id="selectAll" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList"/>
+        from t_integral_task
+        where deleted = false
+        order by create_date desc
+    </select>
+
+    <select id="selectByTaskNo" resultMap="baseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="baseColumnList"/>
+        from t_integral_task
+        where task_no= #{param1}
+        and deleted =false
+    </select>
+
+    <select id="getActivitySignInTask" resultMap="baseResultMap" parameterType="java.util.List">
+        select
+        <include refid="baseColumnList"/>
+        from t_integral_task
+        where active=true
+        AND deleted = false
+        AND
+        task_no
+        IN
+        <foreach collection="signInActivity" item="signInActivity" open="(" separator="," close=")">
+            #{signInActivity}
+        </foreach>
+    </select>
+
+</mapper>

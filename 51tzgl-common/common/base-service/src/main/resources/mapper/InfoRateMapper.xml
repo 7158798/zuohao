@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.service.info.dao.InfoRateMapper">
+    <resultMap id="baseResultMap" type="com.base.facade.info.pojo.po.InfoRate">
+        <id column="id" property="id" />
+        <result column="uuid" property="uuid" />
+        <result column="bank_id" property="bankId" />
+        <result column="batch_no" property="batchNo" />
+        <result column="type" property="type" />
+        <result column="status" property="status" />
+        <result column="gain_way" property="gainWay" />
+        <result column="deleted" property="deleted" />
+        <result column="push_time" property="pushTime" />
+        <result column="create_datetime" property="createDatetime" />
+        <result column="modifed_datetime" property="modifedDatetime" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, uuid, bank_id, batch_no, type, status, gain_way, deleted, push_time, create_datetime, 
+        modifed_datetime
+    </sql>
+
+    <insert id="insert" parameterType="com.base.facade.info.pojo.po.InfoRate">
+        insert into tbl_info_rate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="uuid != null">
+                uuid,
+            </if>
+            <if test="bankId != null">
+                bank_id,
+            </if>
+            <if test="batchNo != null">
+                batch_no,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="gainWay != null">
+                gain_way,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="pushTime != null">
+                push_time,
+            </if>
+            <if test="createDatetime != null">
+                create_datetime,
+            </if>
+            <if test="modifedDatetime != null">
+                modifed_datetime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="uuid != null">
+                #{uuid},
+            </if>
+            <if test="bankId != null">
+                #{bankId},
+            </if>
+            <if test="batchNo != null">
+                #{batchNo},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="gainWay != null">
+                #{gainWay},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+            <if test="pushTime != null">
+                #{pushTime},
+            </if>
+            <if test="createDatetime != null">
+                #{createDatetime},
+            </if>
+            <if test="modifedDatetime != null">
+                #{modifedDatetime},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="baseColumnList" />
+        from tbl_info_rate
+        where uuid = #{uuid}
+    </select>
+
+    <update id="update" parameterType="com.base.facade.info.pojo.po.InfoRate">
+        update tbl_info_rate
+        <set>
+            <if test="uuid != null">
+                uuid = #{uuid},
+            </if>
+            <if test="bankId != null">
+                bank_id = #{bankId},
+            </if>
+            <if test="batchNo != null">
+                batch_no = #{batchNo},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="gainWay != null">
+                gain_way = #{gainWay},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            <if test="pushTime != null">
+                push_time = #{pushTime},
+            </if>
+            <if test="createDatetime != null">
+                create_datetime = #{createDatetime},
+            </if>
+            <if test="modifedDatetime != null">
+                modifed_datetime = #{modifedDatetime},
+            </if>
+        </set>
+        where uuid = #{uuid}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.String">
+        delete from tbl_info_rate
+        where uuid = #{uuid}
+    </delete>
+
+    <select id="selectByReleased" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from tbl_info_rate
+        where status = #{status}
+        and type = #{type}
+        and bank_id = #{bankId}
+        and uuid != #{uuid}
+    </select>
+
+    <select id="selectInfoRateByConditionPage" parameterType="com.base.facade.info.pojo.vo.InfoRateVo"
+            resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from tbl_info_rate
+        where 1=1
+        <if test="bankId != null">
+            and bank_id = #{bankId}
+        </if>
+        <if test="startTime != null">
+           and create_datetime  <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+           and  create_datetime  <![CDATA[<]]> #{endTime}
+        </if>
+        <if test="type !=null">
+            and type = #{type}
+        </if>
+        order by case status when '2' then  '-1' else status end asc,
+        create_datetime desc
+    </select>
+
+    <select id="selectByCondition" resultMap="baseResultMap" parameterType="com.base.facade.info.pojo.bean.InfoRateBean">
+        select
+        <include refid="baseColumnList" />
+        from tbl_info_rate
+        where 1=1
+        <if test="batchNo != null">
+           and batch_no = #{batchNo}
+        </if>
+        <if test="status != null">
+            and status = #{status}
+        </if>
+        <if test="bankId != null">
+            and bank_Id = #{bankId}
+        </if>
+        <if test="type != null">
+           and type = #{type}
+        </if>
+        <if test="createDate != null">
+           and  create_datetime  <![CDATA[<]]> #{createDate}
+        </if>
+    </select>
+    
+    
+    <select id="selectInfoRateAllBatch" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from tbl_info_rate
+        where batch_no is not null
+        and batch_no != ''
+        and status in ('1','0')
+
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.service.message.dao.SmsSendObjMapper">
+    <resultMap id="baseResultMap" type="com.base.facade.message.pojo.po.SmsSendObj">
+        <id column="id" property="id" />
+        <result column="sms_id" property="smsId" />
+        <result column="send_phone" property="sendPhone" />
+        <result column="send_userName" property="sendUserName"/>
+        <result column="deleted" property="deleted" />
+        <result column="create_date" property="createDate" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="modified_date" property="modifiedDate" />
+        <result column="modified_user_id" property="modifiedUserId" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, sms_id, send_phone,send_userName, deleted, create_date, create_user_id, modified_date, modified_user_id
+    </sql>
+
+    <insert id="insert" parameterType="com.base.facade.message.pojo.po.SmsSendObj">
+        insert into t_sms_send_obj
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="smsId != null">
+                sms_id,
+            </if>
+            <if test="sendPhone != null">
+                send_phone,
+            </if>
+            <if test="sendUserName != null">
+                send_userName,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+            <if test="modifiedUserId != null">
+                modified_user_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="smsId != null">
+                #{smsId},
+            </if>
+            <if test="sendPhone != null">
+                #{sendPhone},
+            </if>
+            <if test="sendUserName != null">
+                #{sendUserName},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+            <if test="modifiedUserId != null">
+                #{modifiedUserId},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_sms_send_obj
+        where id = #{id} and deleted = 0
+    </select>
+    
+    <select id="queryList" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_sms_send_obj
+        where sms_id = #{smsId} and deleted = 0
+    </select>
+
+    <update id="update" parameterType="com.base.facade.message.pojo.po.SmsSendObj">
+        update t_sms_send_obj
+        <set>
+            <if test="smsId != null">
+                sms_id = #{smsId},
+            </if>
+            <if test="sendPhone != null">
+                send_phone = #{sendPhone},
+            </if>
+            <if test="sendUserName != null">
+                send_userName = #{sendUserName},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId},
+            </if>
+            <if test="modifiedDate != null">
+                modified_date = #{modifiedDate},
+            </if>
+            <if test="modifiedUserId != null">
+                modified_user_id = #{modifiedUserId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="delete" parameterType="java.lang.Long">
+        update t_sms_send_obj set deleted = 1
+        where id = #{id}
+    </update>
+
+    <update id="deleteBySmsId" parameterType="java.lang.Long">
+        update t_sms_send_obj set deleted = 1
+        where sms_id = #{id}
+    </update>
+
+    <delete id="physicalDeleteBySmsId">
+        delete  from t_sms_send_obj where sms_id = #{smsId}
+    </delete>
+
+</mapper>

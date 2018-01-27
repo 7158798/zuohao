@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.service.comment.dao.CommentMapper">
+    <resultMap id="baseResultMap" type="com.base.facade.comment.pojo.po.Comment">
+        <id column="id" property="id" />
+        <result column="comment" property="comment" />
+        <result column="author" property="author" />
+        <result column="relation_id" property="relationId" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="modified_user_id" property="modifiedUserId" />
+        <result column="create_date" property="createDate" />
+        <result column="modified_date" property="modifiedDate" />
+        <result column="laud_num" property="laudNum" />
+        <result column="deleted" property="deleted" />
+        <result column="type" property="type" />
+        <result column="relation_user_id" property="relationUserId" />
+        <result column="read_flag" property="readFlag" />
+        <result column="relation_title" property="relationTitle" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, comment, author, relation_id, create_user_id, modified_user_id, create_date,
+        modified_date, laud_num, deleted, type, relation_user_id, read_flag, relation_title
+    </sql>
+
+    <insert id="insert" parameterType="com.base.facade.comment.pojo.po.Comment" useGeneratedKeys="true" keyProperty="id">
+        insert into t_comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="comment != null">
+                comment,
+            </if>
+            <if test="author != null">
+                author,
+            </if>
+            <if test="relationId != null">
+                relation_id,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="modifiedUserId != null">
+                modified_user_id,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+            <if test="laudNum != null">
+                laud_num,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="relationUserId != null">
+                relation_user_id,
+            </if>
+            <if test="readFlag != null">
+                read_flag,
+            </if>
+            <if test="relationTitle != null">
+                relation_title,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="comment != null">
+                #{comment},
+            </if>
+            <if test="author != null">
+                #{author},
+            </if>
+            <if test="relationId != null">
+                #{relationId},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId},
+            </if>
+            <if test="modifiedUserId != null">
+                #{modifiedUserId},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+            <if test="laudNum != null">
+                #{laudNum},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="relationUserId != null">
+                #{relationUserId},
+            </if>
+            <if test="readFlag != null">
+                #{readFlag},
+            </if>
+            <if test="relationTitle != null">
+                #{relationTitle},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_comment
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.base.facade.comment.pojo.po.Comment">
+        update t_comment
+        <set>
+            <if test="comment != null">
+                comment = #{comment},
+            </if>
+            <if test="author != null">
+                author = #{author},
+            </if>
+            <if test="relationId != null">
+                relation_id = #{relationId},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId},
+            </if>
+            <if test="modifiedUserId != null">
+                modified_user_id = #{modifiedUserId},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                modified_date = #{modifiedDate},
+            </if>
+            <if test="laudNum != null">
+                laud_num = #{laudNum},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="relationUserId != null">
+                relation_user_id = #{relationUserId},
+            </if>
+            <if test="readFlag != null">
+                read_flag = #{readFlag},
+            </if>
+            <if test="relationTitle != null">
+                relation_title = #{relationTitle},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_comment
+        where id = #{id}
+    </delete>
+
+    <!--合并评论数据-->
+    <update id="mergeComment">
+        update t_comment
+        set author = #{targetUserId},
+        modified_user_id = #{targetUserId},
+        modified_date = sysdate()
+        where author = #{sourcesUserId}
+    </update>
+
+    <!-- getCommentListByCondition-->
+    <select id="getCommentByConditionPage" resultMap="baseResultMap" parameterType="com.base.facade.comment.pojo.vo.CommentVo">
+        select
+        <include refid="baseColumnList" />
+        from t_comment
+        <include refid="condition-where-page" />
+        order by
+        <choose>
+            <when test="sortType == '01'">
+                <!-- 评论日期倒序-->
+                create_date desc,id desc
+            </when>
+            <otherwise>
+                <!-- 默认排序规制-->
+                create_date asc,id asc
+            </otherwise>
+        </choose>
+    </select>
+    <sql id="condition-where-page">
+        where
+          deleted = false
+        <if test="relationId != null">
+            and relation_id = #{relationId}
+        </if>
+        <if test="comment != null">
+            and comment like <![CDATA[concat('%',#{comment},'%')]]>
+        </if>
+        <if test="relationTitle != null">
+            and relation_title like <![CDATA[concat('%',#{relationTitle},'%')]]>
+        </if>
+        <if test="type != null and type != ''">
+            and type = #{type}
+        </if>
+        <if test="relationUserId != null">
+            and
+                relation_user_id = #{relationUserId}
+        </if>
+        <if test="readFlag != null">
+            and
+                read_flag = #{readFlag}
+        </if>
+        <if test="relationList != null and relationList.size() > 0">
+            <foreach collection="relationList" item="item"  open="AND ( " separator=" OR " close=" )" >
+                relation_id = #{item.relationId} and type = #{item.type}
+            </foreach>
+        </if>
+    </sql>
+    <!-- 更新帖数的阅读、评论、点赞数量-->
+    <update id="addNumByField">
+        update t_comment
+        set ${field} = ${field} + 1
+        where id = #{id}
+    </update>
+
+    <update id="updateReadByRelationId">
+        update t_comment
+        set read_flag = true
+        where relation_id = #{relationId}
+        and type = #{type}
+        and relation_user_id = #{relationUserId}
+    </update>
+    <select id="getCommentByCondition" resultMap="baseResultMap" parameterType="com.base.facade.comment.pojo.cond.CommentCond">
+        select
+        <include refid="baseColumnList" />
+        from t_comment
+        <include refid="condition-where-page" />
+        <if test="author != null">
+            and author = #{author}
+        </if>
+        <if test="sysdate != null">
+            and
+             <![CDATA[ DATE_FORMAT(create_date,'%Y-%m-%d') = DATE_FORMAT(#{sysdate},'%Y-%m-%d') ]]>
+        </if>
+    </select>
+    <!-- 更新帖数的阅读、评论、点赞数量-->
+    <update id="subNumByField">
+        update t_comment
+        set ${field} = ${field} - 1
+        where id = #{id}
+    </update>
+</mapper>

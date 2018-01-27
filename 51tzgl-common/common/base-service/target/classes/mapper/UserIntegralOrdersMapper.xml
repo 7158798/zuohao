@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.service.integral.dao.UserIntegralOrdersMapper">
+    <resultMap id="baseResultMap" type="com.base.facade.integral.pojo.po.UserIntegralOrders">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="app_key" property="appKey" />
+        <result column="order_num" property="orderNum" />
+        <result column="credits" property="credits" />
+        <result column="actual_price" property="actualPrice" />
+        <result column="order_status" property="orderStatus" />
+        <result column="face_price" property="facePrice" />
+        <result column="credits_status" property="creditsStatus" />
+        <result column="params" property="params" />
+        <result column="ip_addr" property="ipAddr" />
+        <result column="type" property="type" />
+        <result column="description" property="description" />
+        <result column="create_date" property="createDate" />
+        <result column="modified_date" property="modifiedDate" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, user_id, app_key, order_num, credits, actual_price, order_status, face_price, 
+        credits_status, params, ip_addr, type, description, create_date, modified_date
+    </sql>
+
+    <insert id="insert" parameterType="com.base.facade.integral.pojo.po.UserIntegralOrders">
+        insert into t_user_integral_orders
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="appKey != null">
+                app_key,
+            </if>
+            <if test="orderNum != null">
+                order_num,
+            </if>
+            <if test="credits != null">
+                credits,
+            </if>
+            <if test="actualPrice != null">
+                actual_price,
+            </if>
+            <if test="orderStatus != null">
+                order_status,
+            </if>
+            <if test="facePrice != null">
+                face_price,
+            </if>
+            <if test="creditsStatus != null">
+                credits_status,
+            </if>
+            <if test="params != null">
+                params,
+            </if>
+            <if test="ipAddr != null">
+                ip_addr,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="appKey != null">
+                #{appKey},
+            </if>
+            <if test="orderNum != null">
+                #{orderNum},
+            </if>
+            <if test="credits != null">
+                #{credits},
+            </if>
+            <if test="actualPrice != null">
+                #{actualPrice},
+            </if>
+            <if test="orderStatus != null">
+                #{orderStatus},
+            </if>
+            <if test="facePrice != null">
+                #{facePrice},
+            </if>
+            <if test="creditsStatus != null">
+                #{creditsStatus},
+            </if>
+            <if test="params != null">
+                #{params},
+            </if>
+            <if test="ipAddr != null">
+                #{ipAddr},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_user_integral_orders
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.base.facade.integral.pojo.po.UserIntegralOrders">
+        update t_user_integral_orders
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="appKey != null">
+                app_key = #{appKey},
+            </if>
+            <if test="orderNum != null">
+                order_num = #{orderNum},
+            </if>
+            <if test="credits != null">
+                credits = #{credits},
+            </if>
+            <if test="actualPrice != null">
+                actual_price = #{actualPrice},
+            </if>
+            <if test="orderStatus != null">
+                order_status = #{orderStatus},
+            </if>
+            <if test="facePrice != null">
+                face_price = #{facePrice},
+            </if>
+            <if test="creditsStatus != null">
+                credits_status = #{creditsStatus},
+            </if>
+            <if test="params != null">
+                params = #{params},
+            </if>
+            <if test="ipAddr != null">
+                ip_addr = #{ipAddr},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                modified_date = #{modifiedDate},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_user_integral_orders
+        where id = #{id}
+    </delete>
+
+
+    <select id="getListByConditionPage" parameterType="com.base.facade.integral.pojo.vo.UserIntegralOrdersVo"
+            resultType="com.base.facade.integral.pojo.bean.IntegeralOrderListBean">
+        select
+        a.id,
+        a.user_id as userId,
+        a.order_num as orderNum,
+        a.actual_price as actualPrice,
+        a.description,
+        b.nice_name as niceName,
+        b.mobile_number as mobileNumber,
+        a.credits,
+        a.face_price as facePrice,
+        a.type,
+        date_format(a.create_date,'%Y-%m-%d %H:%i:%s') as applyDate,
+        case when c.is_adviser then '攻略顾问' else '普通用户' end as userRole,
+        case a.order_status when 0 then '处理中' when 1 then '成功' else '失败' end as status
+        from t_user_integral_orders a
+        left join t_user b on a.user_id = b.id
+        left join t_user_type c on a.user_id = c.user_id
+        where 1=1
+        <if test="niceName!=null and niceName!=''">
+            and b.nice_name = #{niceName}
+        </if>
+        <if test="mobileNumber!=null and mobileNumber!=''">
+            and b.mobile_number = #{mobileNumber}
+        </if>
+        <if test="startTime!=null and startTime!=''">
+            AND a.create_date  <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            AND a.create_date  <![CDATA[<]]> #{endTime}
+        </if>
+        <if test="userRole!=null and userRole!=''">
+            <if test="userRole == 1">
+                and c.is_adviser = true
+            </if>
+            <if test="userRole == 2">
+                and c.is_adviser = false
+            </if>
+        </if>
+
+        order by  a.create_date desc
+    </select>
+
+
+    <select id="getUserIntegralOrderByOrderNumAndAppKey" resultMap="baseResultMap" >
+        select
+        <include refid="baseColumnList" />
+        from t_user_integral_orders
+        where order_num = #{orderNum}
+        and app_key=#{appKey}
+    </select>
+
+</mapper>

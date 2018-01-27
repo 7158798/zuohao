@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.service.info.dao.VirtualCurrencyMapper">
+    <resultMap id="baseResultMap" type="com.base.facade.info.pojo.po.VirtualCurrency">
+        <id column="id" property="id" />
+        <result column="cncy_cn_name" property="cncyCnName" />
+        <result column="cncy_en_name" property="cncyEnName" />
+        <result column="cncy_en_short_name" property="cncyEnShortName" />
+        <result column="creator" property="creator" />
+        <result column="core_algorithm" property="coreAlgorithm" />
+        <result column="release_date" property="releaseDate" />
+        <result column="release_num" property="releaseNum" />
+        <result column="stock" property="stock" />
+        <result column="proof_method" property="proofMethod" />
+        <result column="difficulty_adjust" property="difficultyAdjust" />
+        <result column="block_speed" property="blockSpeed" />
+        <result column="block_reward" property="blockReward" />
+        <result column="market_code" property="marketCode" />
+        <result column="cncy_desc" property="cncyDesc" />
+        <result column="features" property="features" />
+        <result column="shortcomming" property="shortcomming" />
+        <result column="cncy_icon_url" property="cncyIconUrl" />
+        <result column="status" property="status" />
+        <result column="deleted" property="deleted" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="create_date" property="createDate" />
+        <result column="modified_date" property="modifiedDate" />
+        <result column="modified_user_id" property="modifiedUserId" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, cncy_cn_name, cncy_en_name, cncy_en_short_name, creator, core_algorithm, release_date, 
+        release_num, stock, proof_method, difficulty_adjust, block_speed, block_reward, market_code, 
+        cncy_desc, features, shortcomming, cncy_icon_url, status,deleted, create_user_id, create_date,
+        modified_date, modified_user_id
+    </sql>
+
+    <insert id="insert" parameterType="com.base.facade.info.pojo.po.VirtualCurrency">
+        insert into t_virtual_currency
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="cncyCnName != null">
+                cncy_cn_name,
+            </if>
+            <if test="cncyEnName != null">
+                cncy_en_name,
+            </if>
+            <if test="cncyEnShortName != null">
+                cncy_en_short_name,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="coreAlgorithm != null">
+                core_algorithm,
+            </if>
+            <if test="releaseDate != null">
+                release_date,
+            </if>
+            <if test="releaseNum != null">
+                release_num,
+            </if>
+            <if test="stock != null">
+                stock,
+            </if>
+            <if test="proofMethod != null">
+                proof_method,
+            </if>
+            <if test="difficultyAdjust != null">
+                difficulty_adjust,
+            </if>
+            <if test="blockSpeed != null">
+                block_speed,
+            </if>
+            <if test="blockReward != null">
+                block_reward,
+            </if>
+            <if test="marketCode != null">
+                market_code,
+            </if>
+            <if test="cncyDesc != null">
+                cncy_desc,
+            </if>
+            <if test="features != null">
+                features,
+            </if>
+            <if test="shortcomming != null">
+                shortcomming,
+            </if>
+            <if test="cncyIconUrl != null">
+                cncy_icon_url,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+            <if test="modifiedUserId != null">
+                modified_user_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="cncyCnName != null">
+                #{cncyCnName},
+            </if>
+            <if test="cncyEnName != null">
+                #{cncyEnName},
+            </if>
+            <if test="cncyEnShortName != null">
+                #{cncyEnShortName},
+            </if>
+            <if test="creator != null">
+                #{creator},
+            </if>
+            <if test="coreAlgorithm != null">
+                #{coreAlgorithm},
+            </if>
+            <if test="releaseDate != null">
+                #{releaseDate},
+            </if>
+            <if test="releaseNum != null">
+                #{releaseNum},
+            </if>
+            <if test="stock != null">
+                #{stock},
+            </if>
+            <if test="proofMethod != null">
+                #{proofMethod},
+            </if>
+            <if test="difficultyAdjust != null">
+                #{difficultyAdjust},
+            </if>
+            <if test="blockSpeed != null">
+                #{blockSpeed},
+            </if>
+            <if test="blockReward != null">
+                #{blockReward},
+            </if>
+            <if test="marketCode != null">
+                #{marketCode},
+            </if>
+            <if test="cncyDesc != null">
+                #{cncyDesc},
+            </if>
+            <if test="features != null">
+                #{features},
+            </if>
+            <if test="shortcomming != null">
+                #{shortcomming},
+            </if>
+            <if test="cncyIconUrl != null">
+                #{cncyIconUrl},
+            </if>
+            <if test="status != null">
+               #{status},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+            <if test="modifiedUserId != null">
+                #{modifiedUserId},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_virtual_currency
+        where id = #{id} and deleted = 0
+    </select>
+
+    <update id="update" parameterType="com.base.facade.info.pojo.po.VirtualCurrency">
+        update t_virtual_currency
+        <set>
+            <if test="cncyCnName != null">
+                cncy_cn_name = #{cncyCnName},
+            </if>
+            <if test="cncyEnName != null">
+                cncy_en_name = #{cncyEnName},
+            </if>
+            <if test="cncyEnShortName != null">
+                cncy_en_short_name = #{cncyEnShortName},
+            </if>
+            <if test="creator != null">
+                creator = #{creator},
+            </if>
+            <if test="coreAlgorithm != null">
+                core_algorithm = #{coreAlgorithm},
+            </if>
+            <if test="releaseDate != null">
+                release_date = #{releaseDate},
+            </if>
+            <if test="releaseDate == null">
+                release_date = null,
+            </if>
+            <if test="releaseNum != null">
+                release_num = #{releaseNum},
+            </if>
+            <if test="stock != null">
+                stock = #{stock},
+            </if>
+            <if test="proofMethod != null">
+                proof_method = #{proofMethod},
+            </if>
+            <if test="difficultyAdjust != null">
+                difficulty_adjust = #{difficultyAdjust},
+            </if>
+            <if test="blockSpeed != null">
+                block_speed = #{blockSpeed},
+            </if>
+            <if test="blockReward != null">
+                block_reward = #{blockReward},
+            </if>
+            <if test="marketCode != null">
+                market_code = #{marketCode},
+            </if>
+            <if test="cncyDesc != null">
+                cncy_desc = #{cncyDesc},
+            </if>
+            <if test="features != null">
+                features = #{features},
+            </if>
+            <if test="shortcomming != null">
+                shortcomming = #{shortcomming},
+            </if>
+            <if test="cncyIconUrl != null">
+                cncy_icon_url = #{cncyIconUrl},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                modified_date = #{modifiedDate},
+            </if>
+            <if test="modifiedUserId != null">
+                modified_user_id = #{modifiedUserId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="delete" parameterType="java.lang.Long">
+        update t_virtual_currency set deleted = 1
+        where id = #{id}
+    </update>
+
+    <!--分页查询虚拟货币信息-->
+    <select id="queryCncyPageListByConditionPage" resultMap="baseResultMap" parameterType="com.base.facade.info.pojo.vo.VirtualCurrencyVo">
+        select
+        a.id, a.cncy_cn_name, a.cncy_en_name, a.cncy_en_short_name, a.creator, a.core_algorithm, a.release_date,
+        a.release_num, a.stock, a.proof_method, a.difficulty_adjust, a.block_speed, a.block_reward, a.market_code,
+        a.cncy_desc, a.features, a.shortcomming, a.cncy_icon_url, a.status, a.deleted, a.create_user_id, a.create_date,
+        a.modified_date, a.modified_user_id,b.name as createUserName
+        from t_virtual_currency a
+        left join t_employee b on b.deleted = 0 and b.id = a.create_user_id
+        where a.deleted = 0
+        <if test="cncyCnName != null">
+            and a.cncy_cn_name = #{cncyCnName}
+        </if>
+        <if test="status !=null">
+            and a.status = #{status}
+        </if>
+        order by a.status asc, a.create_date desc
+    </select>
+
+    <!--查询所有的币种-->
+    <select id="queryAllCncy" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from t_virtual_currency
+        where deleted = 0
+    </select>
+
+    <!--添加时，判断市场代码是否存在-->
+    <select id="queryExistsCodeByAdd" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(id) from t_virtual_currency where deleted = 0 and market_code = #{marketCode}
+    </select>
+
+    <!--修改时，判断市场代码是否存在-->
+    <select id="queryExistsCodeByUpdate" resultType="java.lang.Integer" >
+        select count(id) from t_virtual_currency where deleted = 0 and market_code = #{marketCode} and id <![CDATA[ <>#{id} ]]>
+    </select>
+
+    <!--根据市场代码查询虚拟货币详情-->
+    <select id="selectByMarketCode" resultMap="baseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="baseColumnList" />
+        from t_virtual_currency
+        where  deleted = 0 and market_code = #{marketCode}
+    </select>
+</mapper>

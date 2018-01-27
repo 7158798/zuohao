@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.service.weixin.dao.WeixinLogMapper">
+    <resultMap id="baseResultMap" type="com.base.facade.weixin.pojo.po.WeixinLog">
+        <id column="id" property="id" />
+        <result column="create_date" property="createDate" />
+        <result column="modified_date" property="modifiedDate" />
+        <result column="request" property="request" />
+        <result column="response" property="response" />
+        <result column="status" property="status" />
+        <result column="request_url" property="requestUrl" />
+        <result column="description" property="description" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, create_date, modified_date, request, response, status, request_url, description
+    </sql>
+
+    <insert id="insert" parameterType="com.base.facade.weixin.pojo.po.WeixinLog">
+        insert into t_weixin_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+            <if test="request != null">
+                request,
+            </if>
+            <if test="response != null">
+                response,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="requestUrl != null">
+                request_url,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+            <if test="request != null">
+                #{request},
+            </if>
+            <if test="response != null">
+                #{response},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="requestUrl != null">
+                #{requestUrl},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_weixin_log
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.base.facade.weixin.pojo.po.WeixinLog">
+        update t_weixin_log
+        <set>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                modified_date = #{modifiedDate},
+            </if>
+            <if test="request != null">
+                request = #{request},
+            </if>
+            <if test="response != null">
+                response = #{response},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="requestUrl != null">
+                request_url = #{requestUrl},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_weixin_log
+        where id = #{id}
+    </delete>
+
+</mapper>

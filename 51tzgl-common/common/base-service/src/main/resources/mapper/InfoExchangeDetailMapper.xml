@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.service.info.dao.InfoExchangeDetailMapper">
+    <resultMap id="baseResultMap" type="com.base.facade.info.pojo.po.InfoExchangeDetail">
+        <id column="id" property="id" />
+        <result column="uuid" property="uuid" />
+        <result column="exchange_id" property="exchangeId" />
+        <result column="currency_no" property="currencyNo" />
+        <result column="currency_name" property="currencyName" />
+        <result column="trade_unit" property="tradeUnit" />
+        <result column="f_buy_pri" property="fBuyPri" />
+        <result column="m_buy_pri" property="mBuyPri" />
+        <result column="f_sell_pri" property="fSellPri" />
+        <result column="m_sell_pri" property="mSellPri" />
+        <result column="bank_conversion_pri" property="bankConversionPri" />
+        <result column="create_datetime" property="createDatetime" />
+        <result column="modifed_datetime" property="modifedDatetime" />
+        <result column="update_datetime" property="updateDatetime" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, uuid, exchange_id, currency_no, currency_name, trade_unit, f_buy_pri, m_buy_pri,
+        f_sell_pri, m_sell_pri, bank_conversion_pri, create_datetime, modifed_datetime, update_datetime
+    </sql>
+
+    <insert id="insert" parameterType="com.base.facade.info.pojo.po.InfoExchangeDetail">
+        insert into tbl_info_exchange_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="uuid != null">
+                uuid,
+            </if>
+            <if test="exchangeId != null">
+                exchange_id,
+            </if>
+            <if test="currencyNo != null">
+                currency_no,
+            </if>
+            <if test="currencyName != null">
+                currency_name,
+            </if>
+            <if test="tradeUnit != null">
+                trade_unit,
+            </if>
+            <if test="fBuyPri != null">
+                f_buy_pri,
+            </if>
+            <if test="mBuyPri != null">
+                m_buy_pri,
+            </if>
+            <if test="fSellPri != null">
+                f_sell_pri,
+            </if>
+            <if test="mSellPri != null">
+                m_sell_pri,
+            </if>
+            <if test="bankConversionPri != null">
+                bank_conversion_pri,
+            </if>
+            <if test="createDatetime != null">
+                create_datetime,
+            </if>
+            <if test="modifedDatetime != null">
+                modifed_datetime,
+            </if>
+            <if test="updateDatetime != null">
+                update_datetime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="uuid != null">
+                #{uuid},
+            </if>
+            <if test="exchangeId != null">
+                #{exchangeId},
+            </if>
+            <if test="currencyNo != null">
+                #{currencyNo},
+            </if>
+            <if test="currencyName != null">
+                #{currencyName},
+            </if>
+            <if test="tradeUnit != null">
+                #{tradeUnit},
+            </if>
+            <if test="fBuyPri != null">
+                #{fBuyPri},
+            </if>
+            <if test="mBuyPri != null">
+                #{mBuyPri},
+            </if>
+            <if test="fSellPri != null">
+                #{fSellPri},
+            </if>
+            <if test="mSellPri != null">
+                #{mSellPri},
+            </if>
+            <if test="bankConversionPri != null">
+                #{bankConversionPri},
+            </if>
+            <if test="createDatetime != null">
+                #{createDatetime},
+            </if>
+            <if test="modifedDatetime != null">
+                #{modifedDatetime},
+            </if>
+            <if test="updateDatetime != null">
+                #{updateDatetime},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from tbl_info_exchange_detail
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.base.facade.info.pojo.po.InfoExchangeDetail">
+        update tbl_info_exchange_detail
+        <set>
+            <if test="uuid != null">
+                uuid = #{uuid},
+            </if>
+            <if test="exchangeId != null">
+                exchange_id = #{exchangeId},
+            </if>
+            <if test="currencyNo != null">
+                currency_no = #{currencyNo},
+            </if>
+            <if test="currencyName != null">
+                currency_name = #{currencyName},
+            </if>
+            <if test="tradeUnit != null">
+                trade_unit = #{tradeUnit},
+            </if>
+            <if test="fBuyPri != null">
+                f_buy_pri = #{fBuyPri},
+            </if>
+            <if test="mBuyPri != null">
+                m_buy_pri = #{mBuyPri},
+            </if>
+            <if test="fSellPri != null">
+                f_sell_pri = #{fSellPri},
+            </if>
+            <if test="mSellPri != null">
+                m_sell_pri = #{mSellPri},
+            </if>
+            <if test="bankConversionPri != null">
+                bank_conversion_pri = #{bankConversionPri},
+            </if>
+            <if test="createDatetime != null">
+                create_datetime = #{createDatetime},
+            </if>
+            <if test="modifedDatetime != null">
+                modifed_datetime = #{modifedDatetime},
+            </if>
+            <if test="updateDatetime != null">
+                update_datetime = #{updateDatetime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from tbl_info_exchange_detail
+        where id = #{id}
+    </delete>
+
+    <!-- 查询货币外汇明细列表-->
+    <select id="getExchangeDetailListByExchangeId" resultMap="baseResultMap" parameterType="java.lang.String" >
+        SELECT
+            *
+        FROM
+            tbl_info_exchange_detail tied
+        WHERE
+            tied.exchange_id = #{exchangeId}
+    </select>
+    <!-- 删除外汇详细数据-->
+    <delete id="deleteByExchangeId" parameterType="java.lang.String" >
+        DELETE
+        FROM
+            tbl_info_exchange_detail
+        WHERE
+            exchange_id = #{exchangeId}
+    </delete>
+    <!-- 获取已发布的币种汇率 -->
+    <select id="getExchangeDetailByCurNo" parameterType="java.lang.String" resultMap="baseResultMap">
+        SELECT
+            tied.*
+        FROM
+            tbl_info_exchange_detail tied
+        LEFT JOIN tbl_info_exchange tie ON tied.exchange_id = tie.uuid
+        WHERE
+            tie.status = '2'
+        AND
+            tied.currency_no = #{curNo}
+    </select>
+</mapper>

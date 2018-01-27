@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.service.info.dao.InfoRateDetailMapper">
+    <resultMap id="baseResultMap" type="com.base.facade.info.pojo.po.InfoRateDetail">
+        <id column="id" property="id" />
+        <result column="uuid" property="uuid" />
+        <result column="rate_id" property="rateId" />
+        <result column="item_fisrt" property="itemFisrt" />
+        <result column="item_second" property="itemSecond" />
+        <result column="period" property="period" />
+        <result column="rate" property="rate" />
+        <result column="create_datetime" property="createDatetime" />
+        <result column="modifed_datetime" property="modifedDatetime" />
+    </resultMap>
+
+
+    <sql id="baseColumnList">
+        id, uuid, rate_id, item_fisrt, item_second, period, rate, create_datetime, modifed_datetime
+    </sql>
+
+    <insert id="insert" parameterType="com.base.facade.info.pojo.po.InfoRateDetail">
+        insert into tbl_info_rate_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="uuid != null">
+                uuid,
+            </if>
+            <if test="rateId != null">
+                rate_id,
+            </if>
+            <if test="itemFisrt != null">
+                item_fisrt,
+            </if>
+            <if test="itemSecond != null">
+                item_second,
+            </if>
+            <if test="period != null">
+                period,
+            </if>
+            <if test="rate != null">
+                rate,
+            </if>
+            <if test="createDatetime != null">
+                create_datetime,
+            </if>
+            <if test="modifedDatetime != null">
+                modifed_datetime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="uuid != null">
+                #{uuid},
+            </if>
+            <if test="rateId != null">
+                #{rateId},
+            </if>
+            <if test="itemFisrt != null">
+                #{itemFisrt},
+            </if>
+            <if test="itemSecond != null">
+                #{itemSecond},
+            </if>
+            <if test="period != null">
+                #{period},
+            </if>
+            <if test="rate != null">
+                #{rate},
+            </if>
+            <if test="createDatetime != null">
+                #{createDatetime},
+            </if>
+            <if test="modifedDatetime != null">
+                #{modifedDatetime},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="baseColumnList" />
+        from tbl_info_rate_detail
+        where uuid = #{uuid}
+    </select>
+
+
+    <select id="selectByRateId" resultType="com.base.facade.info.pojo.poex.InfoRateDetailEx" parameterType="java.lang.String">
+        select
+        item_fisrt as item1,
+        item_second as item2,
+        period,
+        rate
+        from tbl_info_rate_detail
+        where rate_Id = #{rateId}
+    </select>
+
+
+    <update id="update" parameterType="com.base.facade.info.pojo.po.InfoRateDetail">
+        update tbl_info_rate_detail
+        <set>
+            <if test="uuid != null">
+                uuid = #{uuid},
+            </if>
+            <if test="rateId != null">
+                rate_id = #{rateId},
+            </if>
+            <if test="itemFisrt != null">
+                item_fisrt = #{itemFisrt},
+            </if>
+            <if test="itemSecond != null">
+                item_second = #{itemSecond},
+            </if>
+            <if test="period != null">
+                period = #{period},
+            </if>
+            <if test="rate != null">
+                rate = #{rate},
+            </if>
+            <if test="createDatetime != null">
+                create_datetime = #{createDatetime},
+            </if>
+            <if test="modifedDatetime != null">
+                modifed_datetime = #{modifedDatetime},
+            </if>
+        </set>
+        where uuid = #{uuid}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.String">
+        delete from tbl_info_rate_detail
+        where  rate_id = #{rateId}
+    </delete>
+
+</mapper>

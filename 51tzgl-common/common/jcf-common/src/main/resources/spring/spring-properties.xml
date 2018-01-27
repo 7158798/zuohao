@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd"
+       default-autowire="byName" default-lazy-init="false">
+
+    <!-- 读入基础配置属性文件 -->
+    <bean id = "propertyConfigurerForMain" class="com.jucaifu.common.property.PropertiesUtils">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_NEVER"/>
+        <property name="order" value="1" />
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="location" value="${config-base.properties}"/>
+    </bean>
+    <!-- 读入项目属性文件 -->
+    <bean id = "propertyConfigurerForProject" class="com.jucaifu.common.property.PropertiesUtils">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_NEVER"/>
+        <property name="order" value="2" />
+        <property name="fileEncoding" value="UTF-8"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="location" value="${config-project.properties}"/>
+    </bean>
+
+
+    <!--<bean id = "propertyConfigurerForProject2" class="com.jucaifu.common.property.PropertiesUtils">-->
+        <!--<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_NEVER"/>-->
+        <!--<property name="locations">-->
+            <!--<list>-->
+                <!--<value>${config-base.properties}</value>-->
+                <!--<value>${config-project.properties}</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--<context:property-placeholder location="${config.properties}"/>-->
+
+    <bean class="com.jucaifu.common.context.ApplicationContextRegister"/>
+
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+</beans>

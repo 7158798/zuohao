@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.service.version.dao.MobileVersionMapper">
+    <resultMap id="baseResultMap" type="com.base.facade.version.pojo.po.MobileVersion">
+        <id column="id" property="id" />
+        <result column="uuid" property="uuid"/>
+        <result column="app_name" property="appName" />
+        <result column="device_type" property="deviceType" />
+        <result column="version" property="version" />
+        <result column="download_url" property="downloadUrl" />
+        <result column="update_date" property="updateDate" />
+        <result column="update_info" property="updateInfo" />
+        <result column="force_goweb" property="forceGoweb" />
+        <result column="active" property="active" />
+        <result column="remark" property="remark" />
+        <result column="create_date" property="createDate" />
+        <result column="modified_date" property="modifiedDate" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id,uuid, app_name, device_type, version, download_url, update_date, update_info, force_goweb,
+        active, remark, create_date, modified_date
+    </sql>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from tbl_app_version
+        where uuid = #{uuid}
+    </delete>
+
+    <update id="update" parameterType="com.base.facade.version.pojo.po.MobileVersion">
+        update tbl_app_version
+        set app_name = #{appName},
+        device_type = #{deviceType},
+        version = #{version},
+        download_url = #{downloadUrl},
+        update_date = #{updateDate},
+        update_info = #{updateInfo},
+        active = #{active},
+        remark = #{remark},
+        create_date = #{createDate},
+        modified_date = #{modifiedDate}
+        where uuid = #{uuid}
+    </update>
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="baseColumnList"/>
+        from tbl_app_version
+        where uuid = #{uuid}
+    </select>
+
+    <insert id="insert" parameterType="com.base.facade.version.pojo.po.MobileVersion">
+        <selectKey keyProperty="id" order="AFTER" resultType="long">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into tbl_app_version (uuid, app_name, device_type,
+        version, download_url, update_date,
+        update_info, active,
+        remark, create_date,
+        modified_date)
+        values (#{uuid},#{appName},
+        #{deviceType},
+        #{version},
+        #{downloadUrl},
+        #{updateDate},
+        #{updateInfo}, #{active},
+        #{remark},#{createDate},
+        #{modifiedDate})
+    </insert>
+    <update id="updateForceGoWebStatus" parameterType="com.base.facade.version.pojo.vo.AppVersionAppApiVo">
+        update tbl_app_version
+        set force_goweb=#{forceGoweb}
+        where uuid=#{uuid}
+    </update>
+
+    <select id="getByConditionPage" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList"/>
+        from tbl_app_version
+        <where>
+            <if test="uuid!=null and uuid!=''">
+                and uuid=#{uuid}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectNewVersion" parameterType="com.base.facade.version.pojo.vo.AppVersionAppApiVo"
+            resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList"/>
+        from tbl_app_version where app_name =
+        #{appName} AND device_type =
+        #{deviceType} AND
+        version=#{version} AND active = #{active}
+    </select>
+    <select id="selectOpenVersion" parameterType="com.base.facade.version.pojo.vo.AppVersionAppApiVo"
+            resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList"/>
+        from tbl_app_version where app_name =
+        #{appName} AND device_type =
+        #{deviceType} AND active =
+        #{active}
+    </select>
+    <select id="selectAppListByConditionPage" parameterType="com.base.facade.version.pojo.vo.AppVersionAppApiVo"
+            resultMap="baseResultMap">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM tbl_app_version
+        <where>
+            <if test="appName!=null and appName!=''">
+                AND app_name = #{appName}
+             </if>
+            <if test="deviceType!=null and deviceType!=''">
+                AND device_type = #{deviceType}
+            </if>
+
+        </where>
+
+        ORDER BY active desc,create_date DESC
+    </select>
+    <select id="selectOpenVersionList" parameterType="com.base.facade.version.pojo.vo.AppVersionAppApiVo"
+            resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList"/>
+        from tbl_app_version where active =
+        #{active}
+    </select>
+    <select id="checkVersionByAppCodeAndDeviceType" parameterType="com.base.facade.version.pojo.vo.AppVersionAppApiVo"
+            resultMap="baseResultMap">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM
+        tbl_app_version
+        WHERE
+        active = #{active}
+        AND app_name = #{appName}
+        AND device_type = #{deviceType}
+    </select>
+
+</mapper>

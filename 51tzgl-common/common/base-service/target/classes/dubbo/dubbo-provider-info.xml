@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd  
+            http://code.alibabatech.com/schema/dubbo  
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
+    <!--虚拟货币App-->
+    <dubbo:service retries="0"
+                   interface="com.base.facade.info.service.app.VirtualCurrencyAppFacade"
+                   ref="virtualCurrencyAppFacade"
+                   version="0.0.1"/>
+
+    <!--银行理财产品app-->
+    <dubbo:service retries="0"
+                   interface="com.base.facade.info.service.app.InfoBankProductAppFacade"
+                   ref="infoBankProductAppFacade"
+                   version="0.0.1"/>
+
+    <!--银行利率app-->
+    <dubbo:service retries="0"
+                   interface="com.base.facade.info.service.app.InfoRateAppFacade"
+                   ref="infoRateAppFacade"
+                   version="0.0.1"/>
+
+    <!--外汇利率app-->
+    <dubbo:service retries="0"
+                   interface="com.base.facade.info.service.app.InfoExchangeAppFacade"
+                   ref="infoExchangeAppFacade"
+                   version="0.0.1"/>
+
+
+    <!--虚拟货币Console-->
+    <dubbo:service retries="0"
+                   interface="com.base.facade.info.service.console.VirtualCurrencyConsoleFacade"
+                   ref="virtualCurrencyConsoleFacade"
+                   version="0.0.1"/>
+
+    <!--银行理财产品console-->
+    <dubbo:service retries="0"
+                   interface="com.base.facade.info.service.console.InfoBankProductConsoleFacade"
+                   ref="infoBankProductConsoleFacade"
+                   version="0.0.1"/>
+
+    <!--银行利率console-->
+    <dubbo:service retries="0"
+                   interface="com.base.facade.info.service.console.InfoRateConsoleFacade"
+                   ref="infoRateConsoleFacade"
+                   version="0.0.1"/>
+
+
+    <!--外汇利率console-->
+    <dubbo:service retries="0"
+                   interface="com.base.facade.info.service.console.InfoExchangeConsoleFacade"
+                   ref="infoExchangeConsoleFacade"
+                   version="0.0.1"/>
+
+
+    <!--银行理财产品app-->
+    <dubbo:service retries="0"
+                   interface="com.base.facade.info.service.app.InfoBankProductAppFacade"
+                   ref="infoBankProductAppFacade"
+                   version="0.0.1"/>
+
+    <!-- +++++++++++++++++++++++++++++++++++  WEB    +++++++++++++++++++++++++++++++++++++++++  -->
+    <!--银行理财产品-->
+    <dubbo:service retries="0"
+                   interface="com.base.facade.info.service.web.InfoBankProductWebFacade"
+                   ref="infoBankProductWebFacade"
+                   version="0.0.1"/>
+
+    <!--银行利率-->
+    <dubbo:service retries="0"
+                   interface="com.base.facade.info.service.web.InfoRateWebFacade"
+                   ref="infoRateWebFacade"
+                   version="0.0.1"/>
+
+    <!--外汇利率-->
+    <dubbo:service retries="0"
+                   interface="com.base.facade.info.service.web.InfoExchangeWebFacade"
+                   ref="infoExchangeWebFacade"
+                   version="0.0.1"/>
+
+
+    <!--虚拟货币web-->
+    <dubbo:service retries="0"
+                   interface="com.base.facade.info.service.web.VirtualCurrencyWebFacade"
+                   ref="virtualCurrencyWebFacade"
+                   version="0.0.1"/>
+
+    <!--日志-->
+    <dubbo:service retries="0"
+                   interface="com.base.facade.info.service.console.SysLogConsoleFacade"
+                   ref="sysLogConsoleFacade"
+                   version="0.0.1"/>
+
+</beans>

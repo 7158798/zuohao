@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.service.info.dao.InfoCurrencyMapper">
+    <resultMap id="baseResultMap" type="com.base.facade.info.pojo.po.InfoCurrency">
+        <id column="id" property="id" />
+        <result column="uuid" property="uuid" />
+        <result column="currency_name" property="currencyName" />
+        <result column="currency_no" property="currencyNo" />
+        <result column="gain_type" property="gainType" />
+        <result column="create_datetime" property="createDatetime" />
+        <result column="modifed_datetime" property="modifedDatetime" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, uuid, currency_name, currency_no, gain_type, create_datetime, modifed_datetime
+    </sql>
+
+    <insert id="insert" parameterType="com.base.facade.info.pojo.po.InfoCurrency">
+        insert into tbl_info_currency
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="uuid != null">
+                uuid,
+            </if>
+            <if test="currencyName != null">
+                currency_name,
+            </if>
+            <if test="currencyNo != null">
+                currency_no,
+            </if>
+            <if test="gainType != null">
+                gain_type,
+            </if>
+            <if test="createDatetime != null">
+                create_datetime,
+            </if>
+            <if test="modifedDatetime != null">
+                modifed_datetime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="uuid != null">
+                #{uuid},
+            </if>
+            <if test="currencyName != null">
+                #{currencyName},
+            </if>
+            <if test="currencyNo != null">
+                #{currencyNo},
+            </if>
+            <if test="gainType != null">
+                #{gainType},
+            </if>
+            <if test="createDatetime != null">
+                #{createDatetime},
+            </if>
+            <if test="modifedDatetime != null">
+                #{modifedDatetime},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from tbl_info_currency
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.base.facade.info.pojo.po.InfoCurrency">
+        update tbl_info_currency
+        <set>
+            <if test="uuid != null">
+                uuid = #{uuid},
+            </if>
+            <if test="currencyName != null">
+                currency_name = #{currencyName},
+            </if>
+            <if test="currencyNo != null">
+                currency_no = #{currencyNo},
+            </if>
+            <if test="gainType != null">
+                gain_type = #{gainType},
+            </if>
+            <if test="createDatetime != null">
+                create_datetime = #{createDatetime},
+            </if>
+            <if test="modifedDatetime != null">
+                modifed_datetime = #{modifedDatetime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from tbl_info_currency
+        where id = #{id}
+    </delete>
+
+    <!-- 获取货币信息集合 -->
+    <select id="getCurrencyListByGainType" resultMap="baseResultMap" parameterType="java.lang.String">
+        SELECT
+            *
+        FROM
+            tbl_info_currency tic
+        WHERE
+            1 = 1
+        <if test="gainType != null">
+        AND
+            tic.gain_type = #{gainType}
+        </if>
+
+    </select>
+
+    <select id="getCurrencyListByCalc" resultMap="baseResultMap">
+        SELECT * FROM  tbl_info_currency tic
+        WHERE
+            tic.currency_no = 'CNY'
+        UNION
+        SELECT
+                    tic.*
+                FROM
+                    tbl_info_currency tic
+                INNER JOIN (
+                    SELECT
+                        tied.*
+                    FROM
+                        tbl_info_exchange_detail tied
+                    LEFT JOIN tbl_info_exchange tie ON tied.exchange_id = tie.uuid
+                    WHERE
+                        tie.status = '2'
+                ) t ON tic.currency_no = t.currency_no
+
+    </select>
+</mapper>

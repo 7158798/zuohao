@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.service.info.dao.InfoBankProductMapper">
+    <resultMap id="baseResultMap" type="com.base.facade.info.pojo.po.InfoBankProduct">
+        <id column="id" property="id" />
+        <result column="uuid" property="uuid" />
+        <result column="bank_id" property="bankId" />
+        <result column="batch_no" property="batchNo" />
+        <result column="period" property="period" />
+        <result column="expected_interest_rate" property="expectedInterestRate" />
+        <result column="min_investment_amount" property="minInvestmentAmount" />
+        <result column="status" property="status" />
+        <result column="push_date" property="pushDate" />
+        <result column="create_date" property="createDate" />
+        <result column="modifed_date" property="modifedDate" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, uuid, bank_id, batch_no, period, expected_interest_rate, min_investment_amount, 
+        status, push_date, create_date, modifed_date
+    </sql>
+
+    <insert id="insert" parameterType="com.base.facade.info.pojo.po.InfoBankProduct">
+        insert into tbl_info_bank_product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="uuid != null">
+                uuid,
+            </if>
+            <if test="bankId != null">
+                bank_id,
+            </if>
+            <if test="batchNo != null">
+                batch_no,
+            </if>
+            <if test="period != null">
+                period,
+            </if>
+            <if test="expectedInterestRate != null">
+                expected_interest_rate,
+            </if>
+            <if test="minInvestmentAmount != null">
+                min_investment_amount,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="pushDate != null">
+                push_date,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="modifedDate != null">
+                modifed_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="uuid != null">
+                #{uuid},
+            </if>
+            <if test="bankId != null">
+                #{bankId},
+            </if>
+            <if test="batchNo != null">
+                #{batchNo},
+            </if>
+            <if test="period != null">
+                #{period},
+            </if>
+            <if test="expectedInterestRate != null">
+                #{expectedInterestRate},
+            </if>
+            <if test="minInvestmentAmount != null">
+                #{minInvestmentAmount},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="pushDate != null">
+                #{pushDate},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="modifedDate != null">
+                #{modifedDate},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="baseColumnList" />
+        from tbl_info_bank_product
+        where uuid = #{uuid}
+    </select>
+
+    <select id="getByCondition" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from tbl_info_bank_product
+        <where>
+            <if test="bankId != null">
+                and bank_id = #{bankId}
+            </if>
+            <if test="batchNo != null">
+                and batch_no = #{batchNo}
+            </if>
+            <if test="period != null">
+                and period = #{period}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+
+
+    </select>
+
+    <update id="update" parameterType="com.base.facade.info.pojo.po.InfoBankProduct">
+        update tbl_info_bank_product
+        <set>
+            <if test="uuid != null">
+                uuid = #{uuid},
+            </if>
+            <if test="bankId != null">
+                bank_id = #{bankId},
+            </if>
+            <if test="batchNo != null">
+                batch_no = #{batchNo},
+            </if>
+            <if test="period != null">
+                period = #{period},
+            </if>
+            <if test="expectedInterestRate != null">
+                expected_interest_rate = #{expectedInterestRate},
+            </if>
+            <if test="minInvestmentAmount != null">
+                min_investment_amount = #{minInvestmentAmount},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="pushDate != null">
+                push_date = #{pushDate},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifedDate != null">
+                modifed_date = #{modifedDate},
+            </if>
+        </set>
+        where uuid = #{uuid}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.String">
+        delete from tbl_info_bank_product
+        where uuid = #{uuid}
+    </delete>
+    
+    
+    <select id="getByConditionPage" parameterType="com.base.facade.info.pojo.vo.InfoBankProductVo" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from tbl_info_bank_product
+        <where>
+            <if test="bankId != null">
+                and bank_id = #{bankId}
+            </if>
+            <if test="startDate != null">
+                and create_date <![CDATA[>=]]> #{startDate}
+            </if>
+            <if test="endDate != null">
+                and create_date <![CDATA[<]]> #{endDate}
+            </if>
+        </where>
+        order by case status when '2' then '-1' else status end,create_date desc
+    </select>
+
+    <!--分页获取银行理财产品-->
+    <select id="getProductByConditionPage" parameterType="com.base.facade.info.pojo.vo.InfoBankProductVo" resultMap="baseResultMap">
+        SELECT
+          <include refid="baseColumnList" />
+        FROM
+            tbl_info_bank_product
+        WHERE
+          status = '2'
+        <!-- 开始期限查询条件-->
+        <if test="startPeriod != null and startPeriod != ''">
+            <![CDATA[ AND period >= #{startPeriod} ]]>
+        </if>
+        <!-- 开始期限查询条件-->
+        <if test="endPeriod != null and endPeriod != ''">
+            <![CDATA[ AND period <= #{endPeriod} ]]>
+        </if>
+        <!-- 银行列表-->
+        <if test="bank != null and bank.size() > 0">
+            <foreach collection="bank" item="item" index="index" open="AND ( " separator=" OR " close=" )" >
+                bank_id = #{bank[${index}]}
+            </foreach>
+        </if>
+        ORDER BY
+        <choose>
+            <when test="sortType == '00'">
+                <!-- 收益率升序-->
+                expected_interest_rate ASC
+            </when>
+            <when test="sortType == '01'">
+                <!-- 收益率降序-->
+                expected_interest_rate DESC
+            </when>
+            <when test="sortType == '02'">
+                <!-- 起够金额升序-->
+                min_investment_amount ASC
+            </when>
+            <when test="sortType == '03'">
+                <!-- 起够金额降序-->
+                min_investment_amount DESC
+            </when>
+            <when test="sortType == '04'">
+                <!-- 期限降序-->
+                period DESC
+            </when>
+            <otherwise>
+                <!-- 默认 期限升序-->
+                period ASC
+            </otherwise>
+        </choose>
+        <!-- -->
+        , create_date DESC
+    </select>
+    <!-- 获取最大的发布时间-->
+    <select id="getProductMaxPushDate" resultType="java.util.Date">
+        select
+            max(push_date)
+        from
+            tbl_info_bank_product
+        where
+            status = '2'
+    </select>
+
+</mapper>

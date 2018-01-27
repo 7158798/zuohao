@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd  
+            http://code.alibabatech.com/schema/dubbo  
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 提供方应用信息 -->
+    <dubbo:application name="base-service"/>
+
+    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}"/>
+
+    <!-- 用dubbo协议在端口暴露服务 -->
+    <dubbo:protocol name="dubbo" port="29005"/>
+
+    <!-- 监控中心配置协议-->
+    <dubbo:monitor protocol="registry"/>
+
+    <!-- 当ProtocolConfig和ServiceConfig某属性没有配置时,采用此缺省值 -->
+    <dubbo:provider timeout="100000" threadpool="fixed" threads="100" accepts="1000"/>
+
+    <!-- 声明需要暴露的服务接口-->
+    <import resource="classpath:dubbo/dubbo-provider-welcomepage.xml"/>
+    <import resource="classpath:dubbo/dubbo-provider-mobileactivity.xml"/>
+    <import resource="classpath:dubbo/dubbo-provider-info.xml"/>
+    <import resource="dubbo-provider-mobileversion.xml"/>
+    <import resource="dubbo-provider-message.xml"/>
+    <import resource="classpath:dubbo/dubbo-provider-integral.xml"/>
+    <import resource="classpath:dubbo/dubbo-provider-comment.xml"/>
+    <import resource="classpath:dubbo/dubbo-provider-laud.xml"/>
+    <import resource="classpath:dubbo/dubbo-provider-user.xml"/>
+    <import resource="classpath:dubbo/dubbo-provider-weixin.xml"/>
+</beans>

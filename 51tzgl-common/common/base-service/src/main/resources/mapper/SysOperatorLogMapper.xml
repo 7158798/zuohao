@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.base.service.info.dao.SysOperatorLogMapper">
+
+    <!--begin-->
+
+    <resultMap id="BaseResultMap" type="com.base.facade.info.pojo.po.SysLogPo">
+        <id column="id" property="id"/>
+        <result column="uuid" property="uuid"/>
+        <result column="operator_date" property="operatorDate"/>
+        <result column="user_id" property="userId"/>
+        <result column="login_name" property="loginName"/>
+        <result column="ip" property="ip"/>
+        <result column="operator_code" property="operatorCode"/>
+        <result column="operator_name" property="operatorName"/>
+        <result column="class_name" property="className"/>
+        <result column="method_name" property="methodName"/>
+        <result column="issuccess" property="issuccess"/>
+        <result column="request_parameters" property="requestParameters"/>
+        <result column="response_result" property="responseResult"/>
+        <result column="operator_content" property="operatorContent"/>
+        <result column="remart" property="remart"/>
+        <result column="user_agent" property="userAgent"/>
+        <result column="module" property="module"/>
+    </resultMap>
+
+    <delete id="delete" parameterType="java.lang.String">
+        delete from tbl_system_operator_log
+        where uuid =
+        #{uuid}
+    </delete>
+
+    <update id="update" parameterType="com.base.facade.info.pojo.po.SysLogPo">
+        update tbl_system_operator_log
+        set operator_date =
+        #{operatorDate},
+        user_id = #{userId},
+        login_name = #{loginName},
+        ip = #{ip},
+        operator_code = #{operatorCode},
+        operator_name =
+        #{operatorName},
+        class_name = #{className},
+        method_name =
+        #{methodName},
+        issuccess = #{issuccess},
+        request_parameters =
+        #{requestParameters},
+        response_result = #{responseResult},
+        operator_content = #{operatorContent},
+        remart = #{remart},
+        user_agent =
+        #{userAgent},
+        module = #{module}
+        where uuid =
+        #{uuid}
+    </update>
+
+    <select id="select" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select id,uuid, operator_date, user_id,
+        login_name, ip, operator_code, operator_name,
+        class_name, method_name, issuccess, request_parameters,
+        response_result, operator_content,
+        remart,user_agent,module
+        from tbl_system_operator_log
+        where uuid =
+        #{uuid}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id,uuid, operator_date, user_id, login_name, ip, operator_code,
+        operator_name,
+        class_name, method_name, issuccess, request_parameters, response_result, operator_content,
+        remart,user_agent,module
+        from tbl_system_operator_log
+    </select>
+    <!--end-->
+
+    <insert id="insert" parameterType="com.base.facade.info.pojo.po.SysLogPo">
+        <selectKey keyProperty="id" order="AFTER" resultType="long">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into tbl_system_operator_log (uuid, operator_date, user_id,
+        login_name, ip, operator_code,
+        operator_name,
+        class_name, method_name,
+        issuccess, request_parameters, response_result,
+        operator_content,
+        remart,user_agent,module)
+        values
+        (#{uuid}, #{operatorDate},
+        #{userId},
+        #{loginName}, #{ip}, #{operatorCode},
+        #{operatorName}, #{className}, #{methodName},
+        #{issuccess}, #{requestParameters}, #{responseResult},
+        #{operatorContent}, #{remart}, #{userAgent},
+        #{module})
+    </insert>
+
+    <select id="getByConditionPage" resultMap="BaseResultMap">
+        select id,uuid, operator_date, user_id,
+        login_name, ip, operator_code,
+        operator_name, class_name, method_name,
+        issuccess, request_parameters, response_result,
+        operator_content, remart,user_agent,module
+        from
+        tbl_system_operator_log
+        <where>
+            <if test="uuid!=null and uuid!=''">
+                and uuid=#{uuid}
+            </if>
+        </where>
+    </select>
+
+    <select id="getSysLogByConditionPage"
+            parameterType="com.base.facade.info.pojo.vo.SysLogVo"
+            resultMap="BaseResultMap">
+        select id,uuid, operator_date, user_id,
+        login_name, ip, operator_code,
+        operator_name, class_name, method_name,
+        issuccess, request_parameters, response_result,
+        operator_content, remart,user_agent,module
+        from
+        tbl_system_operator_log
+        <where>
+            <if test="code!=null and code!=''">
+                AND operator_code=#{code}
+            </if>
+            <if test="method!=null and method!=''">
+                AND method_name=#{method}
+            </if>
+            <if test="startTime!=null and startTime!=''">
+                AND
+                operator_date <![CDATA[>=]]> #{startTime}
+            </if>
+            <if test="endTime!=null and endTime!=''">
+                AND operator_date <![CDATA[<]]> #{endTime}
+            </if>
+            <if test="ip!=null and ip!=''">
+                AND ip like <![CDATA[concat('%',#{ip},'%')]]>
+            </if>
+
+        </where>
+        ORDER BY operator_date Desc
+    </select>
+    <!--selectByUidOrMethordName-->
+    <select id="selectByUidOrMethordName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select id,uuid, operator_date, user_id,
+        login_name, ip, operator_code, operator_name,
+        class_name, method_name, issuccess, request_parameters,
+        response_result, operator_content,
+        remart,user_agent,module
+        from tbl_system_operator_log
+        where uuid =
+        #{param1}
+        <if test="param2!=null and param2!=''">
+            AND method_name =#{param2}
+        </if>
+    </select>
+
+    <!-- 根据remart查询日志 -->
+    <select id="queryByRemart"  resultMap="BaseResultMap" parameterType="java.lang.String">
+        select id,uuid, operator_date, user_id,
+        login_name, ip, operator_code, operator_name,
+        class_name, method_name, issuccess, request_parameters,
+        response_result, operator_content,
+        remart,user_agent,module
+        from tbl_system_operator_log
+        where remart = #{remart}
+    </select>
+</mapper>

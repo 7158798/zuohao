@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.service.integral.dao.UserIntegralAccountMapper">
+    <resultMap id="baseResultMap" type="com.base.facade.integral.pojo.po.UserIntegralAccount">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="usable_amount" property="usableAmount" />
+        <result column="total_amount" property="totalAmount" />
+        <result column="deleted" property="deleted" />
+        <result column="create_date" property="createDate" />
+        <result column="modified_date" property="modifiedDate" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, user_id, usable_amount, total_amount, deleted, create_date, modified_date
+    </sql>
+
+    <insert id="insert" parameterType="com.base.facade.integral.pojo.po.UserIntegralAccount">
+        insert into t_user_integral_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="usableAmount != null">
+                usable_amount,
+            </if>
+            <if test="totalAmount != null">
+                total_amount,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="usableAmount != null">
+                #{usableAmount},
+            </if>
+            <if test="totalAmount != null">
+                #{totalAmount},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_user_integral_account
+        where id = #{id}
+        and deleted =false
+    </select>
+
+    <update id="update" parameterType="com.base.facade.integral.pojo.po.UserIntegralAccount">
+        update t_user_integral_account
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="usableAmount != null">
+                usable_amount = #{usableAmount},
+            </if>
+            <if test="totalAmount != null">
+                total_amount = #{totalAmount},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                modified_date = #{modifiedDate},
+            </if>
+        </set>
+        where id = #{id}
+        and deleted =false
+    </update>
+
+    <update id="delete" parameterType="java.lang.Long">
+        update t_user_integral_account set deleted = true , modified_date = now()
+        where id = #{id}
+    </update>
+
+    <select id="selectAll" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from t_user_integral_account
+        where deleted = false
+    </select>
+
+    <select id="getAccountListByConditionPage" parameterType="com.base.facade.integral.pojo.vo.UserIntegralAccountVo"
+            resultType="com.base.facade.integral.pojo.bean.IntegralAccountBean">
+        select a.user_id as userId,
+        b.nice_name as niceName,
+        b.mobile_number as mobileNumber,
+        d.external_qq_account as qqAccount,
+        d.external_weixin_account as weixinAccount,
+        d.external_weibo_account as weiboAccount,
+        date_format(b.create_date,'%Y-%m-%d %H:%i:%s') as rigistDate,
+        a.usable_amount as usableAmount,
+        a.total_amount - a.usable_amount as toCashAmount,
+        a.total_amount as totalAmount,
+        case when c.regist_type = 0 then '手机注册用户' else '三方注册用户' end as userType,
+        case when c.is_adviser then '攻略顾问' else '普通用户' end as userRole
+        from t_user_integral_account a
+        left join t_user b on a.user_id = b.id
+        left join t_user_type c on a.user_id = c.user_id
+        left join t_user_thirdMap d on a.user_id = d.user_id
+        where a.deleted = false
+        <if test="niceName!=null and niceName!=''">
+           and b.nice_name = #{niceName}
+        </if>
+        <if test="mobileNumber!=null and mobileNumber!=''">
+            and b.mobile_number = #{mobileNumber}
+        </if>
+        <if test="externalAccount!=null and externalAccount!=''">
+            and (d.external_qq_account =#{externalAccount}
+            or d.external_weixin_account = #{externalAccount}
+            or d.external_weibo_account = #{externalAccount})
+        </if>
+        <if test="userType!=null and userType!=''">
+            <if test="userType == 1">
+                and c.regist_type !=0
+            </if>
+            <if test="userType == 2">
+                and c.regist_type = 0
+            </if>
+        </if>
+        <if test="userRole!=null and userRole!=''">
+            <if test="userRole == 1">
+               and  c.is_adviser = true
+            </if>
+            <if test="userRole == 2">
+                and c.is_adviser = false
+            </if>
+        </if>
+        order by  a.create_date desc
+    </select>
+
+    <select id="getByUserId" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from t_user_integral_account
+        where user_id = #{userId}
+        and deleted = false
+    </select>
+
+
+    <update id="deductUserIntegral">
+        update t_user_integral_account
+        set
+        usable_amount = ifnull(usable_amount, 0) - #{integral},
+        modified_date = now()
+        where user_id = #{userId}
+        and ifnull(#{integral}, 0) > 0
+        and ifnull(usable_amount, 0) >= #{integral}
+        and deleted = false
+    </update>
+
+    <update id="rollBackUserIntegral">
+        update t_user_integral_account
+        set
+        usable_amount = ifnull(usable_amount, 0) + #{integral},
+        modified_date = now()
+        where user_id = #{userId}
+    </update>
+
+    <update id="addUserIntegral">
+        update t_user_integral_account
+        set
+        usable_amount = ifnull(usable_amount, 0) + #{integral},
+        total_amount=ifnull(total_amount,0) + #{integral},
+        modified_date = now()
+        where user_id = #{userId}
+    </update>
+
+</mapper>

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.service.info.dao.InfoExchangeMapper">
+    <resultMap id="baseResultMap" type="com.base.facade.info.pojo.po.InfoExchange">
+        <id column="id" property="id" />
+        <result column="uuid" property="uuid" />
+        <result column="batch_no" property="batchNo" />
+        <result column="source" property="source" />
+        <result column="status" property="status" />
+        <result column="gain_way" property="gainWay" />
+        <result column="deleted" property="deleted" />
+        <result column="push_time" property="pushTime" />
+        <result column="create_datetime" property="createDatetime" />
+        <result column="modifed_datetime" property="modifedDatetime" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, uuid, batch_no, source, status, gain_way, deleted, push_time, create_datetime, 
+        modifed_datetime
+    </sql>
+
+    <insert id="insert" parameterType="com.base.facade.info.pojo.po.InfoExchange">
+        insert into tbl_info_exchange
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="uuid != null">
+                uuid,
+            </if>
+            <if test="batchNo != null">
+                batch_no,
+            </if>
+            <if test="source != null">
+                source,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="gainWay != null">
+                gain_way,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="pushTime != null">
+                push_time,
+            </if>
+            <if test="createDatetime != null">
+                create_datetime,
+            </if>
+            <if test="modifedDatetime != null">
+                modifed_datetime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="uuid != null">
+                #{uuid},
+            </if>
+            <if test="batchNo != null">
+                #{batchNo},
+            </if>
+            <if test="source != null">
+                #{source},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="gainWay != null">
+                #{gainWay},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+            <if test="pushTime != null">
+                #{pushTime},
+            </if>
+            <if test="createDatetime != null">
+                #{createDatetime},
+            </if>
+            <if test="modifedDatetime != null">
+                #{modifedDatetime},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="baseColumnList" />
+        from tbl_info_exchange
+        where uuid = #{uuid}
+    </select>
+
+    <update id="update" parameterType="com.base.facade.info.pojo.po.InfoExchange">
+        update tbl_info_exchange
+        <set>
+            <if test="uuid != null">
+                uuid = #{uuid},
+            </if>
+            <if test="batchNo != null">
+                batch_no = #{batchNo},
+            </if>
+            <if test="source != null">
+                source = #{source},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="gainWay != null">
+                gain_way = #{gainWay},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            <if test="pushTime != null">
+                push_time = #{pushTime},
+            </if>
+            <if test="createDatetime != null">
+                create_datetime = #{createDatetime},
+            </if>
+            <if test="modifedDatetime != null">
+                modifed_datetime = #{modifedDatetime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.String">
+        delete from tbl_info_exchange
+        where uuid = #{uuid}
+    </delete>
+    <!--获取货币外汇分页集合-->
+    <select id="getByConditionPage" resultMap="baseResultMap" parameterType="com.base.facade.info.pojo.vo.InfoExchangeVo">
+        SELECT
+            <include refid="baseColumnList"/>
+        FROM
+            tbl_info_exchange tie
+        WHERE
+            1 = 1
+        <if test="startDate != null" >
+        AND
+          <![CDATA[ DATE_FORMAT(tie.create_datetime,'%Y-%m-%d') >= DATE_FORMAT(#{startDate},'%Y-%m-%d') ]]>
+        </if>
+        <if test="endDate != null">
+        AND
+          <![CDATA[ DATE_FORMAT(tie.create_datetime,'%Y-%m-%d') <= DATE_FORMAT(#{endDate},'%Y-%m-%d') ]]>
+        </if>
+        ORDER BY
+        case tie.status when '2' then  '-1' else tie.status end asc,
+        tie.create_datetime desc
+    </select>
+    <!-- 已发布状态的数据更新为已失效-->
+    <update id="updateExchangeStatusByPush" >
+        UPDATE tbl_info_exchange
+        SET status = '3'
+        WHERE
+            status = '2'
+    </update>
+    <!-- 根据批次号查询汇率信息-->
+    <select id="getExchangeByBatchNo" resultMap="baseResultMap" >
+        SELECT
+            *
+        FROM
+            tbl_info_exchange tie
+        WHERE
+            tie.batch_no = #{batchNo}
+    </select>
+    <!-- 根据状态查询汇率信息-->
+    <select id="getExchangeByStatus" resultMap="baseResultMap" >
+        SELECT
+            *
+        FROM
+            tbl_info_exchange tie
+        WHERE
+            tie.status = #{status}
+    </select>
+    <!--获取已经过期的货币汇率-->
+    <select id="getExchangeByOverdue" resultMap="baseResultMap" >
+        SELECT
+          *
+        FROM
+        tbl_info_exchange tie
+        WHERE
+        1 = 1
+        <!-- 接口获取的数据-->
+        AND tie.gain_way = '3'
+        <!-- 状态不是已发布-->
+        AND tie.status != '2'
+        <!-- 前天开始全删除 -->
+        AND <![CDATA[ DATE_FORMAT(tie.create_datetime,'%Y-%m-%d') < DATE_FORMAT(DATE_SUB(SYSDATE(), INTERVAL 1 DAY),'%Y-%m-%d') ]]>
+        ORDER BY
+        tie.create_datetime DESC;
+    </select>
+    <!--获取清除日期之前的数据-->
+    <select id="getClearExchange" resultMap="baseResultMap" >
+        SELECT
+        *
+        FROM
+        tbl_info_exchange tie
+        WHERE
+        1 = 1
+        <!-- 待发布的清除-->
+        AND tie.status = '1'
+        AND <![CDATA[ DATE_FORMAT(tie.create_datetime,'%Y-%m-%d') < #{clearDate} ]]>
+    </select>
+</mapper>

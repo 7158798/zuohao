@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.service.banner.dao.MobileActivityMapper">
+    <resultMap id="baseResultMap" type="com.base.facade.banner.pojo.po.Activity">
+        <id column="id" property="id"/>
+        <result column="uuid" property="uuid"/>
+        <result column="title" property="title"/>
+        <result column="summary" property="summary"/>
+        <result column="link_type" property="linkType"/>
+        <result column="show_position" property="showPosition"/>
+        <result column="product_id" property="productId"/>
+        <result column="url_param" property="urlParam"/>
+        <result column="login_required" property="loginRequired"/>
+        <result column="rank" property="rank"/>
+        <result column="active" property="active"/>
+        <result column="content" property="content"/>
+        <result column="img_url" property="imgUrl"/>
+        <result column="detail_url" property="detailUrl"/>
+        <result column="create_user_id" property="createUserId"/>
+        <result column="modified_user_id" property="modifiedUserId"/>
+        <result column="create_date" property="createDate"/>
+        <result column="modified_date" property="modifiedDate"/>
+        <result column="start_date" property="startDate"/>
+        <result column="end_date" property="endDate"/>
+        <result column="banner_content" property="bannerContent"/>
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, uuid, title, summary, link_type, show_position, product_id, url_param, login_required,
+        rank, active, content, img_url, detail_url, create_user_id, modified_user_id, create_date, modified_date,
+        start_date,end_date,banner_content
+    </sql>
+
+    <insert id="insert" parameterType="com.base.facade.banner.pojo.po.Activity">
+        <selectKey keyProperty="id" order="AFTER" resultType="long">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into tbl_activity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uuid != null">
+                uuid,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="summary != null">
+                summary,
+            </if>
+            <if test="linkType != null">
+                link_type,
+            </if>
+            <if test="showPosition != null">
+                show_position,
+            </if>
+            <if test="productId != null">
+                product_id,
+            </if>
+            <if test="urlParam != null">
+                url_param,
+            </if>
+            <if test="loginRequired != null">
+                login_required,
+            </if>
+            <if test="rank != null">
+                rank,
+            </if>
+            <if test="active != null">
+                active,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="imgUrl != null">
+                img_url,
+            </if>
+            <if test="detailUrl != null">
+                detail_url,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="modifiedUserId != null">
+                modified_user_id,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+            <if test="startDate != null">
+                start_date,
+            </if>
+            <if test="endDate != null">
+                end_date,
+            </if>
+            <if test="bannerContent != null">
+                banner_content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uuid != null">
+                #{uuid},
+            </if>
+            <if test="title != null">
+                #{title},
+            </if>
+            <if test="summary != null">
+                #{summary},
+            </if>
+            <if test="linkType != null">
+                #{linkType},
+            </if>
+            <if test="showPosition != null">
+                #{showPosition},
+            </if>
+            <if test="productId != null">
+                #{productId},
+            </if>
+            <if test="urlParam != null">
+                #{urlParam},
+            </if>
+            <if test="loginRequired != null">
+                #{loginRequired},
+            </if>
+            <if test="rank != null">
+                #{rank},
+            </if>
+            <if test="active != null">
+                #{active},
+            </if>
+            <if test="content != null">
+                #{content},
+            </if>
+            <if test="imgUrl != null">
+                #{imgUrl},
+            </if>
+            <if test="detailUrl != null">
+                #{detailUrl},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId},
+            </if>
+            <if test="modifiedUserId != null">
+                #{modifiedUserId},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+            <if test="startDate != null">
+                #{startDate},
+            </if>
+            <if test="endDate != null">
+                #{endDate},
+            </if>
+            <if test="bannerContent != null">
+                #{bannerContent},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="baseColumnList"/>
+        from tbl_activity
+        where uuid = #{uuid}
+    </select>
+
+    <update id="update" parameterType="com.base.facade.banner.pojo.po.Activity">
+        update tbl_activity
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="summary != null">
+                summary = #{summary},
+            </if>
+            <if test="linkType != null">
+                link_type = #{linkType},
+            </if>
+            <if test="showPosition != null">
+                show_position = #{showPosition},
+            </if>
+            <if test="productId != null">
+                product_id = #{productId},
+            </if>
+            <if test="urlParam != null">
+                url_param = #{urlParam},
+            </if>
+            <if test="loginRequired != null">
+                login_required = #{loginRequired},
+            </if>
+            <if test="rank != null">
+                rank = #{rank},
+            </if>
+            <if test="active != null">
+                active = #{active},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="imgUrl != null">
+                img_url = #{imgUrl},
+            </if>
+            <if test="detailUrl != null">
+                detail_url = #{detailUrl},
+            </if>
+            <if test="modifiedUserId != null">
+                modified_user_id = #{modifiedUserId},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                modified_date = #{modifiedDate},
+            </if>
+            <if test="startDate != null">
+                start_date = #{startDate},
+            </if>
+            <if test="endDate != null">
+                end_date = #{endDate},
+            </if>
+            <if test="bannerContent != null">
+                banner_content = #{bannerContent},
+            </if>
+        </set>
+        where uuid = #{uuid}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.String">
+        delete from tbl_activity
+        where uuid = #{uuid}
+    </delete>
+
+    <select id="selectAll" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList"/>
+        from tbl_activity
+        order by rank asc , create_date desc
+    </select>
+
+    <select id="queryActivityByPosition" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList"/>
+        from tbl_activity
+        WHERE show_position = #{showPosition}
+        AND active = TRUE
+        ORDER BY rank ASC , end_date DESC
+    </select>
+
+    <select id="getByConditionPage" parameterType="com.base.facade.banner.pojo.vo.ActivityVo"
+            resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList"/>
+        from tbl_activity
+        <where>
+            <if test="showPosition!=null">
+                and show_position=#{showPosition}
+            </if>
+            <if test="active!=null">
+                and active=#{active}
+            </if>
+            <if test="startTime != null">
+                and create_date <![CDATA[>=]]>#{startTime}
+            </if>
+            <if test="endTime != null">
+                and create_date <![CDATA[<=]]>#{endTime}
+            </if>
+
+        </where>
+        order by rank asc , end_date desc
+    </select>
+
+    <select id="queryAllActivityByConditionPage" parameterType="com.base.facade.banner.pojo.vo.ActivityVo"
+            resultMap="baseResultMap">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM tbl_activity
+        WHERE active = TRUE
+        <if test="showPosition!=null">
+            AND show_position=#{showPosition}
+        </if>
+        ORDER BY case when now() > end_date then 1 else 0 end ASC,rank ASC , end_date DESC
+    </select>
+</mapper>

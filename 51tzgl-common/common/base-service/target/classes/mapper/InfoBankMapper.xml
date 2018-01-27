@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.service.info.dao.InfoBankMapper">
+    <resultMap id="baseResultMap" type="com.base.facade.info.pojo.po.InfoBank">
+        <id column="id" property="id" />
+        <result column="uuid" property="uuid" />
+        <result column="bank_name" property="bankName" />
+        <result column="bank_logo" property="bankLogo" />
+        <result column="create_datetime" property="createDatetime" />
+        <result column="modifed_datetime" property="modifedDatetime" />
+        <result column="show_status" property="showStatus"/>
+        <result column="bank_logo_app" property="bankLogoApp"/>
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, uuid, bank_name, bank_logo, create_datetime, modifed_datetime,show_status,bank_logo_app
+    </sql>
+
+    <insert id="insert" parameterType="com.base.facade.info.pojo.po.InfoBank">
+        insert into tbl_info_bank
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="uuid != null">
+                uuid,
+            </if>
+            <if test="bankName != null">
+                bank_name,
+            </if>
+            <if test="bankLogo != null">
+                bank_logo,
+            </if>
+            <if test="createDatetime != null">
+                create_datetime,
+            </if>
+            <if test="modifedDatetime != null">
+                modifed_datetime,
+            </if>
+            <if test="showStatus != null">
+                show_status,
+            </if>
+            <if test="bankLogoApp != null">
+                bank_logo_app
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="uuid != null">
+                #{uuid},
+            </if>
+            <if test="bankName != null">
+                #{bankName},
+            </if>
+            <if test="bankLogo != null">
+                #{bankLogo},
+            </if>
+            <if test="createDatetime != null">
+                #{createDatetime},
+            </if>
+            <if test="modifedDatetime != null">
+                #{modifedDatetime},
+            </if>
+            <if test="showStatus != null">
+                #{showStatus},
+            </if>
+            <if test="bankLogoApp != null">
+                #{bankLogoApp},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="baseColumnList" />
+        from tbl_info_bank
+        where uuid = #{uuid}
+    </select>
+
+    <select id="selectAll" resultMap="baseResultMap" >
+        select
+        <include refid="baseColumnList" />
+        from tbl_info_bank
+    </select>
+
+    <select id="getByConditionPage" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from tbl_info_bank
+        order by create_datetime desc
+    </select>
+
+    <update id="update" parameterType="com.base.facade.info.pojo.po.InfoBank">
+        update tbl_info_bank
+        <set>
+            <if test="uuid != null">
+                uuid = #{uuid},
+            </if>
+            <if test="bankName != null">
+                bank_name = #{bankName},
+            </if>
+            <if test="bankLogo != null">
+                bank_logo = #{bankLogo},
+            </if>
+            <if test="createDatetime != null">
+                create_datetime = #{createDatetime},
+            </if>
+            <if test="modifedDatetime != null">
+                modifed_datetime = #{modifedDatetime},
+            </if>
+            <if test="showStatus != null">
+                show_status =  #{showStatus},
+            </if>
+            <if test="bankLogoApp != null">
+                bank_logo_app = #{bankLogoApp}
+            </if>
+        </set>
+        where uuid = #{uuid }
+    </update>
+
+    <delete id="delete" parameterType="java.lang.String">
+        delete from tbl_info_bank
+        where uuid = #{uuid}
+    </delete>
+
+    <select id="selectByName" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from tbl_info_bank
+        where bank_name = #{bankName}
+    </select>
+
+    <!-- 获取银行-->
+    <select id="getInfoBankForRelease" resultMap="baseResultMap">
+        select
+          <include refid="baseColumnList" />
+        from tbl_info_bank a
+        where 1=1
+        <choose>
+            <when test="bankModle != null and bankModle =='product'">
+                <!--银行产品模块-->
+                and exists (select uuid from tbl_info_bank_product b where b.status = '2' and b.bank_id = a.uuid)
+            </when>
+            <when test="bankModle != null and bankModle =='rate'">
+                <!--银行利率模块-->
+                and exists (select uuid from tbl_info_rate b where b.status = '2' and b.bank_id = a.uuid)
+            </when>
+        </choose>
+    </select>
+
+</mapper>

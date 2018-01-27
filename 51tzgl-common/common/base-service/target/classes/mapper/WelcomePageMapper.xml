@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.service.welcomepage.dao.WelcomePageMapper">
+    <resultMap id="baseResultMap" type="com.base.facade.welcomepage.pojo.po.WelcomePage">
+        <id column="id" property="id" />
+        <result column="uuid" property="uuid" />
+        <result column="team_no" property="teamNo" />
+        <result column="page_type" property="pageType" />
+        <result column="close_type" property="closeType" />
+        <result column="close_times" property="closeTimes" />
+        <result column="page_url" property="pageUrl" />
+        <result column="active" property="active" />
+        <result column="start_date" property="startDate" />
+        <result column="end_date" property="endDate" />
+        <result column="create_date" property="createDate" />
+        <result column="modified_date" property="modifiedDate" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="modified_user_id" property="modifiedUserId" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, uuid, team_no, page_type, close_type, close_times, page_url, active, start_date, 
+        end_date, create_date, modified_date, create_user_id, modified_user_id
+    </sql>
+
+    <insert id="insert" parameterType="com.base.facade.welcomepage.pojo.po.WelcomePage">
+        insert into tbl_welcome_page
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="uuid != null">
+                uuid,
+            </if>
+            <if test="teamNo != null">
+                team_no,
+            </if>
+            <if test="pageType != null">
+                page_type,
+            </if>
+            <if test="closeType != null">
+                close_type,
+            </if>
+            <if test="closeTimes != null">
+                close_times,
+            </if>
+            <if test="pageUrl != null">
+                page_url,
+            </if>
+            <if test="active != null">
+                active,
+            </if>
+            <if test="startDate != null">
+                start_date,
+            </if>
+            <if test="endDate != null">
+                end_date,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="modifiedUserId != null">
+                modified_user_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="uuid != null">
+                #{uuid},
+            </if>
+            <if test="teamNo != null">
+                #{teamNo},
+            </if>
+            <if test="pageType != null">
+                #{pageType},
+            </if>
+            <if test="closeType != null">
+                #{closeType},
+            </if>
+            <if test="closeTimes != null">
+                #{closeTimes},
+            </if>
+            <if test="pageUrl != null">
+                #{pageUrl},
+            </if>
+            <if test="active != null">
+                #{active},
+            </if>
+            <if test="startDate != null">
+                #{startDate},
+            </if>
+            <if test="endDate != null">
+                #{endDate},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId},
+            </if>
+            <if test="modifiedUserId != null">
+                #{modifiedUserId},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="baseColumnList" />
+        from tbl_welcome_page
+        where uuid = #{uuid}
+    </select>
+
+    <select id="queryWelcomePageListByConditionPage" resultMap="baseResultMap" parameterType="com.base.facade.welcomepage.pojo.vo.WelcomePageVo">
+        select
+        <include refid="baseColumnList" />
+        from tbl_welcome_page
+        where 1=1
+        <if test="startDate != null">
+            and create_date  <![CDATA[>=]]> #{startDate}
+        </if>
+        <if test="endDate != null">
+            and  create_date  <![CDATA[<=]]> #{endDate}
+        </if>
+        <if test="status !=null">
+            and active = #{status}
+        </if>
+        <if test="validate !=null">
+            and  end_date  <![CDATA[>=]]> #{validate}
+        </if>
+        <if test="finishDate !=null">
+            and  #{finishDate}  <![CDATA[>]]> end_date
+        </if>
+        order by create_date desc
+    </select>
+
+
+    <select id="queryMergeWelcomePage" resultType="java.lang.Long" parameterType="com.base.facade.welcomepage.pojo.po.WelcomePage">
+        select
+        count(uuid)
+        from tbl_welcome_page
+        where active = 1 and uuid<![CDATA[<>]]>#{uuid}
+        and end_date >= DATE_FORMAT(now(),'%Y-%m-%d')
+        and ((
+        #{startDate} between start_date and end_date
+        or
+        #{endDate} between start_date and end_date
+
+        ) or
+        (
+        #{startDate} <![CDATA[<]]> start_date
+        and
+        #{endDate} <![CDATA[>]]>  end_date
+        ))
+    </select>
+
+    <update id="update" parameterType="com.base.facade.welcomepage.pojo.po.WelcomePage">
+        update tbl_welcome_page
+        <set>
+            <if test="uuid != null">
+                uuid = #{uuid},
+            </if>
+            <if test="teamNo != null">
+                team_no = #{teamNo},
+            </if>
+            <if test="pageType != null">
+                page_type = #{pageType},
+            </if>
+            <if test="closeType != null">
+                close_type = #{closeType},
+            </if>
+            <if test="closeTimes != null">
+                close_times = #{closeTimes},
+            </if>
+            <if test="pageUrl != null">
+                page_url = #{pageUrl},
+            </if>
+            <if test="active != null">
+                active = #{active},
+            </if>
+            <if test="startDate != null">
+                start_date = #{startDate},
+            </if>
+            <if test="endDate != null">
+                end_date = #{endDate},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                modified_date = #{modifiedDate},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId},
+            </if>
+            <if test="modifiedUserId != null">
+                modified_user_id = #{modifiedUserId},
+            </if>
+        </set>
+        where uuid = #{uuid}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.String">
+        delete from tbl_welcome_page
+        where uuid = #{uuid}
+    </delete>
+
+    <select id="getCurrentWelcomePage" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from tbl_welcome_page
+        where active = TRUE
+        and start_date  <![CDATA[<=]]> #{now}
+        and end_date  <![CDATA[>=]]> #{now}
+    </select>
+
+    <!-- 根据日期查询最大的组序号 -->
+    <select id="queryMaxTeamNoByDate" resultType="java.lang.String" parameterType="java.lang.String">
+        select ifnull(substring(max(team_no),12),0) from tbl_welcome_page
+        where substring(team_no,4,8) = #{date}
+    </select>
+</mapper>

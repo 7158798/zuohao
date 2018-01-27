@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.service.laud.dao.LaudMapper">
+    <resultMap id="baseResultMap" type="com.base.facade.laud.pojo.po.Laud">
+        <id column="id" property="id" />
+        <result column="relation_id" property="relationId" />
+        <result column="laud_user_id" property="laudUserId" />
+        <result column="mac_address" property="macAddress" />
+        <result column="ip_address" property="ipAddress" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="modified_user_id" property="modifiedUserId" />
+        <result column="create_date" property="createDate" />
+        <result column="modified_date" property="modifiedDate" />
+        <result column="deleted" property="deleted" />
+        <result column="type" property="type" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, relation_id, laud_user_id, mac_address, ip_address, create_user_id, modified_user_id, 
+        create_date, modified_date, deleted, type
+    </sql>
+
+    <insert id="insert" parameterType="com.base.facade.laud.pojo.po.Laud">
+        insert into t_laud
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="relationId != null">
+                relation_id,
+            </if>
+            <if test="laudUserId != null">
+                laud_user_id,
+            </if>
+            <if test="macAddress != null">
+                mac_address,
+            </if>
+            <if test="ipAddress != null">
+                ip_address,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="modifiedUserId != null">
+                modified_user_id,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="relationId != null">
+                #{relationId},
+            </if>
+            <if test="laudUserId != null">
+                #{laudUserId},
+            </if>
+            <if test="macAddress != null">
+                #{macAddress},
+            </if>
+            <if test="ipAddress != null">
+                #{ipAddress},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId},
+            </if>
+            <if test="modifiedUserId != null">
+                #{modifiedUserId},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="baseColumnList" />
+        from t_laud
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.base.facade.laud.pojo.po.Laud">
+        update t_laud
+        <set>
+            <if test="relationId != null">
+                relation_id = #{relationId},
+            </if>
+            <if test="laudUserId != null">
+                laud_user_id = #{laudUserId},
+            </if>
+            <if test="macAddress != null">
+                mac_address = #{macAddress},
+            </if>
+            <if test="ipAddress != null">
+                ip_address = #{ipAddress},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId},
+            </if>
+            <if test="modifiedUserId != null">
+                modified_user_id = #{modifiedUserId},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifiedDate != null">
+                modified_date = #{modifiedDate},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from t_laud
+        where id = #{id}
+    </delete>
+
+    <select id="getLaudByCondition" resultMap="baseResultMap" parameterType="com.base.facade.laud.pojo.cond.LaudCond">
+        select
+          <include refid="baseColumnList"/>
+        from
+          t_laud
+        where
+            deleted = false
+            <if test="laudUserId != null">
+                and laud_user_id = #{laudUserId}
+            </if>
+            <if test="ipAddress != null and ipAddress != '' ">
+                and ip_address = #{ipAddress}
+            </if>
+            <if test="macAddress != null and macAddress != ''">
+                and mac_address = #{macAddress}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="relationId != null">
+                and relation_id = #{relationId}
+            </if>
+    </select>
+    <!--合并帖子数据-->
+    <update id="mergeLaud">
+        update t_laud
+        set laud_user_id = #{targetUserId},
+        modified_user_id = #{targetUserId},
+        modified_date = sysdate()
+        where laud_user_id = #{sourcesUserId}
+    </update>
+</mapper>
