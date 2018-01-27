@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+
+    <!-- 平台账户余额列表 -->
+    <bean id="platformBalanceJob" class="com.szzc.job.PlatformBalanceJob"/>
+    <bean id="jobTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="platformBalanceJob"/>
+        <property name="targetMethod" value="syncInit"/>
+    </bean>
+
+    <bean id="doTimeTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="jobTask"/>
+        <property name="cronExpression" value="59 59 23 * * ?"/>
+    </bean>
+
+    <bean id="startQuertz" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="doTimeTrigger"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szzc.wallet.dao.VirtualWalletMapper">
+    <resultMap id="baseResultMap" type="com.szzc.facade.wallet.pojo.po.VirtualWallet">
+        <id column="fId" property="fid" />
+        <result column="fVi_fId" property="fviFid" />
+        <result column="fTotal" property="ftotal" />
+        <result column="fFrozen" property="ffrozen" />
+        <result column="fLastUpdateTime" property="flastupdatetime" />
+        <result column="fuid" property="fuid" />
+        <result column="fBorrowBtc" property="fborrowbtc" />
+        <result column="fCanlendBtc" property="fcanlendbtc" />
+        <result column="fFrozenLendBtc" property="ffrozenlendbtc" />
+        <result column="fAlreadyLendBtc" property="falreadylendbtc" />
+        <result column="version" property="version" />
+        <result column="fHaveAppointBorrowBtc" property="fhaveappointborrowbtc" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        fId, fVi_fId, fTotal, fFrozen, fLastUpdateTime, fuid, fBorrowBtc, fCanlendBtc, fFrozenLendBtc, 
+        fAlreadyLendBtc, version, fHaveAppointBorrowBtc
+    </sql>
+
+    <insert id="insert" parameterType="com.szzc.facade.wallet.pojo.po.VirtualWallet">
+        insert into fvirtualwallet
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fid != null">
+                fId,
+            </if>
+            <if test="fviFid != null">
+                fVi_fId,
+            </if>
+            <if test="ftotal != null">
+                fTotal,
+            </if>
+            <if test="ffrozen != null">
+                fFrozen,
+            </if>
+            <if test="flastupdatetime != null">
+                fLastUpdateTime,
+            </if>
+            <if test="fuid != null">
+                fuid,
+            </if>
+            <if test="fborrowbtc != null">
+                fBorrowBtc,
+            </if>
+            <if test="fcanlendbtc != null">
+                fCanlendBtc,
+            </if>
+            <if test="ffrozenlendbtc != null">
+                fFrozenLendBtc,
+            </if>
+            <if test="falreadylendbtc != null">
+                fAlreadyLendBtc,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+            <if test="fhaveappointborrowbtc != null">
+                fHaveAppointBorrowBtc,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fid != null">
+                #{fid},
+            </if>
+            <if test="fviFid != null">
+                #{fviFid},
+            </if>
+            <if test="ftotal != null">
+                #{ftotal},
+            </if>
+            <if test="ffrozen != null">
+                #{ffrozen},
+            </if>
+            <if test="flastupdatetime != null">
+                #{flastupdatetime},
+            </if>
+            <if test="fuid != null">
+                #{fuid},
+            </if>
+            <if test="fborrowbtc != null">
+                #{fborrowbtc},
+            </if>
+            <if test="fcanlendbtc != null">
+                #{fcanlendbtc},
+            </if>
+            <if test="ffrozenlendbtc != null">
+                #{ffrozenlendbtc},
+            </if>
+            <if test="falreadylendbtc != null">
+                #{falreadylendbtc},
+            </if>
+            <if test="version != null">
+                #{version},
+            </if>
+            <if test="fhaveappointborrowbtc != null">
+                #{fhaveappointborrowbtc},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="baseColumnList" />
+        from fvirtualwallet
+        where fId = #{fid}
+    </select>
+
+    <update id="update" parameterType="com.szzc.facade.wallet.pojo.po.VirtualWallet">
+        update fvirtualwallet
+        <set>
+            <if test="fviFid != null">
+                fVi_fId = #{fviFid},
+            </if>
+            <if test="ftotal != null">
+                fTotal = #{ftotal},
+            </if>
+            <if test="ffrozen != null">
+                fFrozen = #{ffrozen},
+            </if>
+            <if test="flastupdatetime != null">
+                fLastUpdateTime = #{flastupdatetime},
+            </if>
+            <if test="fuid != null">
+                fuid = #{fuid},
+            </if>
+            <if test="fborrowbtc != null">
+                fBorrowBtc = #{fborrowbtc},
+            </if>
+            <if test="fcanlendbtc != null">
+                fCanlendBtc = #{fcanlendbtc},
+            </if>
+            <if test="ffrozenlendbtc != null">
+                fFrozenLendBtc = #{ffrozenlendbtc},
+            </if>
+            <if test="falreadylendbtc != null">
+                fAlreadyLendBtc = #{falreadylendbtc},
+            </if>
+            <if test="version != null">
+                version = #{version},
+            </if>
+            <if test="fhaveappointborrowbtc != null">
+                fHaveAppointBorrowBtc = #{fhaveappointborrowbtc},
+            </if>
+        </set>
+        where fId = #{fid}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from fvirtualwallet
+        where fId = #{fid}
+    </delete>
+
+    <select id="queryWalletByCondition" parameterType="com.szzc.facade.wallet.pojo.cond.VirtualWalletCond" resultMap="baseResultMap">
+        select
+          <include refid="baseColumnList"/>
+        from
+          fvirtualwallet
+        <where>
+            <if test="coinId != null">
+                and
+                  fviFid = #{fviFid}
+            </if>
+            <if test="userId != null">
+                and
+                  fuid = #{userId}
+            </if>
+        </where>
+    </select>
+    <update id="updateWallet" parameterType="com.szzc.facade.wallet.pojo.po.VirtualWallet">
+        update
+          fvirtualwallet
+        set
+          ftotal = #{ftotal},
+          flastupdatetime = #{flastupdatetime},
+          ffrozen = #{ffrozen},
+          version = version + 1
+        where
+          fId = #{fid}
+    </update>
+
+
+    <select id="queryStatisWallet" resultType="com.szzc.facade.wallet.pojo.vo.VirtualWalletStaticVo">
+      select a.fVi_fId, sum(a.fTotal) as fable, sum(a.fFrozen) as ffrozen,
+        sum(a.fTotal + a.fFrozen) as balance
+        from fvirtualwallet a
+        group by a.fVi_fId
+    </select>
+</mapper>

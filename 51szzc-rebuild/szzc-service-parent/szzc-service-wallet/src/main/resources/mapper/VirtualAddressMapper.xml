@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szzc.core.wallet.dao.VirtualAddressMapper">
+    <resultMap id="baseResultMap" type="com.szzc.facade.wallet.pojo.po.VirtualAddress">
+        <id column="fId" property="fid" />
+        <result column="fVi_fId" property="fviFid" />
+        <result column="fAdderess" property="fadderess" />
+        <result column="fuid" property="fuid" />
+        <result column="fCreateTime" property="fcreatetime" />
+        <result column="version" property="version" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        fId, fVi_fId, fAdderess, fuid, fCreateTime, version
+    </sql>
+
+    <insert id="insert" parameterType="com.szzc.facade.wallet.pojo.po.VirtualAddress">
+        insert into fvirtualaddress
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fid != null">
+                fId,
+            </if>
+            <if test="fviFid != null">
+                fVi_fId,
+            </if>
+            <if test="fadderess != null">
+                fAdderess,
+            </if>
+            <if test="fuid != null">
+                fuid,
+            </if>
+            <if test="fcreatetime != null">
+                fCreateTime,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fid != null">
+                #{fid},
+            </if>
+            <if test="fviFid != null">
+                #{fviFid},
+            </if>
+            <if test="fadderess != null">
+                #{fadderess},
+            </if>
+            <if test="fuid != null">
+                #{fuid},
+            </if>
+            <if test="fcreatetime != null">
+                #{fcreatetime},
+            </if>
+            <if test="version != null">
+                #{version},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="baseColumnList" />
+        from fvirtualaddress
+        where fId = #{fid}
+    </select>
+
+    <update id="update" parameterType="com.szzc.facade.wallet.pojo.po.VirtualAddress">
+        update fvirtualaddress
+        <set>
+            <if test="fviFid != null">
+                fVi_fId = #{fviFid},
+            </if>
+            <if test="fadderess != null">
+                fAdderess = #{fadderess},
+            </if>
+            <if test="fuid != null">
+                fuid = #{fuid},
+            </if>
+            <if test="fcreatetime != null">
+                fCreateTime = #{fcreatetime},
+            </if>
+            <if test="version != null">
+                version = #{version},
+            </if>
+        </set>
+        where fId = #{fid}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from fvirtualaddress
+        where fId = #{fid}
+    </delete>
+
+    <select id="queryListByCondition" parameterType="com.szzc.facade.wallet.pojo.cond.VirtualAddressCond" resultMap="baseResultMap">
+        select
+            <include refid="baseColumnList"/>
+        from
+            fvirtualaddress
+        <where>
+            <if test="coinId != null">
+                and
+                  fVi_fId = #{coinId}
+            </if>
+            <if test="address != null and address != ''">
+                and
+                  fAdderess = #{address}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szzc.core.wallet.dao.PlatformBalanceMapper">
+    <resultMap id="baseResultMap" type="com.szzc.facade.wallet.pojo.po.PlatformBalance">
+        <id column="fid" property="fid" />
+        <result column="fvi_id" property="fviId" />
+        <result column="fable" property="fable" />
+        <result column="ffrozen" property="ffrozen" />
+        <result column="ftotal" property="ftotal" />
+        <result column="fcreateTime" property="fcreatetime" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        fid, fvi_id, fable, ffrozen, ftotal, fcreateTime
+    </sql>
+
+    <insert id="insert" parameterType="com.szzc.facade.wallet.pojo.po.PlatformBalance">
+        insert into fplatform_balance
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fid != null">
+                fid,
+            </if>
+            <if test="fviId != null">
+                fvi_id,
+            </if>
+            <if test="fable != null">
+                fable,
+            </if>
+            <if test="ffrozen != null">
+                ffrozen,
+            </if>
+            <if test="ftotal != null">
+                ftotal,
+            </if>
+            <if test="fcreatetime != null">
+                fcreateTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fid != null">
+                #{fid},
+            </if>
+            <if test="fviId != null">
+                #{fviId},
+            </if>
+            <if test="fable != null">
+                #{fable},
+            </if>
+            <if test="ffrozen != null">
+                #{ffrozen},
+            </if>
+            <if test="ftotal != null">
+                #{ftotal},
+            </if>
+            <if test="fcreatetime != null">
+                #{fcreatetime},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="baseColumnList" />
+        from fplatform_balance
+        where fid = #{fid}
+    </select>
+
+    <update id="update" parameterType="com.szzc.facade.wallet.pojo.po.PlatformBalance">
+        update fplatform_balance
+        <set>
+            <if test="fviId != null">
+                fvi_id = #{fviId},
+            </if>
+            <if test="fable != null">
+                fable = #{fable},
+            </if>
+            <if test="ffrozen != null">
+                ffrozen = #{ffrozen},
+            </if>
+            <if test="ftotal != null">
+                ftotal = #{ftotal},
+            </if>
+            <if test="fcreatetime != null">
+                fcreateTime = #{fcreatetime},
+            </if>
+        </set>
+        where fid = #{fid}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from fplatform_balance
+        where fid = #{fid}
+    </delete>
+
+    <!-- 根据日期判断当天是否有数据存在 -->
+    <select id="queryExistsByDate" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(1) from fplatform_balance where DATE_FORMAT(fcreateTime, '%Y-%m-%d') = #{date}
+    </select>
+
+    <!-- 根据日期删除指定时间的数据 -->
+    <delete id="deleteByDate" parameterType="java.lang.String">
+        delete from fplatform_balance where DATE_FORMAT(fcreateTime, '%Y-%m-%d') = #{date}
+    </delete>
+</mapper>

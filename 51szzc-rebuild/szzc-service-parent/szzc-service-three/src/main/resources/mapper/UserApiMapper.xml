@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szzc.api.dao.UserApiMapper">
+    <resultMap id="baseResultMap" type="com.szzc.facade.api.pojo.po.UserApi">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="api_key" property="apiKey" />
+        <result column="secret_key" property="secretKey" />
+        <result column="create_date" property="createDate" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, user_id, api_key, secret_key, create_date
+    </sql>
+
+    <insert id="insert" parameterType="com.szzc.facade.api.pojo.po.UserApi">
+        insert into t_user_api
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="apiKey != null">
+                api_key,
+            </if>
+            <if test="secretKey != null">
+                secret_key,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="apiKey != null">
+                #{apiKey},
+            </if>
+            <if test="secretKey != null">
+                #{secretKey},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="baseColumnList" />
+        from t_user_api
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.szzc.facade.api.pojo.po.UserApi">
+        update t_user_api
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="apiKey != null">
+                api_key = #{apiKey},
+            </if>
+            <if test="secretKey != null">
+                secret_key = #{secretKey},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from t_user_api
+        where id = #{id}
+    </delete>
+
+    <select id="getUserApiByKey" resultMap="baseResultMap">
+        select <include refid="baseColumnList" />
+        from t_user_api
+        <where>
+            <if test="apiKey != null || apiKey != ''">
+                api_key = #{apiKey}
+            </if>
+        </where>
+    </select>
+
+</mapper>

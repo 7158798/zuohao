@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szzc.core.wallet.dao.VirtualCapitaloperationMapper">
+    <resultMap id="baseResultMap" type="com.szzc.facade.wallet.pojo.po.VirtualCapitaloperation">
+        <id column="fId" property="fid" />
+        <result column="FUs_fId2" property="fusFid2" />
+        <result column="fVi_fId2" property="fviFid2" />
+        <result column="fCreateTime" property="fcreatetime" />
+        <result column="fAmount" property="famount" />
+        <result column="ffees" property="ffees" />
+        <result column="fType" property="ftype" />
+        <result column="fStatus" property="fstatus" />
+        <result column="flastUpdateTime" property="flastupdatetime" />
+        <result column="version" property="version" />
+        <result column="withdraw_virtual_address" property="withdrawVirtualAddress" />
+        <result column="recharge_virtual_address" property="rechargeVirtualAddress" />
+        <result column="ftradeUniqueNumber" property="ftradeuniquenumber" />
+        <result column="fconfirmations" property="fconfirmations" />
+        <result column="fhasOwner" property="fhasowner" />
+        <result column="fischarge" property="fischarge" />
+        <result column="cancelReason" property="cancelreason" />
+        <result column="is_contract" property="isContract" />
+        <result column="mailLinkVerDate" property="maillinkverdate" />
+        <result column="mailLinkUUID" property="maillinkuuid" />
+        <result column="autoProcess" property="autoprocess" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        fId, FUs_fId2, fVi_fId2, fCreateTime, fAmount, ffees, fType, fStatus, flastUpdateTime, 
+        version, withdraw_virtual_address, recharge_virtual_address, ftradeUniqueNumber, 
+        fconfirmations, fhasOwner, fischarge, cancelReason, is_contract, mailLinkVerDate, 
+        mailLinkUUID, autoProcess
+    </sql>
+
+    <insert id="insert" parameterType="com.szzc.facade.wallet.pojo.po.VirtualCapitaloperation">
+        insert into fvirtualcaptualoperation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fid != null">
+                fId,
+            </if>
+            <if test="fusFid2 != null">
+                FUs_fId2,
+            </if>
+            <if test="fviFid2 != null">
+                fVi_fId2,
+            </if>
+            <if test="fcreatetime != null">
+                fCreateTime,
+            </if>
+            <if test="famount != null">
+                fAmount,
+            </if>
+            <if test="ffees != null">
+                ffees,
+            </if>
+            <if test="ftype != null">
+                fType,
+            </if>
+            <if test="fstatus != null">
+                fStatus,
+            </if>
+            <if test="flastupdatetime != null">
+                flastUpdateTime,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+            <if test="withdrawVirtualAddress != null">
+                withdraw_virtual_address,
+            </if>
+            <if test="rechargeVirtualAddress != null">
+                recharge_virtual_address,
+            </if>
+            <if test="ftradeuniquenumber != null">
+                ftradeUniqueNumber,
+            </if>
+            <if test="fconfirmations != null">
+                fconfirmations,
+            </if>
+            <if test="fhasowner != null">
+                fhasOwner,
+            </if>
+            <if test="fischarge != null">
+                fischarge,
+            </if>
+            <if test="cancelreason != null">
+                cancelReason,
+            </if>
+            <if test="isContract != null">
+                is_contract,
+            </if>
+            <if test="maillinkverdate != null">
+                mailLinkVerDate,
+            </if>
+            <if test="maillinkuuid != null">
+                mailLinkUUID,
+            </if>
+            <if test="autoprocess != null">
+                autoProcess,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fid != null">
+                #{fid},
+            </if>
+            <if test="fusFid2 != null">
+                #{fusFid2},
+            </if>
+            <if test="fviFid2 != null">
+                #{fviFid2},
+            </if>
+            <if test="fcreatetime != null">
+                #{fcreatetime},
+            </if>
+            <if test="famount != null">
+                #{famount},
+            </if>
+            <if test="ffees != null">
+                #{ffees},
+            </if>
+            <if test="ftype != null">
+                #{ftype},
+            </if>
+            <if test="fstatus != null">
+                #{fstatus},
+            </if>
+            <if test="flastupdatetime != null">
+                #{flastupdatetime},
+            </if>
+            <if test="version != null">
+                #{version},
+            </if>
+            <if test="withdrawVirtualAddress != null">
+                #{withdrawVirtualAddress},
+            </if>
+            <if test="rechargeVirtualAddress != null">
+                #{rechargeVirtualAddress},
+            </if>
+            <if test="ftradeuniquenumber != null">
+                #{ftradeuniquenumber},
+            </if>
+            <if test="fconfirmations != null">
+                #{fconfirmations},
+            </if>
+            <if test="fhasowner != null">
+                #{fhasowner},
+            </if>
+            <if test="fischarge != null">
+                #{fischarge},
+            </if>
+            <if test="cancelreason != null">
+                #{cancelreason},
+            </if>
+            <if test="isContract != null">
+                #{isContract},
+            </if>
+            <if test="maillinkverdate != null">
+                #{maillinkverdate},
+            </if>
+            <if test="maillinkuuid != null">
+                #{maillinkuuid},
+            </if>
+            <if test="autoprocess != null">
+                #{autoprocess},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="baseColumnList" />
+        from fvirtualcaptualoperation
+        where fId = #{fid}
+    </select>
+
+    <update id="update" parameterType="com.szzc.facade.wallet.pojo.po.VirtualCapitaloperation">
+        update fvirtualcaptualoperation
+        <set>
+            <if test="fusFid2 != null">
+                FUs_fId2 = #{fusFid2},
+            </if>
+            <if test="fviFid2 != null">
+                fVi_fId2 = #{fviFid2},
+            </if>
+            <if test="fcreatetime != null">
+                fCreateTime = #{fcreatetime},
+            </if>
+            <if test="famount != null">
+                fAmount = #{famount},
+            </if>
+            <if test="ffees != null">
+                ffees = #{ffees},
+            </if>
+            <if test="ftype != null">
+                fType = #{ftype},
+            </if>
+            <if test="fstatus != null">
+                fStatus = #{fstatus},
+            </if>
+            <if test="flastupdatetime != null">
+                flastUpdateTime = #{flastupdatetime},
+            </if>
+            <if test="version != null">
+                version = #{version},
+            </if>
+            <if test="withdrawVirtualAddress != null">
+                withdraw_virtual_address = #{withdrawVirtualAddress},
+            </if>
+            <if test="rechargeVirtualAddress != null">
+                recharge_virtual_address = #{rechargeVirtualAddress},
+            </if>
+            <if test="ftradeuniquenumber != null">
+                ftradeUniqueNumber = #{ftradeuniquenumber},
+            </if>
+            <if test="fconfirmations != null">
+                fconfirmations = #{fconfirmations},
+            </if>
+            <if test="fhasowner != null">
+                fhasOwner = #{fhasowner},
+            </if>
+            <if test="fischarge != null">
+                fischarge = #{fischarge},
+            </if>
+            <if test="cancelreason != null">
+                cancelReason = #{cancelreason},
+            </if>
+            <if test="isContract != null">
+                is_contract = #{isContract},
+            </if>
+            <if test="maillinkverdate != null">
+                mailLinkVerDate = #{maillinkverdate},
+            </if>
+            <if test="maillinkuuid != null">
+                mailLinkUUID = #{maillinkuuid},
+            </if>
+            <if test="autoprocess != null">
+                autoProcess = #{autoprocess},
+            </if>
+        </set>
+        where fId = #{fid}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from fvirtualcaptualoperation
+        where fId = #{fid}
+    </delete>
+
+    <select id="queryListByCondition" parameterType="com.szzc.facade.wallet.pojo.cond.VirtualCapitaloperationCond" resultMap="baseResultMap">
+        select
+            <include refid="baseColumnList"/>
+        from
+            fvirtualcaptualoperation
+        <where>
+            <if test="coinId != null">
+                and
+                  fVi_fId2 = #{coinId}
+            </if>
+            <if test="type != null">
+                and
+                  fType = #{type}
+            </if>
+            <if test="txId != null and txId != ''">
+                and
+                  ftradeUniqueNumber = #{txId}
+            </if>
+            <if test="address != null and address != ''">
+                and
+                  recharge_virtual_address = #{address}
+            </if>
+            <if test="noStatus != null">
+                <!-- 不等于的状态-->
+                and
+                  fStatus != #{noStatus}
+            </if>
+        </where>
+    </select>
+</mapper>

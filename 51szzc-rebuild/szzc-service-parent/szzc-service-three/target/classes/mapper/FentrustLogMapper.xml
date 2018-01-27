@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szzc.fentrustLog.dao.FentrustLogMapper">
+    <resultMap id="tradeMap" type="com.szzc.facade.fentrustLog.pojo.dto.TradeVo">
+        <id column="fid" property="fid" />
+        <result column="fAmount" property="amount" />
+        <result column="fCreateTime" property="date" />
+        <result column="fPrize" property="price" />
+        <result column="fEntrustType" property="type" />
+    </resultMap>
+
+    <sql id="tradeColumnList">
+        fid, fAmount, fCreateTime, fPrize, fEntrustType
+    </sql>
+
+    <select id="tradeOther" resultMap="tradeMap">
+        select
+        <include refid="tradeColumnList" />
+        from fentrustlog
+        where ftrademapping = #{ftrademapping}
+        order by fcreateTime desc
+        limit ${number}
+    </select>
+
+</mapper>

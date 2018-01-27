@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>szzc-parent</artifactId>
+        <groupId>com.szzc</groupId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.szzc.api</groupId>
+    <artifactId>szzc-api</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>szzc-api-app</module>
+        <module>szzc-api-three</module>
+        <module>szzc-common-api</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.szzc</groupId>
+            <artifactId>szzc-common-cache</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.szzc</groupId>
+            <artifactId>szzc-common-utils</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
+
+
+</project>

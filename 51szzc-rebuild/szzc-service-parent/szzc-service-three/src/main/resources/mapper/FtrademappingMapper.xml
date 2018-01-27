@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szzc.ftrademapping.dao.FtrademappingMapper">
+    <resultMap id="baseResultMap" type="com.szzc.facade.ftrademapping.pojo.dto.FtrademappingDto">
+        <id column="fid" property="fid" />
+        <result column="fvirtualcointype1" property="fvirtualcointype1" />
+        <result column="fvId" property="fvId" />
+        <result column="ftradeTime" property="ftradetime" />
+        <result column="fisLimit" property="fislimit" />
+        <result column="fstatus" property="fstatus" />
+        <result column="version" property="version" />
+        <result column="fcount1" property="fcount1" />
+        <result column="fcount2" property="fcount2" />
+        <result column="fminBuyCount" property="fminbuycount" />
+        <result column="fminBuyPrice" property="fminbuyprice" />
+        <result column="fminBuyAmount" property="fminbuyamount" />
+        <result column="fprice" property="fprice" />
+        <result column="fName" property="fname" />
+        <result column="fShortName" property="fshortName" />
+        <result column="ftype" property="ftype" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        ft.fid as fid, ft.fvirtualcointype1 as fvirtualcointype1, ft.ftradeTime as ftradeTime, ft.fisLimit as fisLimit,
+        ft.fstatus as fstatus, ft.version as version,
+        ft.fcount1 as fcount1, ft.fcount2 as fcount2, ft.fminBuyCount as fminBuyCount, ft.fminBuyPrice as fminBuyPrice,
+        ft.fminBuyAmount as fminBuyAmount, ft.fprice as fprice, fv.fId as fvId, fv.fName as fName, fv.fShortName as fShortName, fv.ftype as ftype
+    </sql>
+
+    <select id="getActiveCoin" resultMap="baseResultMap">
+        SELECT
+          <include refid="baseColumnList" />
+        FROM
+        fvirtualcointype fv
+        LEFT JOIN (
+        SELECT
+        a.*
+        FROM
+        ftrademapping a,
+        fvirtualcointype b
+        WHERE
+        a.fvirtualcointype1 = b.fId
+        AND b.ftype = 0
+        ) ft ON fv.fId = ft.fvirtualcointype2
+        WHERE
+        fv.fstatus != 2
+        order by ft.fid asc
+    </select>
+
+</mapper>

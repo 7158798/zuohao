@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szzc.fentrustLog.dao.FentrustMapper">
+    <resultMap id="baseResultMap" type="com.szzc.facade.fentrustLog.pojo.po.Fentrust">
+        <id column="fId" property="fid" />
+        <result column="FUs_fId" property="fusFid" />
+        <result column="ftrademapping" property="ftrademapping" />
+        <result column="fCreateTime" property="fcreatetime" />
+        <result column="fEntrustType" property="fentrusttype" />
+        <result column="fPrize" property="fprize" />
+        <result column="fAmount" property="famount" />
+        <result column="fsuccessAmount" property="fsuccessamount" />
+        <result column="fCount" property="fcount" />
+        <result column="fleftCount" property="fleftcount" />
+        <result column="fStatus" property="fstatus" />
+        <result column="flastUpdatTime" property="flastupdattime" />
+        <result column="version" property="version" />
+        <result column="fisLimit" property="fislimit" />
+        <result column="ffees" property="ffees" />
+        <result column="fleftfees" property="fleftfees" />
+        <result column="fhasSubscription" property="fhassubscription" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        fId, FUs_fId, ftrademapping, fCreateTime, fEntrustType, fPrize, fAmount, fsuccessAmount, 
+        fCount, fleftCount, fStatus, flastUpdatTime, version, fisLimit, ffees, fleftfees, 
+        fhasSubscription
+    </sql>
+
+    <insert id="insert" parameterType="com.szzc.facade.fentrustLog.pojo.po.Fentrust">
+        insert into fentrust
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fid != null">
+                fId,
+            </if>
+            <if test="fusFid != null">
+                FUs_fId,
+            </if>
+            <if test="ftrademapping != null">
+                ftrademapping,
+            </if>
+            <if test="fcreatetime != null">
+                fCreateTime,
+            </if>
+            <if test="fentrusttype != null">
+                fEntrustType,
+            </if>
+            <if test="fprize != null">
+                fPrize,
+            </if>
+            <if test="famount != null">
+                fAmount,
+            </if>
+            <if test="fsuccessamount != null">
+                fsuccessAmount,
+            </if>
+            <if test="fcount != null">
+                fCount,
+            </if>
+            <if test="fleftcount != null">
+                fleftCount,
+            </if>
+            <if test="fstatus != null">
+                fStatus,
+            </if>
+            <if test="flastupdattime != null">
+                flastUpdatTime,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+            <if test="fislimit != null">
+                fisLimit,
+            </if>
+            <if test="ffees != null">
+                ffees,
+            </if>
+            <if test="fleftfees != null">
+                fleftfees,
+            </if>
+            <if test="fhassubscription != null">
+                fhasSubscription,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fid != null">
+                #{fid},
+            </if>
+            <if test="fusFid != null">
+                #{fusFid},
+            </if>
+            <if test="ftrademapping != null">
+                #{ftrademapping},
+            </if>
+            <if test="fcreatetime != null">
+                #{fcreatetime},
+            </if>
+            <if test="fentrusttype != null">
+                #{fentrusttype},
+            </if>
+            <if test="fprize != null">
+                #{fprize},
+            </if>
+            <if test="famount != null">
+                #{famount},
+            </if>
+            <if test="fsuccessamount != null">
+                #{fsuccessamount},
+            </if>
+            <if test="fcount != null">
+                #{fcount},
+            </if>
+            <if test="fleftcount != null">
+                #{fleftcount},
+            </if>
+            <if test="fstatus != null">
+                #{fstatus},
+            </if>
+            <if test="flastupdattime != null">
+                #{flastupdattime},
+            </if>
+            <if test="version != null">
+                #{version},
+            </if>
+            <if test="fislimit != null">
+                #{fislimit},
+            </if>
+            <if test="ffees != null">
+                #{ffees},
+            </if>
+            <if test="fleftfees != null">
+                #{fleftfees},
+            </if>
+            <if test="fhassubscription != null">
+                #{fhassubscription},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="baseColumnList" />
+        from fentrust
+        where fId = #{fid}
+    </select>
+
+    <update id="update" parameterType="com.szzc.facade.fentrustLog.pojo.po.Fentrust">
+        update fentrust
+        <set>
+            <if test="fusFid != null">
+                FUs_fId = #{fusFid},
+            </if>
+            <if test="ftrademapping != null">
+                ftrademapping = #{ftrademapping},
+            </if>
+            <if test="fcreatetime != null">
+                fCreateTime = #{fcreatetime},
+            </if>
+            <if test="fentrusttype != null">
+                fEntrustType = #{fentrusttype},
+            </if>
+            <if test="fprize != null">
+                fPrize = #{fprize},
+            </if>
+            <if test="famount != null">
+                fAmount = #{famount},
+            </if>
+            <if test="fsuccessamount != null">
+                fsuccessAmount = #{fsuccessamount},
+            </if>
+            <if test="fcount != null">
+                fCount = #{fcount},
+            </if>
+            <if test="fleftcount != null">
+                fleftCount = #{fleftcount},
+            </if>
+            <if test="fstatus != null">
+                fStatus = #{fstatus},
+            </if>
+            <if test="flastupdattime != null">
+                flastUpdatTime = #{flastupdattime},
+            </if>
+            <if test="version != null">
+                version = #{version},
+            </if>
+            <if test="fislimit != null">
+                fisLimit = #{fislimit},
+            </if>
+            <if test="ffees != null">
+                ffees = #{ffees},
+            </if>
+            <if test="fleftfees != null">
+                fleftfees = #{fleftfees},
+            </if>
+            <if test="fhassubscription != null">
+                fhasSubscription = #{fhassubscription},
+            </if>
+        </set>
+        where fId = #{fid}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from fentrust
+        where fId = #{fid}
+    </delete>
+
+    <resultMap id="listResultMap" type="com.szzc.facade.fentrustLog.pojo.dto.FentrustDto">
+        <id column="fId" property="fid" />
+        <result column="fCreateTime" property="fcreatetime" />
+        <result column="fEntrustType" property="fentrusttype" />
+        <result column="fPrize" property="fprice" />
+        <result column="fAmount" property="famount" />
+        <result column="fsuccessAmount" property="fsuccessamount" />
+        <result column="fCount" property="fcount" />
+        <result column="fleftCount" property="fleftcount" />
+        <result column="fStatus" property="fstatus" />
+        <result column="flastUpdatTime" property="flastupdattime" />
+        <result column="fisLimit" property="fislimit" />
+    </resultMap>
+
+    <sql id="listColumnList">
+        fId, fCreateTime, fEntrustType, fPrize, fAmount, fsuccessAmount,
+        fCount, fleftCount, fStatus, flastUpdatTime,fisLimit
+    </sql>
+
+    <select id="getFentrustByConditionPage" parameterType="com.szzc.facade.fentrustLog.pojo.vo.FentrustVo" resultMap="listResultMap">
+        select <include refid="listColumnList" />
+        from fentrust
+        <where>
+            ftrademapping = #{symbol}
+            <if test="orderId != null">
+                and
+                  fId = #{orderId}
+            </if>
+            and
+              FUs_fId = #{userId}
+        </where>
+    </select>
+
+</mapper>

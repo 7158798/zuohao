@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+
+    <!-- 平台账户余额列表 -->
+    <bean id="tradeOtherTask1" class="com.szzc.job.TradeOtherTask"/>
+    <bean id="jobTask1" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="tradeOtherTask1"/>
+        <property name="targetMethod" value="work"/>
+    </bean>
+
+    <bean id="doTimeTrigger1" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="jobTask1"/>
+        <property name="cronExpression" value="0/30 * * * * ?"/>
+    </bean>
+
+    <bean id="startQuertz1" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="doTimeTrigger1"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>

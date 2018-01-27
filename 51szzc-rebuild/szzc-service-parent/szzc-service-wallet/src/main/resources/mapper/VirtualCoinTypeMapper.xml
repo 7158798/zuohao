@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szzc.core.wallet.dao.VirtualCoinTypeMapper">
+    <resultMap id="baseResultMap" type="com.szzc.facade.wallet.pojo.po.VirtualCoinType">
+        <id column="fId" property="fid" />
+        <result column="fName" property="fname" />
+        <result column="fShortName" property="fshortname" />
+        <result column="fDescription" property="fdescription" />
+        <result column="fAddTime" property="faddtime" />
+        <result column="fstatus" property="fstatus" />
+        <result column="version" property="version" />
+        <result column="fSymbol" property="fsymbol" />
+        <result column="faccess_key" property="faccessKey" />
+        <result column="fsecrt_key" property="fsecrtKey" />
+        <result column="fip" property="fip" />
+        <result column="fport" property="fport" />
+        <result column="FIsWithDraw" property="fiswithdraw" />
+        <result column="furl" property="furl" />
+        <result column="fweburl" property="fweburl" />
+        <result column="ftype" property="ftype" />
+        <result column="fisauto" property="fisauto" />
+        <result column="fisrecharge" property="fisrecharge" />
+        <result column="fmaxqty" property="fmaxqty" />
+        <result column="fminqty" property="fminqty" />
+        <result column="isEth" property="iseth" />
+        <result column="mainAddr" property="mainaddr" />
+        <result column="startBlockId" property="startblockid" />
+        <result column="password" property="password" />
+        <result column="salt" property="salt" />
+        <result column="is_split_password" property="isSplitPassword" />
+        <result column="furl2" property="furl2" />
+        <result column="auto_day_count" property="autoDayCount" />
+        <result column="auto_single_limit" property="autoSingleLimit" />
+        <result column="auto_day_limit" property="autoDayLimit" />
+        <result column="auto_password" property="autoPassword" />
+        <result column="kyc1_day_count" property="kyc1DayCount" />
+        <result column="kyc1_single_limit" property="kyc1SingleLimit" />
+        <result column="kyc1_day_limit" property="kyc1DayLimit" />
+        <result column="kyc1_month_limit" property="kyc1MonthLimit" />
+        <result column="kyc2_day_count" property="kyc2DayCount" />
+        <result column="kyc2_single_limit" property="kyc2SingleLimit" />
+        <result column="kyc2_day_limit" property="kyc2DayLimit" />
+        <result column="kyc2_month_limit" property="kyc2MonthLimit" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        fId, fName, fShortName, fDescription, fAddTime, fstatus, version, fSymbol, faccess_key, 
+        fsecrt_key, fip, fport, FIsWithDraw, furl, fweburl, ftype, fisauto, fisrecharge, 
+        fmaxqty, fminqty, isEth, mainAddr, startBlockId, password, salt, is_split_password, 
+        furl2, auto_day_count, auto_single_limit, auto_day_limit, auto_password, kyc1_day_count, 
+        kyc1_single_limit, kyc1_day_limit, kyc1_month_limit, kyc2_day_count, kyc2_single_limit, 
+        kyc2_day_limit, kyc2_month_limit
+    </sql>
+
+    <insert id="insert" parameterType="com.szzc.facade.wallet.pojo.po.VirtualCoinType">
+        insert into fvirtualcointype
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fid != null">
+                fId,
+            </if>
+            <if test="fname != null">
+                fName,
+            </if>
+            <if test="fshortname != null">
+                fShortName,
+            </if>
+            <if test="fdescription != null">
+                fDescription,
+            </if>
+            <if test="faddtime != null">
+                fAddTime,
+            </if>
+            <if test="fstatus != null">
+                fstatus,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+            <if test="fsymbol != null">
+                fSymbol,
+            </if>
+            <if test="faccessKey != null">
+                faccess_key,
+            </if>
+            <if test="fsecrtKey != null">
+                fsecrt_key,
+            </if>
+            <if test="fip != null">
+                fip,
+            </if>
+            <if test="fport != null">
+                fport,
+            </if>
+            <if test="fiswithdraw != null">
+                FIsWithDraw,
+            </if>
+            <if test="furl != null">
+                furl,
+            </if>
+            <if test="fweburl != null">
+                fweburl,
+            </if>
+            <if test="ftype != null">
+                ftype,
+            </if>
+            <if test="fisauto != null">
+                fisauto,
+            </if>
+            <if test="fisrecharge != null">
+                fisrecharge,
+            </if>
+            <if test="fmaxqty != null">
+                fmaxqty,
+            </if>
+            <if test="fminqty != null">
+                fminqty,
+            </if>
+            <if test="iseth != null">
+                isEth,
+            </if>
+            <if test="mainaddr != null">
+                mainAddr,
+            </if>
+            <if test="startblockid != null">
+                startBlockId,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="salt != null">
+                salt,
+            </if>
+            <if test="isSplitPassword != null">
+                is_split_password,
+            </if>
+            <if test="furl2 != null">
+                furl2,
+            </if>
+            <if test="autoDayCount != null">
+                auto_day_count,
+            </if>
+            <if test="autoSingleLimit != null">
+                auto_single_limit,
+            </if>
+            <if test="autoDayLimit != null">
+                auto_day_limit,
+            </if>
+            <if test="autoPassword != null">
+                auto_password,
+            </if>
+            <if test="kyc1DayCount != null">
+                kyc1_day_count,
+            </if>
+            <if test="kyc1SingleLimit != null">
+                kyc1_single_limit,
+            </if>
+            <if test="kyc1DayLimit != null">
+                kyc1_day_limit,
+            </if>
+            <if test="kyc1MonthLimit != null">
+                kyc1_month_limit,
+            </if>
+            <if test="kyc2DayCount != null">
+                kyc2_day_count,
+            </if>
+            <if test="kyc2SingleLimit != null">
+                kyc2_single_limit,
+            </if>
+            <if test="kyc2DayLimit != null">
+                kyc2_day_limit,
+            </if>
+            <if test="kyc2MonthLimit != null">
+                kyc2_month_limit,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fid != null">
+                #{fid},
+            </if>
+            <if test="fname != null">
+                #{fname},
+            </if>
+            <if test="fshortname != null">
+                #{fshortname},
+            </if>
+            <if test="fdescription != null">
+                #{fdescription},
+            </if>
+            <if test="faddtime != null">
+                #{faddtime},
+            </if>
+            <if test="fstatus != null">
+                #{fstatus},
+            </if>
+            <if test="version != null">
+                #{version},
+            </if>
+            <if test="fsymbol != null">
+                #{fsymbol},
+            </if>
+            <if test="faccessKey != null">
+                #{faccessKey},
+            </if>
+            <if test="fsecrtKey != null">
+                #{fsecrtKey},
+            </if>
+            <if test="fip != null">
+                #{fip},
+            </if>
+            <if test="fport != null">
+                #{fport},
+            </if>
+            <if test="fiswithdraw != null">
+                #{fiswithdraw},
+            </if>
+            <if test="furl != null">
+                #{furl},
+            </if>
+            <if test="fweburl != null">
+                #{fweburl},
+            </if>
+            <if test="ftype != null">
+                #{ftype},
+            </if>
+            <if test="fisauto != null">
+                #{fisauto},
+            </if>
+            <if test="fisrecharge != null">
+                #{fisrecharge},
+            </if>
+            <if test="fmaxqty != null">
+                #{fmaxqty},
+            </if>
+            <if test="fminqty != null">
+                #{fminqty},
+            </if>
+            <if test="iseth != null">
+                #{iseth},
+            </if>
+            <if test="mainaddr != null">
+                #{mainaddr},
+            </if>
+            <if test="startblockid != null">
+                #{startblockid},
+            </if>
+            <if test="password != null">
+                #{password},
+            </if>
+            <if test="salt != null">
+                #{salt},
+            </if>
+            <if test="isSplitPassword != null">
+                #{isSplitPassword},
+            </if>
+            <if test="furl2 != null">
+                #{furl2},
+            </if>
+            <if test="autoDayCount != null">
+                #{autoDayCount},
+            </if>
+            <if test="autoSingleLimit != null">
+                #{autoSingleLimit},
+            </if>
+            <if test="autoDayLimit != null">
+                #{autoDayLimit},
+            </if>
+            <if test="autoPassword != null">
+                #{autoPassword},
+            </if>
+            <if test="kyc1DayCount != null">
+                #{kyc1DayCount},
+            </if>
+            <if test="kyc1SingleLimit != null">
+                #{kyc1SingleLimit},
+            </if>
+            <if test="kyc1DayLimit != null">
+                #{kyc1DayLimit},
+            </if>
+            <if test="kyc1MonthLimit != null">
+                #{kyc1MonthLimit},
+            </if>
+            <if test="kyc2DayCount != null">
+                #{kyc2DayCount},
+            </if>
+            <if test="kyc2SingleLimit != null">
+                #{kyc2SingleLimit},
+            </if>
+            <if test="kyc2DayLimit != null">
+                #{kyc2DayLimit},
+            </if>
+            <if test="kyc2MonthLimit != null">
+                #{kyc2MonthLimit},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="select" resultMap="baseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="baseColumnList" />
+        from fvirtualcointype
+        where fId = #{fid}
+    </select>
+
+    <update id="update" parameterType="com.szzc.facade.wallet.pojo.po.VirtualCoinType">
+        update fvirtualcointype
+        <set>
+            <if test="fname != null">
+                fName = #{fname},
+            </if>
+            <if test="fshortname != null">
+                fShortName = #{fshortname},
+            </if>
+            <if test="fdescription != null">
+                fDescription = #{fdescription},
+            </if>
+            <if test="faddtime != null">
+                fAddTime = #{faddtime},
+            </if>
+            <if test="fstatus != null">
+                fstatus = #{fstatus},
+            </if>
+            <if test="version != null">
+                version = #{version},
+            </if>
+            <if test="fsymbol != null">
+                fSymbol = #{fsymbol},
+            </if>
+            <if test="faccessKey != null">
+                faccess_key = #{faccessKey},
+            </if>
+            <if test="fsecrtKey != null">
+                fsecrt_key = #{fsecrtKey},
+            </if>
+            <if test="fip != null">
+                fip = #{fip},
+            </if>
+            <if test="fport != null">
+                fport = #{fport},
+            </if>
+            <if test="fiswithdraw != null">
+                FIsWithDraw = #{fiswithdraw},
+            </if>
+            <if test="furl != null">
+                furl = #{furl},
+            </if>
+            <if test="fweburl != null">
+                fweburl = #{fweburl},
+            </if>
+            <if test="ftype != null">
+                ftype = #{ftype},
+            </if>
+            <if test="fisauto != null">
+                fisauto = #{fisauto},
+            </if>
+            <if test="fisrecharge != null">
+                fisrecharge = #{fisrecharge},
+            </if>
+            <if test="fmaxqty != null">
+                fmaxqty = #{fmaxqty},
+            </if>
+            <if test="fminqty != null">
+                fminqty = #{fminqty},
+            </if>
+            <if test="iseth != null">
+                isEth = #{iseth},
+            </if>
+            <if test="mainaddr != null">
+                mainAddr = #{mainaddr},
+            </if>
+            <if test="startblockid != null">
+                startBlockId = #{startblockid},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="salt != null">
+                salt = #{salt},
+            </if>
+            <if test="isSplitPassword != null">
+                is_split_password = #{isSplitPassword},
+            </if>
+            <if test="furl2 != null">
+                furl2 = #{furl2},
+            </if>
+            <if test="autoDayCount != null">
+                auto_day_count = #{autoDayCount},
+            </if>
+            <if test="autoSingleLimit != null">
+                auto_single_limit = #{autoSingleLimit},
+            </if>
+            <if test="autoDayLimit != null">
+                auto_day_limit = #{autoDayLimit},
+            </if>
+            <if test="autoPassword != null">
+                auto_password = #{autoPassword},
+            </if>
+            <if test="kyc1DayCount != null">
+                kyc1_day_count = #{kyc1DayCount},
+            </if>
+            <if test="kyc1SingleLimit != null">
+                kyc1_single_limit = #{kyc1SingleLimit},
+            </if>
+            <if test="kyc1DayLimit != null">
+                kyc1_day_limit = #{kyc1DayLimit},
+            </if>
+            <if test="kyc1MonthLimit != null">
+                kyc1_month_limit = #{kyc1MonthLimit},
+            </if>
+            <if test="kyc2DayCount != null">
+                kyc2_day_count = #{kyc2DayCount},
+            </if>
+            <if test="kyc2SingleLimit != null">
+                kyc2_single_limit = #{kyc2SingleLimit},
+            </if>
+            <if test="kyc2DayLimit != null">
+                kyc2_day_limit = #{kyc2DayLimit},
+            </if>
+            <if test="kyc2MonthLimit != null">
+                kyc2_month_limit = #{kyc2MonthLimit},
+            </if>
+        </set>
+        where fId = #{fid}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from fvirtualcointype
+        where fId = #{fid}
+    </delete>
+
+    <select id="queryCoinTypeByCondition" parameterType="com.szzc.facade.wallet.pojo.cond.VirtualCoinTypeCond" resultMap="baseResultMap">
+        select
+            <include refid="baseColumnList"/>
+        from
+            fvirtualcointype
+        <where>
+            <if test="isRecharge != null">
+                and
+                  fisrecharge = #{isRecharge}
+            </if>
+            <if test="noType != null">
+                and
+                  fstatus != #{noType}
+            </if>
+            <if test="shortNameList != null and shortNameList.size() != 0">
+                <foreach collection="shortNameList"  item="shortName" open="and ( " separator=" or " close=" ) " >
+                    fShortName = #{shortName}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="getActiveCoin" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList"/>
+        from
+        fvirtualcointype
+        <where>
+            ftype = 2 and fstatus = 1
+        </where>
+    </select>
+
+</mapper>
